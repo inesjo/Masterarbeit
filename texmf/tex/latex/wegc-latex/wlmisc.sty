@@ -1,0 +1,597 @@
+%%---------------------------------------------------------------------------------------------------------------------------%%
+%% $Id: wlmisc.sty 169 2011-11-12 20:27:39Z mip $ ###########################################################################%%
+%%---------------------------------------------------------------------------------------------------------------------------%%
+%%
+%%
+%% Abstract:
+%%   LaTeX style file wlmisc.sty defines miscellaneous commands and environments for the Wegener Center Document Preparation
+%% Framework.
+%%
+%% Details:
+%% - This style file requires a TeX distribution equivalent to TeX Live 2009.
+%%
+%% References:
+%% - LaTeX 2ε for class and package writers
+%%   --> http://tug.ctan.org/tex-archive/macros/latex/doc/clsguide.pdf
+%% - The Not So Short Introduction to LaTeX 2ε
+%%   --> http://tug.ctan.org/tex-archive/info/lshort/english/lshort.pdf
+%% - An essential guide to LaTeX 2ε usage
+%%   --> http://tug.ctan.org/tex-archive/info/l2tabu/english/l2tabuen.pdf
+%% - The pdfTeX user manual
+%%   --> http://tug.ctan.org/tex-archive/systems/pdftex/pdftex-a.pdf
+%% - Dvipdfm User’s Manual
+%%   --> http://tug.ctan.org/tex-archive/dviware/dvipdfm/dvipdfm.pdf
+%%
+%% TODO:
+%%   None.
+%%
+%% Author:
+%%   Michael H. Pock || MHP || michael.pock@uni-graz.at
+%%
+%% © Copyright 2008-2011 [ WEGC && IGAM/IP ] / Uni Graz
+%%
+%%
+%%---------------------------------------------------------------------------------------------------------------------------%%
+%%###########################################################################################################################%%
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{wlinfo}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\NeedsTeXFormat{LaTeX2e}[\WL@TexFormatReleaseDate]
+
+
+\ProvidesPackage{wlmisc}[\WL@ReleaseInfo]
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{wltools}
+
+
+\RequirePackage{wlsetup}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\newaddressbookentry}[9]{%
+  \@ifmtarg{#1}{%
+    \CommandWarning{\newaddressbookentry}{%
+      Ignored attempt at defining new address book entry with empty label%
+    }%
+  }{%
+    \expandafter\newcommand\expandafter*\csname#1\string\FirstName     \endcsname{#2}%
+    \expandafter\newcommand\expandafter*\csname#1\string\ShortFirstName\endcsname{#3}%
+    \expandafter\newcommand\expandafter*\csname#1\string\LastName      \endcsname{#4}%
+    \expandafter\newcommand\expandafter*\csname#1\string\Address       \endcsname{#5}%
+    \expandafter\newcommand\expandafter*\csname#1\string\Telephone     \endcsname{#6}%
+    \expandafter\newcommand\expandafter*\csname#1\string\Fax           \endcsname{#7}%
+    \expandafter\newcommand\expandafter*\csname#1\string\EmailAddress  \endcsname{#8}%
+    \expandafter\newcommand\expandafter*\csname#1\string\WebAddress    \endcsname{#9}%
+    \expandafter\newcommand\expandafter*\csname#1\string\Name          \endcsname{#2}%
+    \expandafter\newcommand\expandafter*\csname#1\string\ShortName     \endcsname{#3}%
+    \@ifnotmtarg{#4}{\expandafter\appto \csname#1\string\Name          \endcsname{ #4}}%
+    \@ifnotmtarg{#4}{\expandafter\appto \csname#1\string\ShortName     \endcsname{\hbspace#4}}%
+  }%
+}
+
+
+\newcommand*{\@AddressBookItem}[2]{%
+  \protecting{%
+    \ifcsundef{#1#2}{%
+      \CommandWarning{\@AddressBookItem}{%
+        Address book entry `#1' is not defined%
+      }%
+    }{%
+      \@nameuse{#1#2}%
+    }%
+  }%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\FirstName}[1]{%
+  \@AddressBookItem{#1}{\string\FirstName}%
+}
+
+
+\newcommand*{\ShortFirstName}[1]{%
+  \@AddressBookItem{#1}{\string\ShortFirstName}%
+}
+
+
+\newcommand*{\LastName}[1]{%
+  \@AddressBookItem{#1}{\string\LastName}%
+}
+
+
+\newcommand*{\Address}[1]{%
+  \@AddressBookItem{#1}{\string\Address}%
+}
+
+
+\newcommand*{\Telephone}[1]{%
+  \@AddressBookItem{#1}{\string\Telephone}%
+}
+
+
+\newcommand*{\Fax}[1]{%
+  \@AddressBookItem{#1}{\string\Fax}%
+}
+
+
+\newcommand*{\EmailAddress}[1]{%
+  \@AddressBookItem{#1}{\string\EmailAddress}%
+}
+
+
+\newcommand*{\WebAddress}[1]{%
+  \@AddressBookItem{#1}{\string\WebAddress}%
+}
+
+
+\newcommand*{\Name}[1]{%
+  \@AddressBookItem{#1}{\string\Name}%
+}
+
+
+\newcommand*{\ShortName}[1]{%
+  \@AddressBookItem{#1}{\string\ShortName}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\@upperinfopage}{}
+
+
+\newcommand{\upperinfopage}[1]{%
+  \gdef\@upperinfopage{#1}%
+}
+
+
+\newcommand*{\@lowerinfopage}{}
+
+
+\newcommand{\lowerinfopage}[1]{%
+  \gdef\@lowerinfopage{#1}%
+}
+
+
+\newcommand*{\makeinfopage}{%
+  \clearpage%
+  \bgroup%
+    \noindent\@upperinfopage%
+  \egroup%
+  \par\vspace*{\fill}%
+  \bgroup%
+    \noindent\@lowerinfopage%
+  \egroup%
+  \newpage%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\@lastpage}{}
+
+
+\newcommand{\lastpage}[1]{%
+  \gdef\@lastpage{#1}%
+}
+
+
+\newcommand*{\makelastpage}{%
+  \cleardoubleevenemptypage%
+  \thispagestyle{empty}%
+  \noindent\null\@lastpage%
+  \enddocument%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newrobustcmd*{\abbreviation}[1]{%
+  #1\@%
+  \@ifnextchar\bgroup{\hardbreak}{%
+    \@ifnextchar\ {\hardbreak}{%
+      \@ifnextchar'{\kerning{.}{'}}{%
+        \@ifnextchar\csq@qclose{\kerning{\csq@bqgroup.}{\csq@qclose}}{%
+          \@ifnextchar.{\expandafter\@p\expandafter.\@gobble}{%
+          }%
+        }%
+      }%
+    }%
+  }%
+}
+
+
+\newcommand*{\newabbreviation}[2]{%
+  \newcommand*{#1}{\abbreviation{#2}}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\escape@entity}{}
+\let\escape@entity\endcsname
+
+
+\newcommand*{\enter@entity}[1]{%
+  \ifx\escape@entity#1\empty\else\expandafter\expandafter\expandafter\@gobble\expandafter\string\csname\expandafter#1\fi%
+}
+
+
+\newcommand*{\entity}[1]{%
+  \protecting{\textsf{\enter@entity{#1\escape@entity}}}%
+}
+
+
+\newcommand*{\warning@entity}{}
+\protected@edef\warning@entity{%
+  \noexpand\PackageWarningNoLine{\@currname}{%
+    \protecting{Refrained from assigning meaning of \escape@entity and \enter@entity to characters `^^[' and `^^]'}%
+  }%
+}
+
+
+\AtBeginDocument{%
+  \saveexpandmode\expandarg%
+  \IfBeginWith{^^[}{\noexpand\@inpenc@undefined@}{%
+    \IfBeginWith{^^]}{\noexpand\@inpenc@undefined@}{%
+      \let^^[=\escape@entity%
+      \let^^]=\enter@entity%
+    }{%
+      \warning@entity%
+    }%
+  }{%
+    \warning@entity%
+  }%
+  \restoreexpandmode%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand{\@latexcmd}[1]{%
+  \protected@edef\macro@a{#1}%
+  \saveexpandmode\expandarg%
+  \StrGobbleLeft{\macro@a}{1}[\macro@a]%
+  \StrSubstitute{\macro@a}{\string\ }{\@backslashchar\textvisiblespace}[\macro@a]%
+  \StrSubstitute{\macro@a}{*}{\textasteriskcentered}[\macro@a]%
+  \StrSubstitute{\macro@a}{...}{\textellipsis\unkern\@}[\macro@a]%
+  \restoreexpandmode%
+  \texttt{\macro@a}%
+}
+
+
+\newcommand{\latexcmd}[1]{%
+  \protecting{\@latexcmd{\expandafter\string\csname\string#1\endcsname}}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\supplement}[1]{%
+  [#1]%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\placeholder}[1]{%
+  <#1>%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\Attention}[1]{%
+  \textbf{Attention\p:}\hbspace#1%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\version}[4]{%
+  #1%
+  \expandafter\@ifnotmtarg\expandafter{#2}{.#2\expandafter\@ifnotmtarg\expandafter{#3}{.#3}}%
+  \expandafter\@ifnotmtarg\expandafter{#4}{\mbox{--}\hardbreak{}r#4}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\softwareShortSeparator}{%
+  \hbspace%
+}
+
+
+\newcommand*{\softwareLongSeparator}{%
+  {} Version\hbspace%
+}
+
+
+\newcommand*{\software@short@separator}{%
+  \softwareShortSeparator%
+}
+
+
+\newcommand*{\software@long@separator}{%
+  \softwareLongSeparator%
+}
+
+
+\newcommand*{\software}[6]{%
+  #2\ifcsundef{software@#1@separator}{\software@short@separator}{\@nameuse{software@#1@separator}}\version{#3}{#4}{#5}{#6}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\Fortran}[1]{%
+  \@ifmtarg{#1}{%
+    Fortran%
+  }{%
+    \ifnum#1>77{}Fortran\hbspace#1\else\acronymfont{FORTRAN\hbspace#1}\fi%
+  }%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\tel}[5]{%
+  +#1\:#2\:#3\@ifnotmtarg{#4}{\:#4\@ifnotmtarg{#5}{\:#5}}%
+}
+
+
+\newcommand*{\fax}{}
+\let\fax\tel
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\@rowstyle}{}
+
+
+\newcommand*{\rowstyle}[1]{%
+  \gdef\@rowstyle{#1}%
+  \@rowstyle\ignorespaces%
+}
+
+
+\newcolumntype{=}{%
+  >{\gdef\@rowstyle{}}%
+}
+
+
+\newcolumntype{+}{%
+  >{\@rowstyle}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcolumntype{D}{%
+  >{\ifthenelse{\boolean{KOMAClass}}{\usekomafont{descriptionlabel}}{\bfseries}}r<{:}X%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newrobustcmd*{\highlight}[1]{%
+  \colorbox{DarkGoldenrod3}{#1}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\insiFormat}[1]{%
+  (in\hbspace#1)%
+}
+
+
+\newcommand*{\@insi}[2]{%
+  \insiFormat{\IfNoValueTF{#1}{\si{#2}}{\si[#1]{#2}}}%
+}
+
+
+\NewDocumentCommand\insi{om}{%
+  \@insi{#1}{#2}%
+}
+
+
+\DeclareExpandableDocumentCommand\insi@pdfstringdef{om}{%
+  \@insi{#1}{#2}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\cmdline}{}
+\DeclareUrlCommand\cmdline{%
+  \urlstyle{tt}%
+  \hyper@normalise%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\nolinkemail}{}
+\DeclareUrlCommand\nolinkemail{%
+  \urlstyle{sf}%
+  \hyper@normalise%
+}
+
+
+\newcommand*{\email}{%
+  \hyper@normalise\@email%
+}
+
+
+\newcommand*{\@email}[1]{%
+  \href{mailto:#1}{\nolinkemail{#1}}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\ctanurl}{%
+  \hyper@normalise\@ctanurl%
+}
+
+
+\newcommand*{\@ctanurl}[1]{%
+  \@ifmtarg{#1}{\url{http://tug.ctan.org}}{\href{http://tug.ctan.org#1}{\nolinkurl{CTAN:#1}}}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\BasicStyle@DefaultFileListing}{%
+  \ttfamily\small%
+}
+
+
+\newlength{\BaseWidth@DefaultFileListing}
+\AfterEndPreamble{%
+  \settowidth{\BaseWidth@DefaultFileListing}{\BasicStyle@DefaultFileListing{}A}%
+}
+
+
+\lstdefinestyle{DefaultFileListing}{%
+  aboveskip=\bigskipamount,
+  belowskip=\bigskipamount,
+  basicstyle=\BasicStyle@DefaultFileListing,
+  stepnumber=5,
+  numberfirstline,
+  firstnumber=1,
+  breaklines,
+  breakatwhitespace,
+  prebreak=\textbackslash,
+  breakindent=5\BaseWidth@DefaultFileListing,
+  frame=single,
+  basewidth=\BaseWidth@DefaultFileListing%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\BasicStyle@CommandLineListing}{%
+  \ttfamily%
+}
+
+
+\newlength{\BaseWidth@CommandLineListing}
+\AfterEndPreamble{%
+  \settowidth{\BaseWidth@CommandLineListing}{\BasicStyle@CommandLineListing{}A}%
+}
+
+
+\lstnewenvironment{CommandLineListing}[1][]{%
+  \lstset{%
+    aboveskip=\smallskipamount,
+    belowskip=\smallskipamount,
+    print,
+    gobble=2,
+    basicstyle=\BasicStyle@CommandLineListing,
+    numbers=none,
+    caption=,
+    xleftmargin=2\BaseWidth@CommandLineListing,
+    breaklines,
+    breakatwhitespace,
+    prebreak=\textbackslash,
+    breakindent=2\BaseWidth@CommandLineListing,
+    basewidth=\BaseWidth@CommandLineListing,
+    #1%
+  }%
+}{%
+  \addvspace{-\parskip}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\tlabel}[1]{%
+  \hypertarget{#1}{\label{#1}}%
+}
+
+
+\newcommand*{\autotref}[1]{%
+  \hyperlink{#1}{\autoref*{#1}}%
+}
+
+
+\newcommand*{\autotpageref}[1]{%
+  \hyperlink{#1}{\autopageref*{#1}}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\fullautorefFormat}[2]{%
+  #1\p, #2%
+}
+
+
+\newcommand*{\fullautoref}[1]{%
+  \fullautorefFormat{\autoref{#1}}{\autopageref{#1}}%
+}
+
+
+\newcommand*{\fullautotref}[1]{%
+  \fullautorefFormat{\autotref{#1}}{\autotpageref{#1}}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\AtBeginDocument{%
+  \pdfstringdefDisableCommands{%
+    \let\abbreviation\@firstofone%
+    \let\@latexcmd\@firstofone%
+    \let\highlight\@firstofone%
+    \let\insi\insi@pdfstringdef%
+  }%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\endinput
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%

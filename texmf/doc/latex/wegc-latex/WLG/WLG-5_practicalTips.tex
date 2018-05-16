@@ -1,0 +1,136 @@
+
+
+\section[Practical tips]{Practical tips on frequently used features}
+\label{sec:practicalTips}
+
+
+\subsection[Tailoring the titlepage]{Tailoring the titlepage}
+
+\todo
+
+
+\subsection[Tailoring the bibliography]{Tailoring the bibliography}
+
+\todo
+
+
+\subsection[Including excerpts of PDF documents]{Including excerpts of PDF documents}
+
+\todo  %%  Details on using the \entity{pdfpages} package ...
+
+
+\subsection[Graphics]{Including graphics and images}
+\label{subsec:includingGraphicsImages}
+
+It is recommended to include graphics only as \entity{PNG} and \entity{PDF}
+files.  For creating the \entity{PDF}, first produce the graphics file as
+\entity{EPS}, and in a second step, convert it with \path{epstopdf} into a
+properly sized \entity{PDF}, ready for inclusion with the
+\latexcmd{figure}-environment.
+
+
+\subsection[Tables]{Including tables}
+
+\todo
+
+
+\subsection[Text and source code listings]{Including text and source code listings}
+
+\todo
+
+
+\subsection[Verbatim commandline dialogues]{Including verbatim commandline dialogues}
+
+\todo
+
+\subsection[Numerical values and units]{Using numerical values and units}
+
+\todo %% Details on using the \entity{siunitx} package ...
+
+\begin{description}
+\item[\latexcmd{\num{\plh{numericalValue}}}] \enforcenewline%
+  \latexcmd{\num} is expanded to a properly formatted \plh{numericalValue} with or without an exponent, \EG{} \newline
+  \latexcmd{\num{-1.45d-3}}  ~ $\rightarrow$ ~  \num{-1.45d-3} \newline
+  \latexcmd{\num{-1.46}}     ~ $\rightarrow$ ~  \num{-1.46}
+
+\item[\latexcmd{\SI{\plh{numericalValue}}{\plh{siUnitString}}}]
+  \enforcenewline%
+  \latexcmd{\SI} is expanded to a properly formatted string containing SI
+  units with or without an exponent.  For example usage, please see
+  \fullautoref{table:formattingSiUnits}\p.
+
+\item[\latexcmd{\SIrange{\plh{value1}}{\plh{value2}}{\plh{siUnitString}}}]
+\end{description}
+
+\todo
+
+
+\begin{landscape}
+
+   \begin{longtable}{l p{6.0cm}}
+      \caption{Formatting SI Units} %%
+      \label{table:formattingSiUnits} \\
+      %%
+      \toprule
+      %%
+      \latexcmd{\SI{}{}} Command example                                                       & Output \\
+      %%
+      \midrule
+      %%
+      \verb|\SI{10.00}{\micro\meter\per\second\squared}|                                       &  \SI{10.00}{\micro\meter\per\second\squared}  \\
+      %%
+      \verb|\SI{1.2}{\percent}|                                                                &  \SI{1.2}{\percent}  \\
+      %%
+      \verb|\SI{25.4}{\deci\bel\per\minute\squared}|                                           &  \SI{25.4}{\deci\bel\per\minute\squared}  \\
+      %%
+      \verb|\SI{25.4}{\deci\bel\per\minute\cubed}|                                             &  \SI{25.4}{\deci\bel\per\minute\cubed}  \\
+      %%
+      \verb|\SI{34}{\degree N}|                                                                &  \SI{34}{\degree N}  \\
+      %%
+      \verb|\SI{5.67788954}{\metre^{-2/3}}|                                                    &  \SI{5.67788954}{\metre^{-2/3}}  \\
+      %%
+      \verb|\SI{}{\metre\squared\per\second\squared}|                                          &  \SI{}{\metre\squared\per\second\squared}  \\
+      %%
+      \verb|\SI{0.7760}{\kelvin\per\pascal}|                                                   &  \SI{0.7760}{\kelvin\per\pascal}  \\
+      %%
+      \verb|\SI{3.0d11}{\per\metre\cubed}|                                                     &  \SI{3.0d11}{\per\metre\cubed}  \\
+      %%
+      \verb|\SI{d11}{\per\metre\cubed}|                                                        &  \SI{d11}{\per\metre\cubed}  \\
+      %%
+      \verb|\SI{4771.621}{\per\centi\metre}|                                                   &  \SI{4771.621}{\per\centi\metre}  \\
+      %%
+      \verb|\SI{1}{\per\cubic\metre}|                                                          &  \SI{1}{\per\cubic\metre}  \\
+      %%
+      \verb|\SI{287.05}{\joule\per\kilogram\per\kelvin}|                                       &  \SI{287.05}{\joule\per\kilogram\per\kelvin}  \\
+      %%
+      \verb|\SI{}{10^{\text{\,samplerate}\per 10} }|                                           &  \SI{}{10^{\text{\,samplerate}\per 10} }  \\
+      %%
+      \verb|\SIrange{20}{50}{\degree N}|                                                       &  \SIrange{20}{50}{\degree N} \\
+      %%
+      \verb|on a $\SI{3.75}{\degree} \times \SI{3.75}{\degree}$ grid|                          &  on a $\SI{3.75}{\degree} \times \SI{3.75}{\degree}$ grid  \\
+      %%
+      \verb|$R=\SI{8.314}{\joule\per\kelvin\per\mole}$|                                        &  $R=\SI{8.314}{\joule\per\kelvin\per\mole}$  \\
+      %%
+      \verb|oscillations (up to $\pm \SI{2}{\percent}$)|                                       &  oscillations (up to $\pm \SI{2}{\percent}$)  \\
+      %%
+      \verb|amounts to \SI{280}{N\hyphen{}Units}|                                              &  amounts to \SI{280}{N\hyphen{}Units}  \\
+      %%
+      \verb|amounts to \SI{0.123}{N\hyphen{Units}}|                                            &  amounts to \SI{0.123}{N\hyphen{Units}}  \\
+      %%
+      \verb|\mbox{\SI{25}{\degree} N\textfractionsolidus{}S}|                                  &  \mbox{\SI{25}{\degree} N\textfractionsolidus{}S}  \\
+      %%
+      \verb|amounts to \SI{6690311}{\kilo\meter\squared}|                                      &  amounts to \SI{6690311}{\kilo\meter\squared}  \\
+      %%
+      \verb|consider \SI{+6.5}{\%} vs. \SI{-6.5}{\%}|                                          &  consider \SI{+6.5}{\%} vs. \SI{-6.5}{\%}  \\
+      %%
+      \verb|$G = \SI{6.674d-11}{\cubic\meter\per\kilo\gram\per\second\squared}$|               &  $G = \SI{6.674d-11}{\cubic\meter\per\kilo\gram\per\second\squared}$  \\
+      %%
+      \verb|$f=\SI{2}{cycles \per\day}$|                                                       &  $f=\SI{2}{cycles \per\day}$  \\
+      %%
+      \verb|$\SI{1}{\text{sfu}} = \SI{1.0d-22}{\watt\per\meter\squared\per\hertz}$|            &  $\SI{1}{\text{sfu}} = \SI{1.0d-22}{\watt\per\meter\squared\per\hertz}$  \\
+      %%
+      \bottomrule
+      %%
+   \end{longtable}
+
+\end{landscape}

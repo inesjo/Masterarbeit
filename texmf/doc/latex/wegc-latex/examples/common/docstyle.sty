@@ -1,0 +1,705 @@
+%%---------------------------------------------------------------------------------------------------------------------------%%
+%% $Id: docstyle.sty 178 2013-03-05 15:38:29Z jmf $ #########################################################################%%
+%%---------------------------------------------------------------------------------------------------------------------------%%
+%%
+%%
+%% Abstract:
+%%   LaTeX style file docstyle.sty defines a common document style for the local documentation project.
+%%
+%% Details:
+%%   None.
+%%
+%% References:
+%% - LaTeX 2ε for class and package writers
+%%   --> http://tug.ctan.org/tex-archive/macros/latex/doc/clsguide.pdf
+%% - The Not So Short Introduction to LaTeX 2ε
+%%   --> http://tug.ctan.org/tex-archive/info/lshort/english/lshort.pdf
+%% - An essential guide to LaTeX 2ε usage
+%%   --> http://tug.ctan.org/tex-archive/info/l2tabu/english/l2tabuen.pdf
+%% - KOMA-Script
+%%   --> http://tug.ctan.org/tex-archive/macros/latex/contrib/koma-script/scrguide.pdf
+%%
+%% TODO:
+%%   None.
+%%
+%% Author:
+%%   Michael H. Pock || MHP || michael.pock@uni-graz.at
+%%
+%% © Copyright 2010-2011 [ WEGC && IGAM/IP ] / Uni Graz
+%%
+%%
+%%---------------------------------------------------------------------------------------------------------------------------%%
+%%###########################################################################################################################%%
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\NeedsTeXFormat{LaTeX2e}
+
+
+\ProvidesPackage{docstyle}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+%% NOTE: We provide for the case that the KOMA-Script title page extensions are not available.
+\ifdefparam{\extratitle}{%
+}{%
+  \let\extratitle\@gobble
+  \let\titlehead\@gobble
+  \let\subject\@gobble
+  \let\subtitle\@gobble
+  \let\publishers\@gobble
+  \let\uppertitleback\@gobble
+  \let\lowertitleback\@gobble%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\ugorg@short}{%
+  \aces{wegc}\textendash\aces{igam}\textfractionsolidus\aces{ug}%
+}
+
+
+\newcommand*{\ugorg@long}{%
+  \ShortName{wegc}\textendash\ShortName{igam}\textfractionsolidus\ShortName{ug}%
+}
+
+
+\newcommand*{\ugorg}[1]{%
+  \ifcsundef{ugorg@#1}{\ugorg@short}{\@nameuse{ugorg@#1}}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\esahq}{%
+  \aces{esa}\textfractionsolidus\aces{hq}%
+}
+
+
+\newcommand*{\esaestec}{%
+  \aces{esa}\textfractionsolidus\aces{estec}%
+}
+
+
+\newcommand*{\esaesrin}{%
+  \aces{esa}\textfractionsolidus\aces{esrin}%
+}
+
+
+\newcommand*{\esaesoc}{%
+  \aces{esa}\textfractionsolidus\aces{esoc}%
+}
+
+
+\newcommand*{\esaorg}{}
+\let\esaorg\esaestec
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\acel@egops}[1]{%
+  End\hyphen{}to\hyphen{}End Generic Occultation#1Performance Simulation and Processing System%
+}
+
+
+\ifthenelse{\NOT\equal{\acel@egops{ }}{\acel{egops}}}{%
+  \PackageWarning{\@currname}{%
+    Definition of command \protect\acel@egops\space is out-dated%
+  }%
+}{%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\InputIfFileExists{softwareVersionInfo}{%
+}{%
+  \newcommand*{\softwareMajorVersion}{X}
+  \newcommand*{\softwareMinorVersion}{X}
+  \newcommand*{\softwareRevision}{XXXX}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\docid}{%
+  Doc\hyphen\aces{id}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newacronym{thisdoctype}{%
+  \highlight{\latexcmd{\acs{\string\ThisDocType}}}%
+}{%
+  \highlight{\latexcmd{\acl{\string\ThisDocType}}}%
+}
+\newcommand*{\ThisDocType}{%
+  thisdoctype%
+}
+
+
+\newcommand*{\ThisDocExtNum}{%
+  \highlight{\latexcmd{\ThisDocExtNum}}%
+}
+
+
+\newcommand*{\ThisDocIntNum}{%
+  \highlight{\latexcmd{\ThisDocIntNum}}%
+}
+
+
+\newcommand*{\ThisDocIssue}{%
+  \highlight{\latexcmd{\ThisDocIssue}}%
+}
+
+
+\newcommand*{\ThisDocRevision}{%
+  \highlight{\latexcmd{\ThisDocRevision}}%
+}
+
+
+\newcommand*{\ThisDocTitle}{%
+  \highlight{\latexcmd{\ThisDocTitle}}%
+}
+
+
+\newcommand*{\ThisDocSubtitle}{%
+  \highlight{\latexcmd{\ThisDocSubtitle}}%
+}
+
+
+\newcommand*{\ThisDocAuthors}{%
+  \highlight{\latexcmd{\ThisDocAuthors}}%
+}
+
+
+\newcommand*{\ThisDocDate}{%
+  \highlight{\latexcmd{\ThisDocDate}}%
+}
+
+
+\newcommand*{\ThisDocYear}{%
+  \highlight{\latexcmd{\ThisDocYear}}%
+}
+
+
+\newcommand*{\ThisDocDistributionList}{%
+  \highlight{\latexcmd{\ThisDocDistributionList}}%
+}
+\newcommand*{\Orig@ThisDocDistributionList}{}
+\let\Orig@ThisDocDistributionList\ThisDocDistributionList
+
+
+\newcommand*{\ThisDocChangeRecord}{%
+  \highlight{\latexcmd{\ThisDocChangeRecord}}%
+}
+\newcommand*{\Orig@ThisDocChangeRecord}{}
+\let\Orig@ThisDocChangeRecord\ThisDocChangeRecord
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+\newcommand*{\ThisDocIdSubstr}{%
+  \highlight{\latexcmd{\ThisDocIdSubstr}}%
+}
+
+
+\newcommand*{\ThisDocId}{%
+  \ThisDocIdSubstr\mbox{--}\hardbreak%
+  \ThisDocYear\mbox{--}\hardbreak%
+  \aces{\ThisDocType}\ThisDocIntNum%
+}
+
+
+\newcommand*{\ThisDocVersion}{%
+  \version{\ThisDocIssue}{\ThisDocRevision}{}{}%
+}
+
+
+\newcommand*{\ThisDocHeaderTitleSubstr}{%
+  \highlight{\latexcmd{\ThisDocHeaderTitleSubstr}}%
+}
+
+
+\newcommand*{\ThisDocHeaderTitle}{%
+  \ThisDocHeaderTitleSubstr \mbox{} \ThisDocSubtitle%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newlength{\LineWidth@ThisDocTitlePage}
+\AfterEndPreamble{%
+  \bgroup%
+    \headfont%
+    \setlength{\LineWidth@ThisDocTitlePage}{\maxof{\widthof{\Head@@ThisDocTitlePage}}{\widthof{\Foot@@ThisDocTitlePage}}}%
+    \setlength{\global\LineWidth@ThisDocTitlePage}{\maxof{\LineWidth@ThisDocTitlePage}{\textwidth}}%
+  \egroup%
+}
+
+
+\newcommand*{\Head@@ThisDocTitlePage}{%
+  \upshape%
+  \begin{varwidth}[b][0pt]{\paperwidth}%
+    \LaTeXraggedleft%
+    \Name{wegc}\\%
+    \Name{igam}\\%
+    \Name{ug}%
+  \end{varwidth}%
+  \quad%
+  \begin{varwidth}[b][0pt]{\paperwidth}%
+    \includegraphics[height=50.0pt]{logo-ug-medium}%
+    \hspace{2.0pt}%
+    \includegraphics[height=50.0pt]{logo-wegc-medium}%
+    \hspace{2.0pt}%
+    \includegraphics[height=50.0pt]{logo-igam-medium}%
+  \end{varwidth}%
+}
+
+
+\newcommand*{\Foot@@ThisDocTitlePage}{%
+  \upshape%
+  \begin{varwidth}[t][0pt]{\paperwidth}%
+    \LaTeXcentering%
+    \Address{wegc}\\%
+    \Address{igam}\\%
+    \ShortName{wegc} Web\p: \WebAddress{wegc}\\%
+    \ShortName{igam} Web\p: \WebAddress{igam}\\%
+%%    \ShortName{ug} Web\p: \WebAddress{ug}\\%
+  \end{varwidth}%
+}
+
+
+\newcommand*{\Head@ThisDocTitlePage}{%
+  \makebox[\textwidth]{\Head@@ThisDocTitlePage}%
+}
+
+
+\newcommand*{\Foot@ThisDocTitlePage}{%
+  \makebox[\textwidth]{\Foot@@ThisDocTitlePage}%
+}
+
+
+\newpagestyle{ThisDocTitlePage}{%
+  (0pt, 0pt)%
+  {\hfill\Head@ThisDocTitlePage\hfill}%
+  {\hfill\Head@ThisDocTitlePage\hfill}%
+  {\hfill\Head@ThisDocTitlePage\hfill}%
+  (\LineWidth@ThisDocTitlePage, \DefaultHeadSepLineThickness)%
+}{%
+  (\LineWidth@ThisDocTitlePage, \DefaultFootSepLineThickness)%
+  {\hfill\Foot@ThisDocTitlePage\hfill}%
+  {\hfill\Foot@ThisDocTitlePage\hfill}%
+  {\hfill\Foot@ThisDocTitlePage\hfill}%
+  (0pt, 0pt)%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newlength{\PlainHeadHeight@ThisDocHeadings}
+
+
+\newcommand*{\LeftHead@ThisDocHeadings}{%
+  \begin{varwidth}[b]{\textwidth}%
+    \begin{tabular}[b]{@{}l<{:}@{\enskip}l@{}}%
+      \multicolumn{2}{@{}l@{}}{\textbf{\ThisDocHeaderTitle}}\\%
+      \docid & \ThisDocId     \\%
+      Issue  & \ThisDocVersion\\%
+      Date   & \ThisDocDate%
+    \end{tabular}%
+  \end{varwidth}%
+}
+
+
+\newcommand*{\CentralHead@ThisDocHeadings}{%
+  \begin{varwidth}[b][\PlainHeadHeight@ThisDocHeadings][c]{\textwidth}%
+    \makebox[\width+2.0em]{\textsl{\headmark}}%
+  \end{varwidth}%
+}
+
+
+%% NOTE: The dvipdfmx output driver does not support trimming yet.
+\newcommand*{\RightHead@ThisDocHeadings}{%
+  \begin{varwidth}[b]{\textwidth}%
+    \ifthenelse{\boolean{PDFVersion}}{%
+      \includegraphics[height=\PlainHeadHeight@ThisDocHeadings, trim={0pt 2pt 0pt -6pt}]{logo-wegc-small}%
+    }{%
+      \includegraphics[height=\PlainHeadHeight@ThisDocHeadings-4pt]{logo-wegc-small}%
+    }%
+  \end{varwidth}%
+}
+
+
+\newpagestyle{ThisDocHeadings}{%
+  {\LeftHead@ThisDocHeadings\hfill\CentralHead@ThisDocHeadings\hfill\RightHead@ThisDocHeadings}%
+  {\LeftHead@ThisDocHeadings\hfill\CentralHead@ThisDocHeadings\hfill\RightHead@ThisDocHeadings}%
+  {\LeftHead@ThisDocHeadings\hfill\CentralHead@ThisDocHeadings\hfill\RightHead@ThisDocHeadings}%
+}{%
+  {\pagemark\hfill}%
+  {\hfill\pagemark}%
+  {\hfill\pagemark\hfill}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\renewcommand*{\SetUpPrimaryPageStyle@scrplain}{%
+  \AtEndPreamble{%
+    \renewcommand*{\headcolor}{}%
+    \ifthenelse{\boolean{KOMAClass}}{%
+      \renewcommand*{\headfont}{\headcolor\small\sffamily}%
+    }{%
+      \renewcommand*{\headfont}{\headcolor\small}%
+    }%
+    \renewcommand*{\footfont}{}%
+    \renewcommand*{\pnumfont}{}%
+    \KOMAoptions{headinclude=off, footinclude=off}%
+    \recalctypearea%
+  }%
+  \AfterEndPreamble{%
+    \setheadwidth[0pt]{text}%
+    \setfootwidth[0pt]{head}%
+    \setheadtopline[head]{0pt}[\headcolor]%
+    \setheadsepline[head]{0pt}[\headcolor]%
+    \setfootsepline[foot]{0pt}[\headcolor]%
+    \setfootbotline[foot]{0pt}[\headcolor]%
+    \pagestyle{scrplain}%
+  }%
+}
+
+
+\newcommand*{\SetUpPrimaryPageStyle@ThisDocHeadings}{%
+  \AtEndPreamble{%
+    \renewcommand*{\headcolor}{}%
+    \ifthenelse{\boolean{KOMAClass}}{%
+      \renewcommand*{\headfont}{\headcolor\small\sffamily}%
+    }{%
+      \renewcommand*{\headfont}{\headcolor\small}%
+    }%
+    \renewcommand*{\footfont}{}%
+    \renewcommand*{\pnumfont}{}%
+    \ifthenelse{\boolean{ChapterClass}}{%
+      \ifthenelse{\boolean{KOMAClass}}{%
+        \renewcommand*{\chaptermarkformat}{\thechapter\autodot\enskip}%
+      }{%
+        \renewcommand*{\chaptermarkformat}{\thechapter. \ }%
+      }%
+    }{%
+    }%
+    %% NOTE: At this point, we must refrain from measuring the height of \LeftHead@ThisDocHeadings directly since really
+    %% strange things related to the longtable and colortbl packages will happen if we do so...
+    \bgroup%
+      \headfont%
+      \setlength{\global\PlainHeadHeight@ThisDocHeadings}{3\baselineskip+\heightof{A}+3pt}%
+    \egroup%
+    \KOMAoptions{headinclude=on, footinclude=off, headheight=1.18\PlainHeadHeight@ThisDocHeadings}%
+    \recalctypearea%
+  }%
+  \AfterEndPreamble{%
+    \setheadwidth[0pt]{text}%
+    \setfootwidth[0pt]{head}%
+    \setheadtopline[head]{\DefaultHeadTopLineThickness}[\headcolor]%
+    \setheadsepline[head]{\DefaultHeadSepLineThickness}[\headcolor]%
+    \setfootsepline[foot]{0pt}[\headcolor]%
+    \setfootbotline[foot]{0pt}[\headcolor]%
+    \pagestyle{scrplain}%
+    \pagestyle{ThisDocHeadings}%
+  }%
+}
+\listadd{\@SupportedPrimaryPageStylesList}{%
+  ThisDocHeadings%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\ifthenelse{\boolean{SectionClass}}{%
+  \SetUpPrimaryPageStyle{ThisDocHeadings}
+  \renewcommand*{\titlepagestyle}{%
+    ThisDocTitlePage%
+  }%
+}{%
+  \SetUpPrimaryPageStyle{scrplain}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\titleheadSubstr}{%
+  \highlight{\latexcmd{\titleheadSubstr}}%
+}
+
+
+\newcommand*{\titleheadSubSubstr}{%
+  \highlight{\latexcmd{\titleheadSubSubstr}}%
+}
+
+
+\titlehead{%
+  \makebox[\linewidth]{\titleheadSubstr \hbox{} \acel{\ThisDocType} for \titleheadSubSubstr \hbox{} \No{} \ThisDocExtNum\textfractionsolidus\ThisDocYear}%
+}
+
+
+\newcommand*{\subjectStr}{%
+  \highlight{\latexcmd{\subjectStr}}\p:\\%
+}
+
+
+\newcommand*{\subjectSubstr}{%
+  \highlight{\latexcmd{\subjectSubstr}}%
+}
+
+
+\subject{%
+  \subjectStr\subjectSubstr%
+}
+
+
+\newcommand*{\titlePrefix}{%
+  \highlight{\latexcmd{\titlePrefix}}%
+}
+
+
+\title{%
+  \titlePrefix\ThisDocTitle%
+}
+
+
+\newcommand*{\subtitlePrefix}{%
+  \highlight{\latexcmd{\subtitlePrefix}}%
+}
+
+
+\subtitle{%
+  \subtitlePrefix\ThisDocSubtitle%
+}
+
+
+\author{%
+  Prepared by\p:\\\ThisDocAuthors%
+}
+
+
+\date{%
+  \docid\p: \ThisDocId\\Issue\hbspace\ThisDocVersion\\\ThisDocDate%
+}
+
+
+\newcommand*{\publishersSubstr}{%
+  \highlight{\latexcmd{\publishersSubstr}}%
+}
+
+
+\newcommand*{\publishersSubSubstr}{%
+  \highlight{\latexcmd{\publishersSubSubstr}}%
+}
+
+
+\newcommand*{\publishersSubSubSubstr}{%
+  \highlight{\latexcmd{\publishersSubSubSubstr}}%
+}
+
+\publishers{%
+  \publishersSubstr\\\publishersSubSubstr\\\publishersSubSubSubstr%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\ThisDocTitleBack}{%
+  \bgroup%
+    \leavevmode%
+    \ifthenelse{\boolean{KOMAClass}}{\huge\usekomafont{title}}{\LARGE}%
+    \makebox[\linewidth]{\ThisDocHeaderTitle}%
+  \egroup%
+}
+
+
+\newcommand*{\ThisAuthorizationIdentity}{%
+%%  \ShortName{mip}, \ugorg{short}%
+  \highlight{\latexcmd{\ThisAuthorizationIdentity}}%
+}
+
+
+\newcommand*{\ThisApprovalIdentity}{%
+%%  \ShortName{fhl}, \ugorg{short}% 
+  \highlight{\latexcmd{\ThisApprovalIdentity}}%
+}
+
+
+\newcommand*{\ThisDocReleaseInformationTab}{%
+  \ifthenelse{\boolean{KOMAClass}}{\addsec*}{\section*}{Document Release Information}%
+  \begin{tabularx}{\linewidth}[b]{@{}D@{}}%
+    \toprule%
+    \docid                 & \ThisDocId                   \\%
+    Issue                  & \ThisDocVersion              \\%
+    Date                   & \ThisDocDate                 \\%
+    Prepared by            & \ThisDocAuthors              \\%
+    Authorized by          & \ThisAuthorizationIdentity   \\%
+    Customer Approval by   & \ThisApprovalIdentity        \\%
+    \bottomrule%
+  \end{tabularx}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\uppertitleback{%
+  \ThisDocTitleBack%
+}
+
+
+\lowertitleback{%
+  \ThisDocReleaseInformationTab%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\ThisDocDistributionListTab}{%
+  \bgroup%
+    \ifthenelse{\boolean{KOMAClass}}{\addsec*}{\section*}{Document Distribution List}%
+    \setlength{\defaultaddspace}{-\baselineskip}%
+    \hbadness=\@M%
+    \begin{tabular*}{\linewidth}[b]{@{}=l+l+l+l@{}}%
+      \toprule%
+      \rowstyle{\ifthenelse{\boolean{KOMAClass}}{\usekomafont{descriptionlabel}}{\bfseries}}%
+      Name & Organization & Email Address & Copies\\%
+      \midrule%
+      \ifthenelse{\isequivalentto{\ThisDocDistributionList}{\Orig@ThisDocDistributionList}}{%
+        \\[\defaultaddspace]\multicolumn{4}{@{}l@{}}{\ThisDocDistributionList}%
+      }{%
+        \ThisDocDistributionList%
+      }\\%
+      \bottomrule%
+    \end{tabular*}%
+  \egroup%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\upperinfopage{%
+  \ThisDocDistributionListTab%
+}
+
+
+\lowerinfopage{%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\ThisDocChangeRecordTab}{%
+  \bgroup%
+    \ifthenelse{\boolean{KOMAClass}}{\addsec*}{\section*}{Document Change Record}%
+    \setlength{\defaultaddspace}{-\baselineskip}%
+    \hbadness=\@M%
+    \tablehead{%
+      \toprule%
+      \rowstyle{\ifthenelse{\boolean{KOMAClass}}{\usekomafont{descriptionlabel}}{\bfseries}}%
+      Issue & Date & Change\\%
+      \midrule%
+    }%
+    \tabletail{%
+      \midrule%
+      \multicolumn{3}{@{}r@{}}{\textsl{continued on next page}}\\%
+      \bottomrule%
+    }%
+    \tablelasttail{%
+      \bottomrule%
+    }%
+    \begin{supertabular*}{\linewidth}[b]{@{}=l!{\extracolsep{\fill}}+l!{\extracolsep{\fill}}+p{0.65\linewidth}@{}}%
+      \ifthenelse{\isequivalentto{\ThisDocChangeRecord}{\Orig@ThisDocChangeRecord}}{%
+        \\[\defaultaddspace]\multicolumn{3}{@{}l@{}}{\ThisDocChangeRecord}%
+      }{%
+        \ThisDocChangeRecord%
+      }\\%
+    \end{supertabular*}%
+  \egroup%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\lastpage{%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\makeglossaries
+
+
+\deftranslation[to=English]{Glossary}{Terms and Definitions}
+
+
+\deftranslation[to=English]{Acronyms}{Acronyms and Abbreviations}
+
+
+\setglossarypreamble[main]{%
+  The subsequent list collects special \emph{terms} and \emph{definitions} used in the present document\p.%
+}
+
+
+\setglossarypreamble[acronym]{%
+  Below follows a list of \emph{acronyms} and \emph{abbreviations} used in the present document\p.%
+}
+
+
+\glsunsetall
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\bibliography{%
+}
+
+
+\DefineBibliographyStrings{english}{%
+  bibliography={Applicable and Reference Documents},
+  references={Applicable and Reference Documents}%
+}
+
+
+\defbibnote{bibpreamble}{%
+  The following documents are applicable to and\textfractionsolidus{}or referenced by the present document\p.%
+}
+
+
+\defbibnote{refpreamble}{%
+  The following documents are applicable to and\textfractionsolidus{}or referenced by the present document\p.%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\endinput
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%

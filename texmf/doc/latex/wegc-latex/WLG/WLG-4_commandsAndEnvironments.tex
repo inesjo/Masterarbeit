@@ -1,0 +1,601 @@
+
+
+\section{Commands and environments}
+\label{sec:commandsAndEnvironments}
+
+
+\subsection{Extensions to the \LaTeX{} kernel}
+\label{subsec:extensionsToTheLatexKernel}
+
+\begin{description}
+\item[\latexcmd{\hyphen}] \enforcenewline%
+  Expands to a hyphen with less restrictive hyphenation properties as
+  compared to the primitive \enquote{\latexcmd{-}} character. Using
+  \latexcmd{\hyphen} within compound words lowers the risk of getting
+  overfull horizontal boxes. \\
+  \latexcmd{\hyphen} can also be accessed via the Unicode character at code
+  point U+2010.
+
+\item[\latexcmd{\nbhyphen}] \enforcenewline%
+  Expands to a non\hyphen{}breaking \latexcmd{\hyphen}. \\
+  \latexcmd{\nbhyphen} can also be accessed via the Unicode character at
+  code point U+2011.
+
+\item[\latexcmd{\textendash}] \enforcenewline%
+  Expands to an en-dash, slightly longer than a hyphen. This command is an
+  alternative form to using \enquote{\cmdline{--}} in the \LaTeX{} source
+  code, which expands to the same en-dash, but with slightly different
+  hyphenation properties. The en-dash is used for ranges, \EG{} ``3--7'',
+  and to separate name pairs, for example, the text%
+  \begin{CommandLineListing}[print=true, xleftmargin=0pt, gobble=4]%
+    ``Euler\textendash{}Lagrange, Stefan\textendash{}Sussmann''
+  \end{CommandLineListing}
+  gives the output: \\
+  ``Euler\textendash{}Lagrange, Stefan\textendash{}Sussmann''. \\
+  \latexcmd{\textendash} can also be accessed via the Unicode character at
+  code point U+2013. For truly compound names (named after one person),
+  such as ``Lennard-Jones'', use the simple hyphen. The en-dash is also
+  used in German sentences to mark ``parenthetical comments'' (see
+  \latexcmd{\textemdash} for the English style to do this), for example:
+  \begin{CommandLineListing}[print=true, xleftmargin=0pt, gobble=4]%
+    ``Das Wichtigste \textendash{} wenn du es wirklich wissen m\"ochtest
+    \textendash{} ist, Bindestriche richtig einzusetzen.''
+  \end{CommandLineListing}
+  gives the output: \\
+  ``Das Wichtigste \textendash{} wenn du es wirklich wissen m\"ochtest
+  \textendash{} ist, Bindestriche richtig einzusetzen.'' \\
+  Note that in German a space character is used to separate the en-dash
+  from the surrounding words.
+
+\item[\latexcmd{\textemdash}] \enforcenewline%
+  Expands to an em-dash, slightly longer than a en-dash. This command is an
+  alternative form to using \enquote{\cmdline{---}} in the \LaTeX{} source
+  code, which expands to the same em-dash, but with slightly different
+  hyphenation properties. Use this type of dash for ``parenthetical
+  comments''. For example, the text%
+  \begin{CommandLineListing}[print=true, xleftmargin=0pt, gobble=4]%
+    ``The main thing\textemdash{}if you must know\textemdash{}is to use
+    hyphens properly.''
+  \end{CommandLineListing}
+  gives the output: \\
+  ``The main thing\textemdash{}if you must know\textemdash{}is to use hyphens properly.''\\
+  \latexcmd{\textemdash} can also be accessed via the Unicode character at
+  code point U+2014. For details about how to use the various types of
+  dashes, please refer to \EG{} \url{https://en.wikipedia.org/wiki/Dash}.
+
+\item[\latexcmd{\textminus}] \enforcenewline%
+  Use this to indicate negative numbers. For example, the text
+  \begin{CommandLineListing}[print=true, xleftmargin=0pt, gobble=4]%
+    ``\textminus{}128''
+  \end{CommandLineListing}
+  gives the following output: \\
+  `` \textminus{}128''\\
+  \latexcmd{\textminus} can also be accessed via the Unicode character at
+  code point U+2212.
+
+\item[\latexcmd{\textfractionsolidus}] \enforcenewline%
+  Yields a slash with alternative (perhaps more attractive) typeface. The
+  hyphenation properties of \latexcmd{\textfractionsolidus} are less
+  restrictive than those shown by the standard \LaTeX{} \latexcmd{\slash}
+  command and, thus, help avoid overfull horizontal boxes. Using the
+  primitive \enquote{\latexcmd{/}} character in ordinary textual contexts
+  is in general deprecated. \\
+  \latexcmd{\textfractionsolidus} can also be accessed via the Unicode
+  character at code point U+2044.
+
+\item[\latexcmd{\backtextfractionsolidus}] \enforcenewline%
+  Expands to a backslash with a typeface similar to
+  \latexcmd{\textfractionsolidus}.
+
+\item[\latexcmd{\hardbreak}] \enforcenewline%
+  Indicates that a line break at the immediately following space is
+  undesirable, but still acceptable.
+
+\item[\latexcmd{\enforcenewline}] \enforcenewline%
+  Causes a line break, even at positions where this is normally forbidden
+  (\EG{} at the start of a paragraph).
+
+\item[\latexcmd{\p\plh{punctuationMark}}] \enforcenewline%
+  Enforces the correct spacing after
+  \entity{\plh{punctuationMark}}. \latexcmd{\p} supersedes the standard
+  \LaTeX{} \latexcmd{\@} command in that it does not destroy kerning.
+
+\item[\latexcmd{\dokerning{\plh{group_1}}{\plh{token}}{\plh{group_2}}}]
+  \enforcenewline%
+  Restores the kerning between \entity{\plh{group_1}} and
+  \entity{\plh{group_2}} lost because of using \entity{\plh{token}}.
+
+\item[\latexcmd{\SetUpHyphenation[\plh{language}]{\plh{hyphenationRules}}}]
+  \enforcenewline%
+  Lets you specify additional \entity{\plh{hyphenationRules}} for
+  \entity{\plh{language}} or, if \entity{\plh{language}} is omitted, for
+  the primary language of the document. The \entity{\plh{hyphenationRules}}
+  are specified according to the scheme prescribed by the standard \LaTeX{}
+  \latexcmd{\hyphenation} command. Note that \latexcmd{\SetUpHyphenation}
+  may only be used in the document preamble.
+
+\item[\latexcmd{\fullautoref{\plh{referenceLabel}}}] \enforcenewline%
+  This is an interim replacement for the \latexcmd{\vref{}} command from
+  the \entity{varioref}
+  package\footnote{\ctanurl{/tex-archive/macros/latex/required/tools/varioref.pdf}}
+  (which currently produces some undesired side effects). In addition to
+  the output of the recommended \latexcmd{\autoref} command, the page
+  number of the reference target is printed with \latexcmd{\fullautoref}.
+
+\item[\latexcmd{\software{\plh{short|long}}{\plh{swName}}{\plh{swMajor}}{\plh{swMinor}}{\plh{swMicro}}{swRev}}]
+  \enforcenewline%
+  Expands to a software version string, \EG{} \\
+  \latexcmd{\software{long}{rOPS}{7}{7}{1}{2111}} $\rightarrow$
+  \software{long}{rOPS}{7}{7}{1}{2111}, or \newline
+  \latexcmd{\software{short}{rOPS}{7}{8}{}{}} $\rightarrow$
+  \software{short}{rOPS}{7}{8}{}{} \p.
+
+\item[\latexcmd{\placeholder{\plh{dummyArgument}}}] \enforcenewline%
+  Expands to a string indicating a dummy argument, \EG{} \\
+  \latexcmd{\placeholder{telephoneNumber}} $\rightarrow$
+  \placeholder{telephoneNumber} \p.
+
+\item[\latexcmd{\plh{\plh{dummyArgument}}}] \enforcenewline%
+  A shortcut to the previous command \latexcmd{\placeholder{}} is available as \latexcmd{\plh{}}, \EG{} \\
+  \latexcmd{\plh{telephoneNumber}} $\rightarrow$ \plh{telephoneNumber} \p.
+
+\item[\latexcmd{\cmdline{\plh{consoleCommandlineString}}}] \enforcenewline%
+  Expands to a verbatim, fixed font printed \plh{consoleCommandlineString} as it is commonly encountered at a console commandline, \EG{} \\
+  \latexcmd{\cmdline{tar -xzf data_file.tar.gz}} $\rightarrow$ \cmdline{tar
+    -xzf data_file.tar.gz} \p.
+
+\item[\latexcmd{\path{\plh{fileOrDirecoryPathName}}}] \enforcenewline%
+  Expands to a verbatim, fixed font printed \path{\plh{fileOrDirecoryPathName}}, similar \\
+  to \latexcmd{\cmdline}.
+
+\item[\latexcmd{\entity{\plh{textString}}}] \enforcenewline%
+  \latexcmd{\entity} is intended to be used for marking a \plh{textString}
+  that represents some form of an entity.  For example, the text
+  \latexcmd{\entity{Orion}} will be printed as \entity{Orion}\p.
+
+\item[\latexcmd{\supplement{\plh{textStrings}}}] \enforcenewline%
+  Expands to the \plh{textStrings} enclosed in square brackets.  For
+  example, the text%
+  \begin{CommandLineListing}[print=true, xleftmargin=0pt, gobble=4]%
+    ``The data \supplement{and the run control files} reside in the
+    \path{/data/RAOB/} directory.''
+  \end{CommandLineListing}
+  gives the output: \\
+  ``The data \supplement{and the run control files} reside in the
+  \path{/data/RAOB/} directory.''
+
+   % \item[\latexcmd{\insi{\plh{textStrings}}}] \enforcenewline%
+   %    Expands to the \plh{textStrings} enclosed in round brackets.
+   %    For example \todo{figure out what the \insi{} is intended for}, the text%
+   %    \begin{CommandLineListing}[print=true, xleftmargin=0pt, gobble=4]%
+   %       ``I do not know what for \insi{and why} the \latexcmd{\insi} is there.''
+   %    \end{CommandLineListing}
+   %    gives the output: \\
+   %       ``I do not know what for \insi{and why} the \latexcmd{\insi} is there.''
+   %% TODO: insi is not working as described here. And I do not know how it works...
+
+
+\item[\latexcmd{\Attention{\plh{blockOfText}}}] \enforcenewline%
+  Expands to a boldface string reading \textbf{Attention:} followed by \plh{blockOfText}. \\
+  For example, the text%
+  \begin{CommandLineListing}[print=true, xleftmargin=0pt, gobble=4]%
+    \Attention{%
+      Please note that keeping food near any terminal device
+      might cause unpredictable results during program execution!
+    }
+  \end{CommandLineListing}
+  gives the output: \\
+  \Attention{%
+    Please note that keeping food near any terminal device
+    might cause unpredictable results during program execution!
+  }
+
+\item[\latexcmd{\highlight{\plh{blockOfText}}}] \enforcenewline%
+  Expands to a yellow highlighted \plh{blockOfText}, independent of the document version (\entity{final} | \entity{draft}).
+  For example, the text%
+  \begin{CommandLineListing}[print=true, xleftmargin=0pt, gobble=4]%
+    \highlight{The output values are still unexpected!}
+  \end{CommandLineListing}
+  gives the output: \\
+  \highlight{The output values are still unexpected!}
+
+  \Attention{%
+    The \latexcmd{\highlight} command does not automatically produce any linebreaks
+    and it is not sensitive to \latexcmd{\enforcenewline} and \latexcmd{\newline} commands.
+    As a matter of fact, it can not be used to highlight more than one line of text.
+  }
+
+\item[\latexcmd{\todo{\plh{blockOfText}}}] \enforcenewline%
+  With a document version \entity{draft}, it expands to a sequentially
+  numbered red text \emph{TODO} at the paper margin near the location
+  where the \latexcmd{\todo} appears, and a list of \entity{TODOs},
+  sequentially numbered, with a page indicator and the associated
+  \plh{blockOfText} at the end of the document. With a document version \entity{final}, the \latexcmd{\todo} is completely ignored. \\
+  An example \latexcmd{\todo} command could read:%
+  \begin{CommandLineListing}[print=true, xleftmargin=0pt, gobble=4]%
+    \todo{Table values need to be updated for the latest measurements!}
+  \end{CommandLineListing}
+
+\item[\latexcmd{\No{}}, \latexcmd{\CF{}}, \latexcmd{\EG{}}, \latexcmd{\ETC{}}, and \latexcmd{\IE{}}] \enforcenewline%
+  \latexcmd{\No{}}, \latexcmd{\CF{}}, \latexcmd{\EG{}}, \latexcmd{\ETC{}}, and \latexcmd{\IE{}}
+  are expanded to conveniently formatted strings, \EG{} \newline
+  the \latexcmd{\No{}} 4711 is magic           ~ $\rightarrow$ ~  the \No{} 4711 is magic \newline
+  is true, \latexcmd{\CF{}} the letter of      ~ $\rightarrow$ ~  is true, \CF{} the letter of \newline
+  is false, \latexcmd{\EG{}} in the case of    ~ $\rightarrow$ ~  is false, \EG{} in the case of \newline
+  mist, smoke, \latexcmd{\ETC{}} in air.       ~ $\rightarrow$ ~  mist, smoke, \ETC{} in air. \newline
+  is always the case, \latexcmd{\IE{}} true.   ~ $\rightarrow$ ~  is always the case, \IE{} true.
+
+\item[\latexcmd{\pdfTeX{}}, \latexcmd{\pdfLaTeX{}}, \latexcmd{\TeXLive{}}, \latexcmd{\MiKTeX{}}, \latexcmd{\AUCTeX{}}, and \latexcmd{\texmf{}}] \enforcenewline%
+  \latexcmd{\pdfTeX{}}, \latexcmd{\pdfLaTeX{}}, \latexcmd{\TeXLive{}}, \latexcmd{\MiKTeX{}}, \latexcmd{\AUCTeX{}}, and \latexcmd{\texmf{}}
+  are expanded to conveniently formatted strings, \EG{} \newline
+  \latexcmd{\pdfTeX{}}, \latexcmd{\pdfLaTeX{}}, \latexcmd{\TeXLive{}}, \latexcmd{\MiKTeX{}}, \latexcmd{\AUCTeX{}}, and \latexcmd{\texmf{}}
+  ~ $\rightarrow$ ~
+  \pdfTeX{}, \pdfLaTeX{}, \TeXLive{}, \MiKTeX{}, \AUCTeX{}, and \texmf{}
+
+\item[\latexcmd{\wegcLaTeX{}}] \enforcenewline%
+  \latexcmd{\wegcLaTeX{}} is expanded to conveniently formatted string, \EG{} \newline
+  the \latexcmd{\wegcLaTeX{}} framework  ~ $\rightarrow$ ~ the \wegcLaTeX{} framework
+\end{description}
+
+
+\subsection[Address book database]{Using the address book database}
+\label{subsec:usingTheAddressBookDatabase}
+
+As already mentioned in \autoref{subsec:capabilities}, \wegcLaTeX{}
+provides a handy mechanism for consistent usage of names, addresses, email
+addresses, web addresses, telephone numbers, and fax numbers via an
+extension to the \KOMAScript{} bundle.
+
+The address book entries can be used for referring to real persons as well
+as to an organization or an institute.  In the latter case, the field which
+stores the \enquote{last name} should be (by convention) left empty.
+Address book entries are to be stored in a file named \path{addresses.sty}
+in a directory which is included in the search path defined by the
+\cmdline{TEXINPUTS} environment variable.
+
+For the addresses to be expanded in a document, the command
+\latexcmd{\RequirePackage{addresses}} has to be added directly behind the
+\latexcmd{\documentclass} directive in the \LaTeX{} master file.
+
+The address book entry for a fictive person ``\Name{kmf}'' could be
+configured by adding the following lines to the \path{addresses.sty} file:
+%
+\begin{CommandLineListing}[style=DefaultFileListing, print=true, xleftmargin=0pt, gobble=3, %
+                           caption={Example \latexcmd{\newaddressbookentry} address book entry in \latexcmd{addresses.sty}}, %
+                           label=lst:addressBookExample]
+   \newaddressbookentry{kmf}{%
+     Karo%
+   }{%
+     K.%
+   }{%
+     Musterfrau%
+   }{%
+     Berggasse 37, A-1234 Lanenberg%
+   }{%
+     \tel{43}{123}{380}{8400}{}%
+   }{%
+     \fax{43}{123}{380}{8400}{36}%
+   }{%
+     \email{karo.musterfrau@gmx.at}%
+   }{%
+     \url{http://www.musterfrau.at}%
+   }
+\end{CommandLineListing}
+
+The eight fields for the address book entry of a person, identified by its
+shortcut \entity{personId}, \IE{}
+\latexcmd{\newaddressbookentry{\plh{personId}}{\plh{field_1}}{\plh{field_2}} ... {\plh{field_8}}}, \\
+are defined as described in \autoref{table:addressBookDefinition} and may
+be used or extracted as indicated in
+\autoref{table:addressBookExample}. The full name of \plh{personId} is
+accessed via the command \latexcmd{\Name{\plh{personId}}}, resulting in an
+output of ``\Name{kmf}'', and the short name of \plh{personId} is accessed
+via the command \latexcmd{\ShortName{\plh{personId}}}, resulting in an
+output of ``\ShortName{kmf}''.
+
+Please note that the \latexcmd{\newaddressbookentry} field definitions make
+use of the \LaTeX{} commands \latexcmd{\tel{}}, \latexcmd{\fax{}},
+\latexcmd{\email{}}, and \latexcmd{\url{}} for properly formatting the
+fields.\footnote{If it is desired to suppress the hyperlinking of an email
+  or web addresses, the \LaTeX{} commands \latexcmd{\nolinkemail{}} and
+  \latexcmd{\nolinkurl{}} can be used instead of \latexcmd{\email{}} and
+  \latexcmd{\url{}}.}
+
+
+\begin{longtable}{l p{5.0cm} p{4.0cm}}
+  \caption{Using the \latexcmd{\newaddressbookentry} entries in \latexcmd{addresses.sty}} %%
+   \label{table:addressBookExample} \\
+   \toprule
+   Item              & Example setting/access                        &  Example output    \\
+   \midrule
+   first name        & \path{Karo}                                   &                    \\
+   abbr.\ first name & \path{K.}                                     &                    \\
+   last name         & \path{Musterfrau}                             &                    \\
+   address           & \path{Berggasse 37, A-1234 Lanenberg}         &                    \\
+   tel.\ number      & \latexcmd{\tel{43}{123}{380}{8400}{}}         &                    \\
+   fax number        & \latexcmd{\fax{43}{123}{380}{8400}{36}}       &                    \\
+   email address     & \latexcmd{\email{karo.musterfrau@gmx.at}}     &                    \\
+   web address       & \latexcmd{\url{http://www.musterfrau.at}}     &                    \\
+   \midrule
+   name              & \latexcmd{\Name{kmf}}                         & \Name{kmf}         \\
+   short name        & \latexcmd{\ShortName{kmf}}                    & \ShortName{kmf}    \\
+   address           & \latexcmd{\Address{kmf}}                      & \Address{kmf}      \\
+   telephone number  & \latexcmd{\Telephone{kmf}}                    & \Telephone{kmf}    \\
+   fax number        & \latexcmd{\Fax{kmf}}                          & \Fax{kmf}          \\
+   email address     & \latexcmd{\EmailAddress{kmf}}                 & \EmailAddress{kmf} \\
+   web address       & \latexcmd{\WebAddress{kmf}}                   & \WebAddress{kmf}   \\
+   \bottomrule
+\end{longtable}
+
+
+\begin{longtable}{l p{5.2cm} p{5.0cm}}
+  \caption{Definition of \latexcmd{\newaddressbookentry} entries in \latexcmd{addresses.sty}} %%
+   \label{table:addressBookDefinition} \\
+   \toprule
+   Field                  & Content                                     & Command for access                 \\
+   \midrule
+   \entity{\plh{field_1}} & first name of \entity{\plh{personId}}       &                                    \\
+   \entity{\plh{field_2}} & abbr.\ first name of \entity{\plh{personId}}&                                    \\
+   \entity{\plh{field_3}} & last name of \entity{\plh{personId}}        &                                    \\
+   \entity{\plh{field_4}} & address of \entity{\plh{personId}}          & \latexcmd{\Address{personId}}      \\
+   \entity{\plh{field_5}} & tel.\ number of \entity{\plh{personId}}     & \latexcmd{\Telephone{personId}}    \\
+   \entity{\plh{field_6}} & fax number of \entity{\plh{personId}}       & \latexcmd{\Fax{personId}}          \\
+   \entity{\plh{field_7}} & email address of \entity{\plh{personId}}    & \latexcmd{\EmailAddress{personId}} \\
+   \entity{\plh{field_8}} & web address of \entity{\plh{personId}}      & \latexcmd{\WebAddress{personId}}   \\
+   \bottomrule
+\end{longtable}
+
+
+\subsection[Acronym database]{Using the acronym database}
+\label{subsec:UsingTheAcronymDatabase}
+
+
+\wegcLaTeX{} includes the \entity{glossaries} package, which provides a
+handy mechanism for consistent usage of names and their acronyms.
+
+Acronym entries are to be stored in a file named \path{acronyms.sty} in a
+directory which is included in the search path defined by the
+\cmdline{TEXINPUTS} environment variable.
+
+The command \latexcmd{\RequirePackage{acronyms}} has to be added to the
+\LaTeX{} master file directly behind the \latexcmd{\documentclass} command
+to make the acronym definitions available in the document. In addition, the
+command \latexcmd{\printglossary[type=acronym]} has to be included between
+the \latexcmd{\begin{document}} and \latexcmd{\end{document}} directives.
+Acronyms used in the main body of the document are then added to the
+acronym list.  If one or more additional acronyms should be included in the
+acronym list, irrespective of having been used or not, they can be added
+via \latexcmd{\glsadd{\plh{acronymId}}} commands in the main body of the
+document.
+
+The acronym for a fictive company ``\acf{tmc}'' could be defined by adding
+the following lines to the \path{acronyms.sty} file:
+%
+\begin{CommandLineListing}[style=DefaultFileListing, print=true, xleftmargin=0pt, gobble=3, %
+                           caption={Example \latexcmd{\newacronym} entry in \latexcmd{acronyms.sty}}, %
+                           label=lst:addressBookExample]
+   \newacronym[description={%
+     The Muppet Company \textemdash{} a respected and trusted supplier of evocative learning systems}]{tmc}{TMC}{%
+     The Muppet Company\p, Inc\p.%
+   }
+\end{CommandLineListing}
+
+
+The four fields for an acronym entry,
+identified by its shortcut \entity{acronymId}, \IE{} \\
+\latexcmd{\newacronym[description={\plh{field_1}}]{\plh{field_2}}{\plh{field_3}}{\plh{field_4}}}, \\
+are defined as described in \autoref{table:acronymDefinition}.
+%
+\begin{table}%[tb!]
+  \caption{Definition of \latexcmd{\newacronym} entries in \latexcmd{acronyms.sty}} %%
+  \label{table:acronymDefinition}
+  \begin{tabular}{l p{8.5cm} l}
+   \toprule
+   Field                  & Content                                             & Command                   \\
+   \midrule
+   \entity{\plh{field_1}} & description of acronym \entity{\plh{acronymId}} (optional).
+                            This text, together with the acronym itself, is
+                            used in the acronym list. If the description
+                            field (together with the
+                            \entity{\plh{description}} keyword)
+                            is left out, \entity{\plh{field_4}} is
+                            used instead.                                       &                            \\
+   \entity{\plh{field_2}} & acronym identifier, \IE{} \entity{\plh{acronymId}}  &                            \\
+   \entity{\plh{field_3}} & acronym used for \entity{\plh{acronymId}}           & \latexcmd{\acs{acronymId}} \\
+   \entity{\plh{field_4}} & explicit text of acronym \entity{\plh{acronymId}}   & \latexcmd{\acl{acronymId}} \\
+   \bottomrule
+ \end{tabular}
+\end{table}
+%
+The commands for using the acronyms are listed in the following
+(\autoref{table:acronymcommands}):
+\begin{longtable}{m{0.25\linewidth}m{0.69\linewidth}}
+  \caption{List of acronym commands}
+  \label{table:acronymcommands} \\
+  \toprule
+  \latexcmd{\ac{acronymId}} & Prints the acronym plus the explicit text of
+  acronym when used for the first time; any further use of \latexcmd{\ac{}}
+  will no longer generate the acronym plus the explicit text of the
+  acronym, but the acronym only\textemdash{}unless it is reset with a
+  \latexcmd{\glsreset{}} or \latexcmd{\glsresetall} command. This is the
+  recommended command to use, since it will automatically guarantee the
+  consistent usage of acronyms within the document. \\
+  \midrule
+  \latexcmd{\acs{acronymId}} & Prints the acronym only (short form). \\
+  \midrule
+  \latexcmd{\acl{acronymId}} & Prints the explicit text of acronym (long
+  form). \\
+  \midrule
+  \latexcmd{\acf{acronymId}} & Prints the acronym plus the explicit text
+  of acronym (full form). \\
+  \midrule
+  \latexcmd{\acp{acronymId}}
+  \latexcmd{\acsp{acronymId}}
+  \latexcmd{\aclp{acronymId}}
+  \latexcmd{\acfp{acronymId}} & Same as above, but printing the plural form
+  of the acronym. The default is to add the letter ``s'' to obtain the
+  plural form. To override this, the plural form can be given in the
+  definition of the acronym. Please refer to the \entity{glossaries} user manual for
+  details.\\
+  \midrule
+  \latexcmd{\aces{acronymId}}
+  \latexcmd{\acesp{acronymId}}
+  \latexcmd{\acel{acronymId}}
+  \latexcmd{\acelp{acronymId}}
+  \latexcmd{\acef{acronymId}}
+  \latexcmd{\acefp{acronymId}} & Same as above, but without
+  hyperlinking. This is needed for moving arguments, such as those used by
+  \latexcmd{\chapter}, \latexcmd{\section}, or
+  \latexcmd{\caption}. Use only these commands in such environments! \\
+  \bottomrule
+\end{longtable}
+
+The acronym description defined in \entity{\plh{field_1}} along with the
+acronym itself (\IE{} \entity{\plh{field_3}})
+is used in the acronym list, generated at the position where the \LaTeX{} command \\
+\latexcmd{\printglossary[type=acronym]} is placed. If the optional
+\entity{\plh{description}} specifier is not used in the definition of the
+acronym, the long form is used in the acronym list instead. It is good
+practice to always define the acronym description, either by simply
+repeating the long form (\entity{\plh{field_4}}), or by repeating the long
+form together with some additional descriptive text if needed for better
+understanding. The additional text could be supplied using the command
+\latexcmd{\supplement{\plh{textStrings}}}, see
+\autoref{subsec:extensionsToTheLatexKernel}.
+
+To achieve a consistent use of acronyms throughout the document, it is
+recommended to almost always use the basic acronym command
+\latexcmd{\ac{acronymId}} in the text. This ensures that the correct form
+of the acronym (short form or full form) is used. Exceptions to this rule
+might apply \EG{} for figure captions or chapter headings, where an
+explicit form of the acronym can be more appropriate. Please note that in
+these \LaTeX{} environments the acronym commands without hyperlinking must
+be used (\autoref{table:acronymcommands}). For longer documents it might be
+desirable to repeat the full form of an acronym in a new chapter even
+though it was already used in a previous chapter. To achieve this, use the
+\latexcmd{\glsresetall} command in-between chapters.
+
+Some examples on how the acronym extraction commands are to be applied,
+together with the expected output, are given in
+\autoref{table:acronymExample}.
+
+
+\begin{landscape}
+\begin{longtable}{p{6.5cm} p{6.5cm} l}
+   \caption{Using the \latexcmd{\newacronym} entries in \latexcmd{acronyms.sty}} %%
+   \label{table:acronymExample} \\
+   \toprule
+   Item                                                  & Example setting/access                 &  Example output         \\
+   \midrule
+   description of acronym                                & \verb|The Muppet Company \textemdash{} | \newline
+                                                           \verb|a respected and trusted supplier | \newline
+                                                           \verb|of evocative systems|            &                         \\
+   acronym identifier                                    & \verb|tmc|                             &                         \\
+   acronym                                               & \verb|TMC|                             &                         \\
+   explicit text of acronym                              & \verb|The Muppet Company\p, Inc\p.|    &                         \\
+   %%\midrule
+   acronym                                               & \verb|\acs{tmpc}|                      & \acs{tmc}               \\
+   %%\midrule
+   acronym, not hyperlinked, to be used \EG{} in
+   \verb|\chapter|, \verb|\section| environments         & \verb|\aces{tmpc}|                     & \aces{tmc}              \\
+   %%\midrule
+   explicit text of acronym                              & \verb|\acl{tmpc}|                      & \acl{tmc}               \\
+   %%\midrule
+   acronym plus explicit text of acronym\footnote{Please note that after \latexcmd{\ac} has been used here,
+             any further use of \latexcmd{\ac{}} will no longer generate the
+             acronym plus the explicit text of the acronym, but the acronym
+             only\textemdash{}unless it is reset with a \latexcmd{\glsreset{}}
+             or \latexcmd{\glsresetall} command.}%%
+                                                         & \verb|\ac{tmc}|                        & \glsreset{tmc}\ac{tmc}  \\
+   %%\midrule
+   acronym                                               & \verb|\ac{tmc}|                        & \ac{tmc}                \\
+   %%\midrule
+   acronym plus explicit text of acronym                 & \verb|\glsreset{tmc}\ac{tmc}|          & \glsreset{tmc}\ac{tmc}  \\
+   %%\midrule
+   acronym                                               & \verb|\ac{tmc}|                        & \ac{tmc}                \\
+   %%\midrule
+   acronym, plural form                                  & \verb|\acp{tmc}|                       & \acp{tmc}                \\
+   %%\midrule
+   acronym plus explicit text of acronym                 & \verb|\acf{tmc}|                       & \acf{tmc}               \\
+   %%\midrule
+   acronym plus explicit text, not hyperlinked, to be used \EG{} in
+   \verb|\chapter|, \verb|\section| environments         & \verb|\acef{tmc}|                      & \acef{tmc}               \\
+   \bottomrule
+\end{longtable}
+\end{landscape}
+
+
+\subsection[Glossary database]{Using the glossary database}
+\label{subsec:UsingTheGlossaryDatabase}
+
+Since \wegcLaTeX{} includes the \entity{glossaries} package, the inclusion
+of a glossary is easily accomplished.  Glossary entries are to be stored in
+a file named \path{terms.sty} in a directory which is included in the
+search path defined by the \cmdline{TEXINPUTS} environment variable.
+
+For the glossary listing to appear in a document, the command
+\latexcmd{\RequirePackage{terms}} has to be added directly behind the
+\latexcmd{\documentclass} in the \LaTeX{} master file, the command
+\latexcmd{\printglossary[type=main]} has to be included between the
+\latexcmd{\begin{document}} and \latexcmd{\end{document}} directives, and
+the \latexcmd{\glsadd{}} directives have to be added in the main document
+body.
+
+A glossary entry for a fictive process of ``\gls{firlefanzation}'' could be
+configured by adding the following lines to the \path{terms.sty} file:
+%
+\begin{CommandLineListing}[style=DefaultFileListing, print=true, xleftmargin=0pt, gobble=3, %
+                           caption={Example \latexcmd{\newglossaryentry} entry in \latexcmd{terms.sty}}, %
+                           label=lst:glossaryExample]
+   \newglossaryentry{firlefanzation}{%
+     name={firlefanzation},%
+     description={The process of firlefanzation is the firlefancing of a fanz},%
+     plural={firlefanzations}%
+   }
+\end{CommandLineListing}
+
+The two arguments for a glossary entry,
+identified by its \entity{glossaryId} in \entity{\plh{field_1}}, \IE{} \\
+%%\latexcmd{\newglossaryentry{\plh{field_1}}{\plh{setting_1=value_1}, \plh{setting_2=value_2}, \plh{setting_3=value_3}}}, \\
+\latexcmd{\newglossaryentry{\plh{field_1}}{\plh{setting_1=value_1}, ..., \plh{setting_3=value_3}}}, \\
+are defined as described in \autoref{table:glossaryDefinition}.
+
+As can be seen from the example \autoref{lst:glossaryExample}, the
+definition consists of a first argument, the unique label
+\entity{\plh{glossaryId}} used to identify the term, and the second
+argument, which is a key=value comma separated list \entity{key=value}
+pairs used to set the required information for the term.  The principle
+keys are \entity{name}, \entity{description} and \entity{plural}.
+
+
+\begin{longtable}{l p{7.5cm} l}
+   \caption{Definition of \latexcmd{\newglossaryentry} entries in \latexcmd{terms.sty}} %%
+   \label{table:glossaryDefinition} \\
+   \toprule
+   Field                    & Content                                                   & Keyword for setting values   \\
+   \midrule
+   \entity{\plh{field_1}}   & glossary identifier, \IE{} \entity{\plh{glossaryId}}      &                              \\
+   \entity{\plh{setting_1}} & name associated with the \entity{\plh{glossaryId}}        & \latexcmd{name=}             \\
+   \entity{\plh{setting_2}} & description associated with the \entity{\plh{glossaryId}} & \latexcmd{description=}      \\
+   \entity{\plh{setting_3}} & plural of \entity{\plh{glossaryId}}'s name                & \latexcmd{plural=}           \\
+   \bottomrule
+\end{longtable}
+
+
+Once a term is defined, it can be used in the document. The main commands
+for accessing the glossary entries are:
+
+\begin{description}
+   \item \latexcmd{\gls{\plh{glossaryId}}} \\
+      This prints the term associated with \plh{glossaryId},
+      \EG{} ``\gls{firlefanzation}''.
+   \item \latexcmd{\glspl{\plh{glossaryId}}} \\
+      This prints plural of the term associated with \plh{glossaryId},
+      \EG{} ``\glspl{firlefanzation}''.
+   \item \latexcmd{\Gls{\plh{glossaryId}}} \\
+      This prints the term associated with \plh{glossaryId}, with the first character
+      converted to upper case, \EG{} ``\Gls{firlefanzation}''.
+   \item \latexcmd{\Glspl{\plh{glossaryId}}} \\
+      This prints plural of the term associated with \plh{glossaryId}, with the first
+      character converted to upper case, \EG{} ``\Glspl{firlefanzation}''.
+\end{description}

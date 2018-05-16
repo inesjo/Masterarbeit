@@ -1,0 +1,418 @@
+%%---------------------------------------------------------------------------------------------------------------------------%%
+%% $Id: addresses.sty 195 2013-11-25 13:09:11Z bap $ ########################################################################%%
+%%---------------------------------------------------------------------------------------------------------------------------%%
+%%
+%%
+%% Abstract:
+%%   LaTeX style file addresses.sty provides an address book for the local documentation project.
+%%
+%% Details:
+%%   None.
+%%
+%% References:
+%% - LaTeX 2ε for class and package writers
+%%   --> http://tug.ctan.org/tex-archive/macros/latex/doc/clsguide.pdf
+%% - The Not So Short Introduction to LaTeX 2ε
+%%   --> http://tug.ctan.org/tex-archive/info/lshort/english/lshort.pdf
+%% - An essential guide to LaTeX 2ε usage
+%%   --> http://tug.ctan.org/tex-archive/info/l2tabu/english/l2tabuen.pdf
+%%
+%% TODO:
+%%   None.
+%%
+%% Author:
+%%   Michael H. Pock || MHP || michael.pock@uni-graz.at
+%%
+%% © Copyright 2010-2011 [ WEGC && IGAM/IP ] / Uni Graz
+%%
+%%
+%%---------------------------------------------------------------------------------------------------------------------------%%
+%%###########################################################################################################################%%
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\NeedsTeXFormat{LaTeX2e}
+
+
+\ProvidesPackage{addresses}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\Wegc@Address}{%
+  \acel{wegc}, \acel{ug}, Brandhofgasse\hbspace5, A\hbhyphen8010\hbspace{}Graz, Austria%
+}
+
+
+\newcommand*{\Wegc@Telephone}{%
+  \tel{43}{316}{380}{8430}{}%
+}
+
+
+\newcommand*{\Wegc@Fax}{%
+  \fax{43}{316}{380}{9830}{}%
+}
+
+
+\newcommand*{\Wegc@EmailAddress}{%
+  \email{wegcenter@uni-graz.at}%
+}
+
+
+\newcommand*{\Wegc@WebAddress}{}
+\urldef\Wegc@WebAddress\url{http://www.wegcenter.at}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newaddressbookentry{igam}{%
+  \acel{igam}%
+}{%
+  \aces{igam}%
+}{%
+}{%
+  \acel{igam}, \acel{ug}, Universit\"atsplatz\hbspace5\mbox{\textfractionsolidus}\hardbreak{}II, A\hbhyphen8010\hbspace{}Graz, Austria%
+}{%
+  \tel{43}{316}{380}{5255}{}%
+}{%
+  \fax{43}{316}{380}{9825}{}%
+}{%
+  \email{mail.igam@uni-graz.at}%
+}{%
+  \url{http://www.uni-graz.at/igam}%
+}
+
+
+\newaddressbookentry{ug}{%
+  \acel{ug}%
+}{%
+  Uni Graz%
+}{%
+}{%
+  \acel{ug}, Universit\"atsplatz\hbspace3, A\hbhyphen8010\hbspace{}Graz, Austria%
+}{%
+  \tel{43}{316}{380}{0}{}%
+}{%
+  \fax{43}{316}{380}{9140}{}%
+}{%
+  \email{www@uni-graz.at}%
+}{%
+  \url{http://www.uni-graz.at}%
+}
+
+
+\newaddressbookentry{wegc}{%
+  \acel{wegc}%
+}{%
+  Wegener Center%
+}{%
+}{%
+  \Wegc@Address%
+}{%
+  \Wegc@Telephone%
+}{%
+  \Wegc@Fax%
+}{%
+  \Wegc@EmailAddress%
+}{%
+  \Wegc@WebAddress%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newaddressbookentry{arl}{%
+  Armin%
+}{%
+  A.%
+}{%
+  L\"oscher%
+}{%
+}{%
+}{%
+}{%
+  \email{armin.loescher@esa.int}%
+}{%
+}
+
+
+\newaddressbookentry{bap}{%
+  Barbara%
+}{%
+  B.%
+}{%
+  Scherllin-Pirscher%
+}{%
+  \Wegc@Address%
+}{%
+  \tel{43}{316}{380}{8456}{}%
+}{%
+  \Wegc@Fax%
+}{%
+  \email{barbara.pirscher@uni-graz.at}%
+}{%
+  \Wegc@WebAddress%
+}
+
+
+\newaddressbookentry{bcd}{%
+  Bernardo%
+}{%
+  B.%
+}{%
+  Carnicero Dom\'inguez%
+}{%
+}{%
+}{%
+}{%
+  \email{bernardo.carnicero.dominguez@esa.int}%
+}{%
+}
+
+
+\newaddressbookentry{chr}{%
+  Christian%
+}{%
+  C.%
+}{%
+  Retscher%
+}{%
+}{%
+}{%
+}{%
+  \email{christian.retscher@nasa.gov}%
+}{%
+}
+
+
+\newaddressbookentry{emc}{%
+  Emmanuel%
+}{%
+  E.%
+}{%
+  C\'erou%
+}{%
+}{%
+}{%
+}{%
+  \email{emmanuel.cerou@esa.int}%
+}{%
+}
+
+
+\newaddressbookentry{ewa}{%
+  Ewa%
+}{%
+  E.%
+}{%
+  Kwiatkowska%
+}{%
+}{%
+}{%
+}{%
+  \email{ewa.kwiatkowska@esa.int}%
+}{%
+}
+
+
+\newaddressbookentry{fhl}{%
+  Florian%
+}{%
+  F.%
+}{%
+  Ladst\"adter%
+}{%
+  \Wegc@Address%
+}{%
+  \tel{43}{316}{380}{8462}{}%
+}{%
+  \Wegc@Fax%
+}{%
+  \email{florian.ladstaedter@uni-graz.at}%
+}{%
+  \Wegc@WebAddress%
+}
+
+
+\newaddressbookentry{gki}{%
+  Gottfried%
+}{%
+  G.%
+}{%
+  Kirchengast%
+}{%
+  \Wegc@Address%
+}{%
+  \tel{43}{316}{380}{8431}{}%
+}{%
+  \Wegc@Fax%
+}{%
+  \email{gottfried.kirchengast@uni-graz.at}%
+}{%
+  \url{http://www.wegcenter.at/_kirchengast}%
+}
+
+
+\newaddressbookentry{jsc}{%
+  Jakob%
+}{%
+  J.%
+}{%
+  Schwarz%
+}{%
+  \Wegc@Address%
+}{%
+  \tel{43}{316}{380}{7510}{}%
+}{%
+  \Wegc@Fax%
+}{%
+  \email{jakob.schwarz@uni-graz.at}%
+}{%
+  \Wegc@WebAddress%
+}
+
+
+\newaddressbookentry{juf}{%
+  J\"urgen%
+}{%
+  J.%
+}{%
+  Fuchsberger%
+}{%
+  \Wegc@Address%
+}{%
+  \tel{43}{316}{380}{8438}{}%
+}{%
+  \Wegc@Fax%
+}{%
+  \email{juergen.fuchsberger@uni-graz.at}%
+}{%
+  \Wegc@WebAddress%
+}
+
+
+\newaddressbookentry{jmf}{%
+  Johannes%
+}{%
+  J.%
+}{%
+  Fritzer%
+}{%
+  \Wegc@Address%
+}{%
+  \tel{43}{316}{380}{8435}{}%
+}{%
+  \Wegc@Fax%
+}{%
+  \email{johannes.fritzer@uni-graz.at}%
+}{%
+  \Wegc@WebAddress%
+}
+
+
+\newaddressbookentry{mas}{%
+  Marc%
+}{%
+  M.%
+}{%
+  Schw\"arz%
+}{%
+  \Wegc@Address%
+}{%
+  \tel{43}{316}{380}{8461}{}%
+}{%
+  \Wegc@Fax%
+}{%
+  \email{marc.schwaerz@uni-graz.at}%
+}{%
+  \Wegc@WebAddress%
+}
+
+
+\newaddressbookentry{mip}{%
+  Michael%
+}{%
+  M.%
+}{%
+  Pock%
+}{%
+  \Wegc@Address%
+}{%
+  \tel{43}{316}{380}{8453}{}%
+}{%
+  \Wegc@Fax%
+}{%
+  \email{michael.pock@uni-graz.at}%
+}{%
+  \Wegc@WebAddress%
+}
+
+
+\newaddressbookentry{pls}{%
+  Pierluigi%
+}{%
+  P.%
+}{%
+  Silvestrin%
+}{%
+}{%
+}{%
+}{%
+  \email{pierluigi.silvestrin@esa.int}%
+}{%
+}
+
+
+\newaddressbookentry{tof}{%
+  Torsten%
+}{%
+  T.%
+}{%
+  Fehr%
+}{%
+}{%
+}{%
+}{%
+  \email{torsten.fehr@esa.int}%
+}{%
+}
+
+
+\newaddressbookentry{sca}{%
+  Stefano%
+}{%
+  S.%
+}{%
+  Casadio%
+}{%
+}{%
+}{%
+}{%
+  \email{stefano.casadio@serco.com}%
+}{%
+}
+
+\newaddressbookentry{inj}{%
+	Ines%
+}{%
+	%
+}{%
+	Josten%
+}{%
+	Elisabethstraße 34, A-8010 Graz
+}{%
+}{%
+}{%
+	\email{ines.josten@edu-uni.graz.at}%
+}{%
+}
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\endinput
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%

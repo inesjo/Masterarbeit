@@ -1,0 +1,203 @@
+
+\section[Introduction]{Introduction}
+\label{sec:introduction}
+
+
+
+\subsection[Scope]{Scope}
+\label{subsec:scope}
+
+The intention of this document\footnote{The document in hand is applicable
+  to \software{long}{\wegcLaTeX}{0}{9}{5}{200}\p.} is to give new users of
+the \wegcLaTeX{} documentation framework a quick introduction on how to use
+it in the most efficient way.
+
+Included in this manual are a series of examples on how to create the document layout and how to
+use the capabilities of the automatically included \LaTeX{} packages.
+No special treatment for typesetting formulas, diagrams or tables is given, as literature
+on these topics is readily available.
+To a minor extent, it also covers advanced topics mainly relevant to people who want to use \wegcLaTeX{}
+within the scope of documentation tasks.
+
+It must be emphasized that it is far beyond the scope of this user guide to address questions about
+standard \LaTeX{} concepts. Using \LaTeX{} in a reasonably correct manner is \emph{not} a trivial task.
+In fact, it is easy to use it quite wrongly.
+It is expected that the reader has a basic understanding on how to create simple \LaTeX{} documents.
+So if you are new to \LaTeX{} and/or have never worked in a \LaTeX{} documentation task,
+please refer to introductory literature on \LaTeX{}.
+
+At the minimum, you should read %
+\textquote[\ctanurl{/tex-archive/info/lshort/english/lshort.pdf}]{%
+  The Not So Short Introduction to \LaTeXe%
+} %
+which provides a very good survey of contemporary \LaTeX{} for both beginners and advanced users.
+Nevertheless, it is recommended to study the following documents in some detail:
+%
+\begin{itemize}
+   \item \textquote[]{\LaTeXe{} for authors}
+         \footnote{\ctanurl{/tex-archive/macros/latex/doc/usrguide.pdf}}
+
+   \item \textquote[]{An essential guide to \LaTeXe{} usage}
+         \footnote{\ctanurl{/tex-archive/info/l2tabu/english/l2tabuen.pdf}}
+
+   \item \textquote[]{\KOMAScript}
+         \footnote{\ctanurl{/tex-archive/macros/latex/contrib/koma-script/doc/scrguide.pdf}}
+
+   \item \textquote[]{Math mode}
+         \footnote{\url{ftp://ftp.tex.ac.uk/tex-archive/info/math/voss/mathmode/Mathmode.pdf}}
+
+   \item \textquote[]{Using Imported Graphics in \LaTeX{} and pdf\LaTeX}
+         \footnote{\ctanurl{/tex-archive/info/epslatex/english/epslatex.pdf}}
+\end{itemize}
+%
+Finally, download and print out the %
+\textquote[\url{http://www.stdout.org/~winston/latex/latexsheet.pdf}]{%
+  \LaTeXe{} Cheat Sheet%
+} %
+since this may serve as a handy means for everyday work with \LaTeX.
+
+\wegcLaTeX{} has been developed and is maintained by \Name{mip}. In case of
+any questions about \wegcLaTeX{}, please write an email to
+\EmailAddress{mip}.
+
+
+
+\subsection{Capabilities of \wegcLaTeX{}}
+\label{subsec:capabilities}
+
+So, what is the \wegcLaTeX{} documentation framework?
+Stated in the most simple way, \wegcLaTeX{} provides an environment for generating documents with a
+consistent look and feel. The consistency of the the documents is ensured by providing mechanisms
+for consistent usage of common items like names, addresses, email addresses, web addresses, telephone numbers,
+abbreviations, acronyms, terms and last but not least, a common and consistent document style for
+\singledoc and \multidoc documents.
+
+\smallskip
+
+\singledoc documents have a traditional \LaTeX{} styling, whereas \multidoc
+documents are intended for publications that comprise two or more articles,
+reports or books, which shall all share a common and consistent layout of
+the document front matter, \EG{} title page, distribution list and document
+revision history as well as document headings. For a few sample pages of a
+\multidoc document, please see \autoref{fig:multiDocTitlepage},
+\autoref{fig:multiDocReleaseInfopage},
+\autoref{fig:multiDocDistributionList}, \autoref{fig:multiDocChangeRecord}
+and \autoref{fig:multiDocHeadings} in
+\fullautoref{subsec:usingMultiDocumentTemplates}.
+
+The documents written with \wegcLaTeX{} can be, for example, the
+documentation tree associated with a software package, the manual and
+handbook set for operating and maintenance procedures of any type of machinery, 
+or single documents like \ac{msc} and \ac{phd} theses 
+(please see \fullautoref{subsubsec:creatingMasterOrPhdThesis} for an expample),
+scientific or technical reports, or papers.
+
+\wegcLaTeX{} provides the means to ensure the consistent layout of the
+documents by providing templates for the layout of front matter pages,
+title page, distribution list, document revision history, bibliography, as
+well as of the lists of figures and tables.
+
+Due to the fact that \wegcLaTeX{} also automatically imports a series of
+handy \LaTeX{} packages for the creation and inclusion of external
+pictures, diagrams, verbatim text and pretty-printed source code listings,
+the user does not need to load any extra packages, but can simply start
+writing his or her documentation, taking the provided example documents as
+a starting point.
+
+As its name implies, \wegcLaTeX{} is written in the \LaTeX{} document
+markup language which is widely used by scientists and other professionals
+in both the academic and commercial world.  Distributed under the terms of
+the \ac{lppl}, \LaTeX{} is free software.%
+\footnote{%
+  This statement has sometimes been questioned (\CF{}
+  \url{http://en.wikipedia.org/wiki/LPPL}).%
+} %
+Owing to its platform independence, it can moreover be used in a similar
+way on Linux, \ac{mac_os_x}, and Windows machines.
+
+Contemporary \TeX/\LaTeX{} distributions such as \TeXLive{} and \MiKTeX{}
+ship with a considerable variety of modules whose capabilities go far
+beyond the potentials originally foreseen by the venerable \TeX{}
+typesetting system and the \LaTeX{} kernel built on it. In fact, assuming
+you are an experienced and sufficiently persistent \LaTeX{} user, you
+should nowadays be able to cope with most tasks that might arise while
+preparing scientific and/or technical documents.  An incomplete---and, of
+course, subjective---list of modules providing the necessary tools for
+doing so includes:
+%
+\begin{labeling}[→]{\KOMAScript{} bundle}
+   \item[\KOMAScript{} bundle]%
+      modern and highly configurable replacement for the standard \LaTeX{}
+      document classes, sophisticated interface for configuring the document
+      layout including page style design%
+      \footnote{\ctanurl{/tex-archive/macros/latex/contrib/koma-script/doc/scrguide.pdf}}
+   \item[\entity{babel} package]%
+      multilingual support%
+      \footnote{\ctanurl{/tex-archive/macros/latex/required/babel/base/babel.pdf}}
+   \item[\entity{url} package]%
+      formatting \acp{url}, email addresses, filenames, etc.%
+      \footnote{\ctanurl{/tex-archive/macros/latex/contrib/url/url.pdf}}
+   \item[\entity{siunitx} package]%
+      formatting units of physical quantities%
+      \footnote{\ctanurl{/tex-archive/macros/latex/contrib/siunitx/siunitx.pdf}}
+   \item[\entity{amsmath} package]%
+      high‐quality typesetting of mathematical formulae%
+      \footnote{\ctanurl{/tex-archive/macros/latex/required/amslatex/math/amsldoc.pdf}}
+   \item[\entity{array} package]%
+      replacement for the standard \LaTeX{} tables and arrays%
+      \footnote{\ctanurl{/tex-archive/macros/latex/required/tools/array.pdf}}
+   \item[\entity{booktabs} package]%
+      assistance in producing publication‐quality tables%
+      \footnote{\ctanurl{/tex-archive/macros/latex/contrib/booktabs/booktabs.pdf}}
+   \item[\entity{longtable} package]%
+      creating multipage tables%
+      \footnote{\ctanurl{/tex-archive/macros/latex/required/tools/longtable.pdf}}
+   \item[\entity{xcolor} package]%
+      colour support%
+      \footnote{\ctanurl{/tex-archive/macros/latex/contrib/xcolor/xcolor.pdf}}
+   \item[\entity{graphicx} package]%
+      embedding external graphics given in various formats%
+      \footnote{\ctanurl{/tex-archive/macros/latex/required/graphics/grfguide.pdf}}
+   \item[\entity{pgf} package]%
+      creating graphics%
+      \footnote{\ctanurl{/tex-archive/graphics/pgf/base/doc/generic/pgf/pgfmanual.pdf}}
+   \item[\entity{mhchem} package]%
+      chemical formulae%
+      \footnote{\ctanurl{/tex-archive/macros/latex/contrib/mhchem/mhchem.pdf}}
+   \item[\entity{listings} package]%
+      pretty-printing of source code%
+      \footnote{\ctanurl{/tex-archive/macros/latex/contrib/listings/listings.pdf}}
+   \item[\entity{glossaries} package]%
+      maintaining glossaries, lists of acronyms, indices, etc.\ with
+      assistance of the \path{makeindex} program%
+      \footnote{\ctanurl{/tex-archive/macros/latex/contrib/glossaries/glossaries-user.pdf}}
+   \item[\entity{biblatex} package]%
+      maintaining bibliographies based on \BibTeX{} bibliographic database
+      files with assistance of the \path{bibtex8} program%
+      \footnote{\label{fnote:biblatex}\ctanurl{/tex-archive/macros/latex/exptl/biblatex/doc/biblatex.pdf}}
+   \item[\entity{hyperref} package]%
+      support for hyperlinks, \ac{pdf} bookmarks, \ac{pdf} document
+      information, etc.%
+      \footnote{\ctanurl{/tex-archive/macros/latex/contrib/hyperref/doc/manual.pdf}}
+   \item[\entity{pdfpages} package]%
+      support for inclusion of excerpts from \ac{pdf} documents, etc.%
+      \footnote{\ctanurl{/tex-archive/macros/latex/contrib/pdfpages/pdfpages.pdf}}
+\end{labeling}
+
+
+Since 2008, \wegcLaTeX{}, a general purpose document preparation
+framework, selects, configures, patches, and extends an adequate
+subset of \LaTeX{} modules available from \ac{ctan} according to the
+needs of a typical user with scientific and/or technical
+background. Not surprisingly, the basis of \wegcLaTeX{} is formed by
+just those modules outlined in the preceding list.\footnote{Links to
+  the documentation of further \LaTeX{} packages used in \wegcLaTeX{}
+  are provided with the corresponding \latexcmd{\RequirePackage{}}
+  statements in the \path{wltools.sty} and \path{wlsetup.sty} style
+  files of the \wegcLaTeX{} framework} To sum up once more, it can be
+said that \wegcLaTeX{} represents a highlevel interface to \LaTeX{}
+which should enable its user to write comprehensible, consistent,
+reader-friendly, flexible, and easily maintainable scientific and/or
+technical documents without being forced to spend much time on looking
+into more than the (already comprehensive) fundamentals of the
+\LaTeX{} document markup language.

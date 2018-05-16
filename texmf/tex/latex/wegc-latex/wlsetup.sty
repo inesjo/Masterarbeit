@@ -1,0 +1,1768 @@
+%%---------------------------------------------------------------------------------------------------------------------------%%
+%% $Id: wlsetup.sty 200 2015-04-30 14:07:43Z fhl $ ##########################################################################%%
+%%---------------------------------------------------------------------------------------------------------------------------%%
+%%
+%%
+%% Abstract:
+%%   LaTeX style file wlsetup.sty sets up the Wegener Center Document Preparation Framework.
+%%
+%% Details:
+%% - This style file requires a TeX distribution equivalent to TeX Live 2009.
+%%
+%% References:
+%% - LaTeX 2ε for class and package writers
+%%   --> http://tug.ctan.org/tex-archive/macros/latex/doc/clsguide.pdf
+%% - The Not So Short Introduction to LaTeX 2ε
+%%   --> http://tug.ctan.org/tex-archive/info/lshort/english/lshort.pdf
+%% - An essential guide to LaTeX 2ε usage
+%%   --> http://tug.ctan.org/tex-archive/info/l2tabu/english/l2tabuen.pdf
+%% - The pdfTeX user manual
+%%   --> http://tug.ctan.org/tex-archive/systems/pdftex/pdftex-a.pdf
+%% - Dvipdfm User’s Manual
+%%   --> http://tug.ctan.org/tex-archive/dviware/dvipdfm/dvipdfm.pdf
+%%
+%% TODO:
+%%   None.
+%%
+%% Author:
+%%   Michael H. Pock || MHP || michael.pock@uni-graz.at
+%%
+%% © Copyright 2008-2011 [ WEGC && IGAM/IP ] / Uni Graz
+%%
+%%
+%%---------------------------------------------------------------------------------------------------------------------------%%
+%%###########################################################################################################################%%
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{wlinfo}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\NeedsTeXFormat{LaTeX2e}[\WL@TexFormatReleaseDate]
+
+
+\ProvidesPackage{wlsetup}[\WL@ReleaseInfo]
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{wltools}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\ifthenelse{\boolean{PDFVersion}}{%
+  \pdfminorversion=5
+  \pdfobjcompresslevel=2%
+}{%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newboolean{KOMAClass}
+
+
+\ifdefmacro{\KOMAClassName}{%
+  \setboolean{KOMAClass}{true}%
+}{%
+  \setboolean{KOMAClass}{false}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newboolean{ChapterClass}
+
+
+\ifdefmacro{\chapter}{%
+  \setboolean{ChapterClass}{true}%
+}{%
+  \setboolean{ChapterClass}{false}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newboolean{SectionClass}
+
+
+\ifdefmacro{\section}{%
+  \setboolean{SectionClass}{true}%
+}{%
+  \setboolean{SectionClass}{false}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newboolean{TitleClass}
+
+
+\AfterPackage*{hyperref}{%
+  \ifdefmacro{\HyOrg@maketitle}{%
+    \setboolean{TitleClass}{true}%
+  }{%
+    \setboolean{TitleClass}{false}%
+  }%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\@SupportedLanguages}{%
+  naustrian, ngerman, UKenglish, USenglish, english%
+}
+
+
+\newcommand*{\@MainLanguage}{%
+  english%
+}
+
+
+\DeclareOption{naustrian}{%
+  \let\@MainLanguage\CurrentOption%
+}
+
+
+\DeclareOption{ngerman}{%
+  \let\@MainLanguage\CurrentOption%
+}
+
+
+\DeclareOption{UKenglish}{%
+  \let\@MainLanguage\CurrentOption%
+}
+
+
+\DeclareOption{USenglish}{%
+  \let\@MainLanguage\CurrentOption%
+}
+
+
+\DeclareOption{english}{%
+  \let\@MainLanguage\CurrentOption%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\ProcessOptions*
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\DefineFamily{WL}
+
+
+\DefineFamilyMember{WL}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\WL@glossaries}{}
+
+
+\expandafter\newcommand\expandafter*\csname WL@glossaries/totoc\endcsname{}
+
+
+\DefineFamilyKey{WL}{glossaries}{%
+  \FamilySetNumerical{WL}{glossaries}{WL@glossaries}{%
+    {nottotoc}       {0},
+    {notoc}          {0},
+    {totoc}          {1},
+    {toc}            {1},
+    {totocnumberline}{2},
+    {tocnumberline}  {2}%
+  }{#1}%
+  \ifcase\WL@glossaries%
+    \cslet{WL@glossaries/totoc}{\empty}%
+  \or%
+    \csdef{WL@glossaries/totoc}{toc}%
+  \or%
+    \csdef{WL@glossaries/totoc}{toc, numberline}%
+  \fi%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\FamilyProcessOptions{WL}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\SetupKeyvalOptions{family=WL, prefix=WL@}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\DeclareStringOption{glossaries/acronymstyle}[]
+
+
+\DeclareStringOption{glossaries/processor}[]
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\DeclareStringOption{biblatex/style}[]
+
+
+\DeclareStringOption{biblatex/backend}[]
+
+
+\DeclareStringOption{biblatex/bibencoding}[]
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\ProcessKeyvalOptions*
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\def\do#1{%
+  \ifthenelse{\equal{\@nameuse{#1}}{default}}{%
+    \cslet{#1}{\empty}%
+  }{%
+  }%
+}
+
+
+\docsvlist{%
+  WL@glossaries/acronymstyle,
+  WL@glossaries/processor,
+  WL@biblatex/style,
+  WL@biblatex/backend,
+  WL@biblatex/bibencoding%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\letcs{\macro@a}{WL@glossaries/acronymstyle}
+
+
+\StrSubstitute{\macro@a}{+}{,}[\macro@a]
+
+
+\cslet{WL@glossaries/acronymstyle}{\macro@a}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\ifthenelse{\NOT\boolean{KOMAClass}}{%
+  \RequirePackage{scrextend}[2011/06/16]
+  %% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/koma-script/scrguide.pdf
+}{%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{fixltx2e}
+%% --> http://www.tug.org/texmf-dist/doc/latex/base/fixltx2e.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{typearea}[2011/06/16]
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/koma-script/scrguide.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\ifthenelse{\NOT\boolean{KOMAClass}}{%
+  \PassOptionsToPackage{komastyle, nouppercase}{scrpage2}%
+}{%
+}
+
+
+\RequirePackage[automark, autooneside]{scrpage2}[2010/04/22]
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/koma-script/scrguide.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{lipsum}[2011/04/14]
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/lipsum/lipsum.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{lmodern}
+%% --> http://www.tug.org/TUGboat/Articles/tb24-1/jackowski.pdf
+%% --> http://tug.ctan.org/tex-archive/fonts/ps-type1/lm/doc/fonts/lm/lm-info.pdf
+%% --> http://www.tug.org/pracjourn/2006-1/robertson/robertson.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage[T1]{fontenc}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/doc/fntguide.pdf
+%% --> http://tug.ctan.org/tex-archive/macros/latex/doc/encguide.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{textcomp}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/doc/encguide.pdf
+%% --> http://tug.ctan.org/tex-archive/info/symbols/comprehensive/symbols-a4.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage[utf8]{inputenx}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/oberdiek/inputenx.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage[\@SupportedLanguages]{babel}
+%% --> http://tug.ctan.org/tex-archive/info/babel/babel.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage[\@SupportedLanguages]{translator}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/beamer/doc/beameruserguide.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage[strict, babel]{csquotes}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/csquotes/csquotes.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage[level, nodayofweek]{datetime}[2010/09/21]
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/datetime/datetime.pdf
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/fmtcount/fmtcount.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage[user, abspage, lastpage, totpages]{zref}[2011/03/18]
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/oberdiek/zref.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{relsize}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/relsize/relsize-doc.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{float}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/float/float.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage[newcommands]{ragged2e}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/ms/ragged2e.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{varwidth}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/varwidth/varwidth-doc.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{array}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/required/tools/array.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{amsmath}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/required/amslatex/math/amsldoc.pdf
+%% --> http://tug.ctan.org/tex-archive/info/math/voss/mathmode/Mathmode.pdf
+
+
+\RequirePackage{mathtools}[2011/04/06]
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/mh/mathtools.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage[retainorgcmds]{IEEEtrantools}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/IEEEtran/tools/IEEEtrantools_doc.txt
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/IEEEtran/IEEEtran_HOWTO.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{cases}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/cases/cases.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{bm}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/required/tools/bm.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{exscale}
+%% --> http://tug.ctan.org/tex-archive/info/math/voss/mathmode/Mathmode.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{amssymb}
+%% --> http://tug.ctan.org/tex-archive/fonts/amsfonts/doc/amsfndoc.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage[rmdefault]{mathcomp}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/mathcomp/mathcomp.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{dsfont}
+%% --> http://tug.ctan.org/tex-archive/fonts/doublestroke/dsdoc.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+%% NOTE: The esint package disables the intlimits and nointlimits options of the amsmath package.
+\RequirePackage{esint}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/esint/esint.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\AfterPackage*{hyperref}{%
+  \RequirePackage{tabularx}
+  %% --> http://tug.ctan.org/tex-archive/macros/latex/required/tools/tabularx.pdf
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{booktabs}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/booktabs/booktabs.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{longtable}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/required/tools/longtable.pdf
+
+
+\RequirePackage{ltabptch}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/ltabptch/ltabptch.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{supertabular}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/supertabular/supertabular.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage[rgb, svgnames, x11names, table]{xcolor}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/xcolor/xcolor.pdf
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/colortbl/colortbl.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{graphicx}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/required/graphics/grfguide.pdf
+%% --> http://tug.ctan.org/tex-archive/info/epslatex/english/epslatex.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage[version=latest]{pgf}
+%% --> http://tug.ctan.org/tex-archive/graphics/pgf/base/doc/generic/pgf/pgfmanual.pdf
+
+
+\RequirePackage{tikz}
+%% --> http://tug.ctan.org/tex-archive/graphics/pgf/base/doc/generic/pgf/pgfmanual.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage[framemethod=tikz]{mdframed}[2011/09/11]
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/mdframed/mdframed-doc-en.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{pdflscape}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/oberdiek/pdflscape.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{xfrac}[2011/05/11]
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/l3packages/xfrac.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{siunitx}[2011/07/09]
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/siunitx/siunitx.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage[version=3]{mhchem}[2011/06/03]
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/mhchem/mhchem.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage[hyphens, obeyspaces, spaces]{url}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/url/url.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{fancyvrb}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/fancyvrb/fancyvrb.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage[savemem]{listings}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/listings/listings.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage[algo2e, ruled, linesnumberedhidden]{algorithm2e}[2008/00/00]
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/algorithm2e/algorithm2e.pdf
+
+
+%% NOTE: The algorithm2e package defines \chapter unconditionally.
+\ifthenelse{\NOT\boolean{ChapterClass}}{%
+  \undef\chapter%
+}{%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\ifthenelse{\boolean{DraftVersion}}{%
+  \PassOptionsToPackage{marginpar}{todo}%
+}{%
+  \PassOptionsToPackage{hide}{todo}%
+}
+
+
+\RequirePackage{todo}[2010/03/31]
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/todo/todo.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{makeidx}
+%% --> http://tug.ctan.org/tex-archive/indexing/makeindex/doc/makeindex.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\ifcsvoid{WL@glossaries/totoc}{%
+}{%
+  \PassOptionsToPackage{\@nameuse{WL@glossaries/totoc}}{glossaries}%
+}
+
+
+\ifcsvoid{WL@glossaries/acronymstyle}{%
+}{%
+  \PassOptionsToPackage{\@nameuse{WL@glossaries/acronymstyle}}{glossaries}%
+}
+
+
+\ifcsvoid{WL@glossaries/processor}{%
+}{%
+  \PassOptionsToPackage{\@nameuse{WL@glossaries/processor}}{glossaries}%
+}
+
+
+\AfterPackage*{hyperref}{%
+  \RequirePackage[sanitize=none, savewrites, style=listgroup, acronym, shortcuts]{glossaries}[2011/04/12]
+  %% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/glossaries/glossariesbegin.pdf
+  %% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/glossaries/glossaries-user.pdf
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\ifcsvoid{WL@biblatex/style}{%
+}{%
+  \PassOptionsToPackage{style=\@nameuse{WL@biblatex/style}}{biblatex}%
+}
+
+
+\ifthenelse{\boolean{DraftVersion}}{%
+  \PassOptionsToPackage{bibstyle=draft}{biblatex}%
+}{%
+}
+
+
+\ifcsvoid{WL@biblatex/backend}{%
+}{%
+  \PassOptionsToPackage{backend=\@nameuse{WL@biblatex/backend}}{biblatex}%
+}
+
+
+\ifcsvoid{WL@biblatex/bibencoding}{%
+}{%
+  \PassOptionsToPackage{bibencoding=\@nameuse{WL@biblatex/bibencoding}}{biblatex}%
+}
+
+
+\RequirePackage{biblatex}[2011/07/29]
+%% --> http://tug.ctan.org/tex-archive/macros/latex/exptl/biblatex/doc/biblatex.pdf
+%% --> http://tug.ctan.org/tex-archive/biblio/bibtex/contrib/doc/btxdoc.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\ifthenelse{\boolean{WebVersion}}{%
+  \PassOptionsToPackage{final}{hyperref}%
+}{%
+  \PassOptionsToPackage{draft}{hyperref}%
+}
+
+
+%% NOTE: After setting the ‘pdfencoding’ option to ‘auto’ or ‘unicode’, we may assume that a future change of its value will
+%% not affect the definition of text symbols such as \textendash anymore.
+\PassOptionsToPackage{pdfencoding=unicode}{hyperref}
+
+
+\RequirePackage{hyperref}[2011/08/19]
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/hyperref/doc/manual.pdf
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/hyperref/doc/paper.pdf
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/hyperref/README.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\ifthenelse{\boolean{WebVersion}}{%
+  \PassOptionsToPackage{final}{bookmark}%
+}{%
+  \PassOptionsToPackage{draft}{bookmark}%
+}
+
+
+\RequirePackage[atend]{bookmark}[2011/04/21]
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/oberdiek/bookmark.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\ifthenelse{\boolean{KOMAClass}}{%
+  \RequirePackage[hyperref=false]{scrhack}[2011/06/16]
+  %% --> http://ctan.binkerton.com/macros/latex/contrib/koma-script/scrhack.pdf
+}{%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\robustify{\TeX}
+
+
+\robustify{\LaTeX}
+
+
+\newrobustcmd*{\BibTeX}{%
+  B\textsmaller{I\kern-0.025em{}B}\kern-0.06em\TeX%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newrobustcmd*{\kerning}[2]{%
+  \setlength{\length@a}{\widthof{#1#2}-\widthof{#1\null#2}}%
+  \kern\length@a%
+}
+
+
+\newcommand*{\dokerning}[3]{%
+  #1\kerning{#1}{#3}#2#3%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\@p}[1]{%
+  \spacefactor\the\sfcode`#1%
+  \var@ifnextchar'{\kerning{#1}{'}}{%
+    \var@ifnextchar\csq@qclose{\kerning{\csq@bqgroup#1}{\csq@qclose}}{%
+    }%
+  }%
+}
+
+
+\newcommand*{\p}[1]{%
+  #1\protecting{\@p{#1}}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\enforcenewline}{%
+  \hspace*{\z@}\newline%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\DeclareExpandableDocumentCommand\newline@pdfstringdef{om}{%
+  {} #2%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\appto\textendash{%
+  \penalty\exhyphenpenalty\hskip\z@skip%
+}
+\robustify{\textendash}
+
+
+\appto\textemdash{%
+  \nobreak\hskip\z@skip%
+}
+\robustify{\textemdash}
+
+
+\appto\textfractionsolidus{%
+  \penalty\exhyphenpenalty\hskip\z@skip%
+}
+\robustify{\textfractionsolidus}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcounter{hardbreakpenalty}
+\setcounter{hardbreakpenalty}{\binoppenalty}
+
+
+\newcommand*{\hardbreak}{%
+  \penalty\value{hardbreakpenalty}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newrobustcmd*{\hbspace}{%
+  \hardbreak{} %
+}
+
+
+\newrobustcmd*{\hbhyphen}{%
+  \nobreak\mbox{-}\hardbreak\hskip\z@skip%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\ifthenelse{\NOT\boolean{TitleClass}}{%
+  \undef\titlepagestyle%
+}{%
+}
+
+
+%% NOTE: In general, \patchcmd cannot be used in the argument of another command whenever the search and replacement texts
+%% themselves include references to arguments. The inner \ifundef chain is needed to avoid an ‘Extra \fi’ error due to an
+%% undefined \if@titlepage switch (That’s TeX!).
+\ifundef\if@titlepage\iffalse\iftrue\ifundef\if@titlepage\iffalse%
+  \if@titlepage
+    \renewcommand*{\titlepagestyle}{%
+      empty%
+    }
+    \patchcmd{\title}{%
+      #1%
+    }{%
+      #1\thispagestyle{\titlepagestyle}%
+    }{%
+    }{%
+      \PackageWarningFailedPatching{\@currname}{\title}%
+    }
+  \else
+    \ifdefmacro{\scr@ext@activate@title}{%
+      \appto\HyOrg@maketitle{%
+        \thispagestyle{\titlepagestyle}%
+      }%
+    }{%
+    }
+  \fi
+\fi
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\ifdefparam\extratitle\iftrue\iffalse
+  \newcommand*{\extratitlepagestyle}{%
+    \titlepagestyle%
+  }
+  \patchcmd{\extratitle}{%
+    #1%
+  }{%
+    #1\thispagestyle{\extratitlepagestyle}%
+  }{%
+  }{%
+    \PackageWarningFailedPatching{\@currname}{\extratitle}%
+  }
+\fi
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\xpatchcmd[o]{\labeling}{%
+  #2%
+}{%
+  #2\ifthenelse{\isempty{#1}\OR\isempty{#2}}{}{\hspace{\labelsep}}%
+}{%
+}{%
+  \PackageWarningFailedPatching{\@currname}{\labeling}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\ifthenelse{\equal{\Gin@driver}{dvipdfmx.def}}{%
+  \KOMAoptions{pagesize=dvipdfmx}%
+}{%
+  \KOMAoptions{pagesize=auto}%
+}
+
+
+\recalctypearea
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\@SupportedPrimaryPageStylesList}{}
+
+
+\newcommand*{\Define@SetUpPrimaryPageStyle}[1]{%
+  \newcommand*{\SetUpPrimaryPageStyle}[1]{%
+    \ifcsundef{SetUpPrimaryPageStyle@##1}{%
+      \bgroup%
+        \def\do####1{####1, }%
+        \StrGobbleRight{\dolistloop{\@SupportedPrimaryPageStylesList}}{2}[\@SupportedPrimaryPageStylesList]%
+        \PackageError{#1}{%
+          Primary page style `##1' cannot be set up%
+        }{%
+          The following primary page styles are supported:\MessageBreak\@SupportedPrimaryPageStylesList.%
+        }%
+      \egroup%
+    }{%
+      \@nameuse{SetUpPrimaryPageStyle@##1}%
+    }%
+  }%
+}
+
+
+\expandafter\Define@SetUpPrimaryPageStyle\expandafter{\@currname}
+\@onlypreamble\SetUpPrimaryPageStyle
+
+
+\undef\Define@SetUpPrimaryPageStyle
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\headcolor}{}
+
+
+\newlength{\DefaultHeadTopLineThickness}
+\setlength{\DefaultHeadTopLineThickness}{0.4pt}
+
+
+\newlength{\DefaultHeadSepLineThickness}
+\setlength{\DefaultHeadSepLineThickness}{0.4pt}
+
+
+\newlength{\DefaultFootSepLineThickness}
+\setlength{\DefaultFootSepLineThickness}{0.4pt}
+
+
+\newlength{\DefaultFootBotLineThickness}
+\setlength{\DefaultFootBotLineThickness}{0.4pt}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\SetUpPrimaryPageStyle@empty}{%
+  \AtEndPreamble{%
+    \ifthenelse{\boolean{WebVersion}}{%
+      \renewcommand*{\headcolor}{\color{Blue2}}%
+    }{%
+      \renewcommand*{\headcolor}{}%
+    }%
+    \ifthenelse{\boolean{KOMAClass}}{%
+      \renewcommand*{\headfont}{\headcolor\sffamily}%
+    }{%
+      \renewcommand*{\headfont}{\headcolor}%
+    }%
+    \renewcommand*{\footfont}{}%
+    \renewcommand*{\pnumfont}{}%
+    \KOMAoptions{headinclude=off, footinclude=off}%
+    \recalctypearea%
+  }%
+  \AfterEndPreamble{%
+    \setheadwidth[0pt]{text}%
+    \setfootwidth[0pt]{head}%
+    \setheadtopline[head]{0pt}[\headcolor]%
+    \setheadsepline[head]{0pt}[\headcolor]%
+    \setfootsepline[foot]{0pt}[\headcolor]%
+    \setfootbotline[foot]{0pt}[\headcolor]%
+    \let\ps@plain\ps@empty%
+    \let\ps@headings\ps@empty%
+    \let\ps@myheadings\ps@empty%
+    \let\ps@useheadings\ps@empty%
+    \let\ps@@scrplain\ps@empty%
+    \let\ps@@scrheadings\ps@empty%
+    \pagestyle{empty}%
+  }%
+}
+\listadd{\@SupportedPrimaryPageStylesList}{%
+  empty%
+}
+
+
+\newcommand*{\SetUpPrimaryPageStyle@scrplain}{%
+  \AtEndPreamble{%
+    \ifthenelse{\boolean{WebVersion}}{%
+      \renewcommand*{\headcolor}{\color{Blue2}}%
+    }{%
+      \renewcommand*{\headcolor}{}%
+    }%
+    \ifthenelse{\boolean{KOMAClass}}{%
+      \renewcommand*{\headfont}{\headcolor\sffamily}%
+    }{%
+      \renewcommand*{\headfont}{\headcolor}%
+    }%
+    \renewcommand*{\footfont}{}%
+    \renewcommand*{\pnumfont}{}%
+    \KOMAoptions{headinclude=off, footinclude=off}%
+    \recalctypearea%
+  }%
+  \AfterEndPreamble{%
+    \setheadwidth[0pt]{text}%
+    \setfootwidth[0pt]{head}%
+    \setheadtopline[head]{0pt}[\headcolor]%
+    \setheadsepline[head]{0pt}[\headcolor]%
+    \setfootsepline[foot]{0pt}[\headcolor]%
+    \setfootbotline[foot]{0pt}[\headcolor]%
+    \pagestyle{scrplain}%
+  }%
+}
+\listadd{\@SupportedPrimaryPageStylesList}{%
+  scrplain%
+}
+
+
+\newcommand*{\SetUpPrimaryPageStyle@scrheadings}{%
+  \AtEndPreamble{%
+    \ifthenelse{\boolean{WebVersion}}{%
+      \renewcommand*{\headcolor}{\color{Blue2}}%
+    }{%
+      \renewcommand*{\headcolor}{}%
+    }%
+    \ifthenelse{\boolean{KOMAClass}}{%
+      \renewcommand*{\headfont}{\headcolor\sffamily\slshape}%
+    }{%
+      \renewcommand*{\headfont}{\headcolor\slshape}%
+    }%
+    \renewcommand*{\footfont}{\upshape}%
+    \renewcommand*{\pnumfont}{\upshape}%
+    \KOMAoptions{headinclude=on, footinclude=off}%
+    \recalctypearea%
+  }%
+  \AfterEndPreamble{%
+    \setheadwidth[0pt]{text}%
+    \setfootwidth[0pt]{head}%
+    \setheadtopline[head]{0pt}[\headcolor]%
+    \setheadsepline[head]{\DefaultHeadSepLineThickness}[\headcolor]%
+    \setfootsepline[foot]{0pt}[\headcolor]%
+    \setfootbotline[foot]{0pt}[\headcolor]%
+    \pagestyle{scrheadings}%
+  }%
+}
+\listadd{\@SupportedPrimaryPageStylesList}{%
+  scrheadings%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+% \patchcmd{\lips@dolipsum}{%
+%   \csname lipsum@\roman{lips@count}\endcsname%
+% }{%
+%   \ifnum\value{lips@count}>\lips@min\relax\space\fi\csname lipsum@\roman{lips@count}\endcsname%
+% }{%
+% }{%
+%   \PackageWarningFailedPatching{\@currname}{\lips@dolipsum}%
+% }
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\xpatchcmd[o]{\@@lipsum}{%
+  \@lipsum[#1] %
+}{%
+  \@lipsum[#1]%
+}{%
+}{%
+  \PackageWarningFailedPatching{\@currname}{\@@lipsum}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\DeclareUnicodeCharacter{2010}{\hyphen}
+
+
+\DeclareUnicodeCharacter{2011}{\nbhyphen}
+
+
+\DeclareUnicodeCharacter{2212}{\textminus}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\expandafter\main@language\expandafter{\@MainLanguage}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\SetUpHyphenation}[2][]{%
+  \ifthenelse{\isempty{#1}}{%
+    \AtBeginDocument{\hyphenation{#2}}%
+  }{%
+    \DefineHyphenationExceptions{#1}{#2}%
+  }%
+}
+\@onlypreamble\SetUpHyphenation
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\pretocmd{\select@language}{%
+  \edef\languagename{#1}%
+}{%
+}{%
+  \PackageWarningFailedPatching{\@currname}{\select@language}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+% \xpatchcmd[o]{\iftranslationdefined}{%
+%   \ifx\csname tr@@@\trans@to @#2\endcsname\@undefined\let\trans@next=\@firstoftwo\else\let\trans@next=\@secondoftwo\fi%
+% }{%
+%   \ifx\csname tr@@@\trans@to @#2\endcsname\relax\let\trans@next=\@secondoftwo\else\let\trans@next=\@firstoftwo\fi%
+% }{%
+% }{%
+%   \PackageWarningFailedPatching{\@currname}{\iftranslationdefined}%
+% }
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\let\@ordinalMnaustrian\@ordinalMngerman
+\let\@ordinalFnaustrian\@ordinalFngerman
+\let\@ordinalNnaustrian\@ordinalNngerman
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\renewcommand*{\RSsmallest}{%
+  4.0pt%
+}
+
+
+\renewcommand*{\RSlargest}{%
+  30.0pt%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\ifthenelse{\NOT\boolean{@raggedtwoe@originalparameters}}{%
+  \appto\Centering{%
+    \hbadness=\@M%
+  }
+  \appto\RaggedRight{%
+    \hbadness=\@M%
+  }
+  \appto\RaggedLeft{%
+    \hbadness=\@M%
+  }
+  \ifthenelse{\NOT\boolean{@raggedtwoe@originalcommands}}{%
+    \let\centering\Centering
+    \let\raggedright\RaggedRight
+    \let\raggedleft\RaggedLeft%
+  }{%
+  }%
+}{%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\ifthenelse{\NOT\boolean{@raggedtwoe@originalcommands}}{%
+  \patchcmd{\LaTeXcenter}{%
+    \centering%
+  }{%
+    \LaTeXcentering%
+  }{%
+  }{%
+    \PackageWarningFailedPatching{\@currname}{\LaTeXcenter}%
+  }
+  \patchcmd{\LaTeXflushleft}{%
+    \raggedright%
+  }{%
+    \LaTeXraggedright%
+  }{%
+  }{%
+    \PackageWarningFailedPatching{\@currname}{\LaTeXflushleft}%
+  }
+  \patchcmd{\LaTeXflushright}{%
+    \raggedleft%
+  }{%
+    \LaTeXraggedleft%
+  }{%
+  }{%
+    \PackageWarningFailedPatching{\@currname}{\LaTeXflushright}%
+  }%
+}{%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\allowdisplaybreaks[1]
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\ifthenelse{\boolean{@fleqn}}{%
+  \preto\equation{%
+    \ifhmode\unskip\fi%
+  }%
+}{%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\mathtoolsset{mathic}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\renewenvironment*{eqnarray}{%
+  \begin{IEEEeqnarray}{rCl}%
+}{%
+  \end{IEEEeqnarray}%
+  \ignorespacesafterend%
+}
+
+
+\renewenvironment*{eqnarray*}{%
+  \begin{IEEEeqnarray*}{rCl}%
+}{%
+  \end{IEEEeqnarray*}%
+  \ignorespacesafterend%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\let\idotsint\dotsint
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\UseCollection{xfrac}{plainmath}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\sisetup{%
+  binary-units,
+  detect-all,
+  detect-inline-family=math,
+  detect-inline-weight=math,
+  detect-display-math,
+  separate-uncertainty%
+}
+
+
+\addto\extrasenglish{%
+  \sisetup{locale=US}%
+}
+
+
+\addto\extrasUSenglish{%
+  \sisetup{locale=US}%
+}
+
+
+\addto\extrasUKenglish{%
+  \sisetup{locale=UK}%
+}
+
+
+\addto\extrasngerman{%
+  \sisetup{locale=DE}%
+}
+
+
+\addto\extrasnaustrian{%
+  \sisetup{locale=DE}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\mhchemoptions{textminus=\textminus, arrows=pgf-filled}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\patchcmd{\path}{%
+  \urlstyle{tt}%
+}{%
+  \urlstyle{tt}\hyper@normalise%
+}{%
+}{%
+  \PackageWarningFailedPatching{\@currname}{\path}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\lstloadlanguages{bash, [ANSI]C, [ISO]C++, [95]Fortran, IDL, [gnu]make, Matlab, Python, [LaTeX]TeX}
+
+
+\lstset{%
+  basicstyle=\ttfamily,
+  numbers=left,
+  numberstyle=\smaller,
+  caption={\lstname},
+  escapeinside=^^[^^]%
+}
+
+
+\newcaptionname{ngerman}  {\lstlistingname}{Auflistung}
+% \newcaptionname{naustrian}{\lstlistingname}{Auflistung}
+
+
+\newcaptionname{ngerman}  {\lstlistlistingname}{Auflistungen}
+% \newcaptionname{naustrian}{\lstlistlistingname}{Auflistungen}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\renewcommand*{\todomark}{%
+  TODO%
+}
+
+
+\renewcommand*{\todoformat}{%
+  \color{Red2}%
+}
+
+
+\ifthenelse{\isequivalentto{\@tododisplay}{\marginpar}}{%
+  \let\@tododisplay\marginline%
+}{%
+}
+
+
+\newtranslation[to=English]{TODOs}{TODOs}
+\newtranslation[to=German] {TODOs}{TODOs}
+
+
+\renewcommand*{\todoname}{%
+  \translate{TODOs}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\xpatchcmd[o]{\@displayfulltodo}{%
+  {\todoformat#1} #2 %
+}{%
+  {\todoformat#1} #2\ %
+}{%
+}{%
+  \PackageWarningFailedPatching{\@currname}{\@displayfulltodo}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\patchcmd{\todos}{%
+  \section*{\todoname}\large%
+}{%
+  \section*{\todoname}\@mkboth{}{}%
+}{%
+}{%
+  \PackageWarningFailedPatching{\@currname}{\todos}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\ifglossaryexists{main}{%
+  \glsIfListOfAcronyms{main}{%
+  }{%
+    \defglsdisplayfirst[main]{%
+      \emph{#1}#4%
+    }%
+  }%
+}{%
+}
+
+
+\renewcommand*{\glspostdescription}{%
+  \p.%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+%% NOTE: We make \acronymfont robust as we want \noacronymfont to work reliably.
+\robustify{\acronymfont}
+
+
+\newrobustcmd*{\noacronymfont}[1]{%
+  \bgroup%
+    \let\acronymfont\@firstofone%
+    #1%
+  \egroup%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\acrentryshort}{}
+\let\acrentryshort\glsentryshort
+
+
+\newcommand*{\acrentryshortpl}{}
+\let\acrentryshortpl\glsentryshortpl
+
+
+\newcommand*{\acrentrylong}{}
+\let\acrentrylong\glsentrylong
+
+
+\newcommand*{\acrentrylongpl}{}
+\let\acrentrylongpl\glsentrylongpl
+
+
+\newcommand*{\acrentryfull}{}
+\let\acrentryfull\glsentryfull
+
+
+\newcommand*{\acrentryfullpl}{}
+\let\acrentryfullpl\glsentryfullpl
+
+
+\ifthenelse{\boolean{glsacrshortcuts}}{%
+  \newcommand*{\aces}{}
+  \let\aces\acrentryshort
+  \newcommand*{\acesp}{}
+  \let\acesp\acrentryshortpl
+  \newcommand*{\acel}{}
+  \let\acel\acrentrylong
+  \newcommand*{\acelp}{}
+  \let\acelp\acrentrylongpl
+  \newcommand*{\acef}{}
+  \let\acef\acrentryfull
+  \newcommand*{\acefp}{}
+  \let\acefp\acrentryfullpl%
+}{%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\notationtype}{%
+  \glsdefaulttype%
+}
+
+
+\newcommand*{\notationname}{%
+  Notation%
+}
+
+
+%% NOTE: We do not provide for the case that the translator package has not been loaded.
+\ifglstranslate
+  \newtranslation[to=English]{Notation}{Notation}
+  \newtranslation[to=German] {Notation}{Notation}
+  \renewcommand*{\notationname}{%
+    \translate{Notation}%
+  }
+  \patchcmd{\glssettoctitle}{%
+    {%
+      \def\glossarytoctitle{\csname @glotype@#1@title\endcsname}%
+    }%
+  }{%
+    {%
+      \ifthenelse{\equal{#1}{notation}}{%
+        \translatelet{\glossarytoctitle}{Notation}%
+      }{%
+        \def\glossarytoctitle{\csname @glotype@#1@title\endcsname}%
+      }%
+    }%
+  }{%
+  }{%
+    \PackageWarningFailedPatching{\@currname}{\glssettoctitle}%
+  }
+\fi
+
+
+\ifthenelse{\boolean{glsacronym}}{%
+  \newglossary[nlg]{notation}{not}{noa}{\notationname}
+  \renewcommand*{\notationtype}{%
+    notation%
+  }%
+}{%
+}
+
+
+\newcommand{\newnotationentry}[2]{%
+  \newglossaryentry{#1}{type=\notationtype, #2}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\glossarypreamble@main}{}
+
+
+\newcommand*{\glossarypreamble@acronym}{}
+
+
+\newcommand*{\glossarypreamble@notation}{}
+
+
+\renewcommand*{\glossarypreamble}{%
+  \@nameuse{glossarypreamble@\currentglossary}%
+}
+
+
+\providecommand{\setglossarypreamble}[2][\glsdefaulttype]{%
+  \ifthenelse{\equal{#1}{\glsdefaulttype}\OR\equal{#1}{\acronymtype}\OR\equal{#1}{\notationtype}}{%
+    \@namedef{glossarypreamble@#1}{#2}%
+  }{%
+    \CommandWarning{\setglossarypreamble}{%
+      Glossary `#1' is not defined%
+    }%
+  }%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+% \xpatchcmd[o]{\printglossary}{%
+%   \findrootlanguage%
+% }{%
+%   \findrootlanguage\IfSubStr{\rootlanguagename}{german}{\renewcommand*{\rootlanguagename}{german-duden}}{}%
+% }{%
+% }{%
+%   \PackageWarningFailedPatching{\@currname}{\printglossary}%
+% }
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+% \patchcmd{\gls@doclearpage}{%
+%   \ifcsundef{cleardoublepage}{\clearpage}{\cleardoublepage}%
+% }{%
+%   \ifthenelse{\boolean{@openright}}{\cleardoublepage}{\clearpage}%
+% }{%
+% }{%
+%   \PackageWarningFailedPatching{\@currname}{\gls@doclearpage}%
+% }
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+%% 'babel' option is renamed to 'autolang' in biblatex v 2.8 (jessie, but
+%% not wheezy)
+\ExecuteBibliographyOptions{%
+  sortcites,
+  babel=hyphen,
+  block=ragged,
+  backref,
+  firstinits%
+}
+
+
+\patchcmd{\bibsetup}{%
+  \raggedbottom%
+}{%
+}{%
+}{%
+  \PackageWarningFailedPatching{\@currname}{\bibsetup}%
+}
+
+
+\AtBeginDocument{%
+  \setlength{\biblabelsep}{\labelsep}%
+  \setlength{\bibitemsep}{1.0\itemsep plus 1.0\itemsep minus 1.0pt}%
+}
+
+
+\AtBeginDocument{%
+  \setcounter{abbrvpenalty}{\value{hardbreakpenalty}}%
+  \setcounter{highnamepenalty}{\value{hardbreakpenalty}}%
+  \setcounter{lownamepenalty}{\value{hardbreakpenalty}/2}%
+}
+
+
+\let\mkbibacro\@firstofone
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\hypersetup{%
+  linktoc=all,
+  colorlinks,
+  linkcolor=,
+  citecolor=,
+  urlcolor=Blue2,
+  filecolor=SpringGreen4%
+}
+
+
+\ifthenelse{\boolean{TitleClass}}{%
+  \preto\HyOrg@maketitle{%
+    \hypersetup{pdftitle={\@title}, pdfauthor={\@author}}%
+  }
+  \ifdefparam{\subject}{%
+    \preto\HyOrg@maketitle{%
+      \hypersetup{pdfsubject={\@subject}}%
+    }%
+  }{%
+  }%
+}{%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\patchcmd{\HyLang@english}{{footnote}}     {{Footnote}}  {}{\PackageWarningFailedPatching{\@currname}{\HyLang@english}}
+\patchcmd{\HyLang@english}{{item}}         {{Item}}      {}{\PackageWarningFailedPatching{\@currname}{\HyLang@english}}
+\patchcmd{\HyLang@english}{{chapter}}      {{Chapter}}   {}{\PackageWarningFailedPatching{\@currname}{\HyLang@english}}
+\patchcmd{\HyLang@english}{{section}}      {{Section}}   {}{\PackageWarningFailedPatching{\@currname}{\HyLang@english}}
+\patchcmd{\HyLang@english}{{subsection}}   {{Subsection}}{}{\PackageWarningFailedPatching{\@currname}{\HyLang@english}}
+\patchcmd{\HyLang@english}{{subsubsection}}{{Subsection}}{}{\PackageWarningFailedPatching{\@currname}{\HyLang@english}}
+\patchcmd{\HyLang@english}{{paragraph}}    {{Paragraph}} {}{\PackageWarningFailedPatching{\@currname}{\HyLang@english}}
+\patchcmd{\HyLang@english}{{subparagraph}} {{Paragraph}} {}{\PackageWarningFailedPatching{\@currname}{\HyLang@english}}
+\patchcmd{\HyLang@english}{{line}}         {{Line}}      {}{\PackageWarningFailedPatching{\@currname}{\HyLang@english}}
+\patchcmd{\HyLang@english}{{page}}         {{Page}}      {}{\PackageWarningFailedPatching{\@currname}{\HyLang@english}}
+
+
+\patchcmd{\HyLang@german}{{Unterunterabschnitt}}{{Unterabschnitt}}{}{\PackageWarningFailedPatching{\@currname}{\HyLang@german}}
+\patchcmd{\HyLang@german}{{Unterabsatz}}        {{Absatz}}        {}{\PackageWarningFailedPatching{\@currname}{\HyLang@german}}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\patchcmd{\pdfstringdef}{%
+  \HyPsd@Subst{?`}\textquestiondown#1%
+}{%
+  \HyPsd@Subst{?`}\textquestiondown#1%
+  \HyPsd@Subst`'#1%
+  \HyPsd@Subst{''}"#1%
+  \ifthenelse{\boolean{Hy@unicode}}{%
+    \expandafter\HyPsd@StringSubst\csname9040\020\endcsname\hyphen#1%
+    \expandafter\HyPsd@StringSubst\csname9040\021\endcsname\nbhyphen#1%
+    \expandafter\HyPsd@StringSubst\csname9040\104\endcsname\textfractionsolidus#1%
+  }{%
+  }%
+}{%
+}{%
+  \PackageWarningFailedPatching{\@currname}{\pdfstringdef}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\AtBeginDocument{%
+  \pdfstringdefDisableCommands{%
+    \let\\\newline@pdfstringdef%
+    \let\,\empty%
+    \let\:\empty%
+    \let\;\space%
+    \def\and{, }%
+    \let\thanks\@gobble%
+    \let\thispagestyle\@gobble%
+    \def\BibTeX{BibTeX}%
+    \let\kerning\@gobbletwo%
+    \let\@p\@gobble%
+    \def\hyphen{-}%
+    \def\nbhyphen{-}%
+    \letcs{\textendash}{\f@encoding\string\textendash}%
+    \letcs{\textemdash}{\f@encoding\string\textemdash}%
+    \def\textfractionsolidus{/}%
+    \let\hbspace\space%
+    \def\hbhyphen{-}%
+    \let\acronymfont\@firstofone%
+    \let\noacronymfont\@firstofone%
+  }%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\bookmarksetup{open, openlevel=1, numbered}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\endinput
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%

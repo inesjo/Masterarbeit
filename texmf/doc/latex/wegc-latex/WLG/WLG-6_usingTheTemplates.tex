@@ -1,0 +1,1333 @@
+
+
+\section[Document templates]{Using the document templates}
+\label{sec:usingDocumentTemplates}
+
+
+This section gives a quick recipe-like description on how to create a
+simple \singledoc or \multidoc report, article and book, based on the
+templates provided.  It is assumed that the \wegcLaTeX{} framework is
+already properly installed (see \autoref{sec:installation}).
+
+As an illustrative example, this document itself (``The \wegcLaTeX{}
+documentation framework: a guide for beginners'') is used. Its core
+\LaTeX{} text is provided as seven individual \LaTeX{} source code files in
+the subdirectory
+\path{./texmf/doc/latex/wegc-latex/WLG/}, \IE{} \\
+\path{WLG-1_introduction}, \\
+\path{WLG-2_installation}, \\
+\path{WLG-3_documentGeneration}, \\
+\path{WLG-4_commandsAndEnvironments}, \\
+\path{WLG-5_practicalTips}, \\
+\path{WLG-6_usingTheTemplates}, and \\
+\path{WLG-7_undocumentedTopics}.
+
+\medskip
+
+\Attention{%
+  Please note that in these recipe-like descriptions of modifications to
+  template master files, the original line numbers of the template master
+  files are used and not those which arise after any of the modifications
+  have been performed.  }
+
+
+\subsection[The \singledoc document templates]{Using \singledoc document templates}
+\label{subsec:usingSingleDocumentTemplates}
+
+The \wegcLaTeX{} documentation framework provides in the subdirectory
+\path{./texmf/doc/latex/wegc-latex/examples/singledoc/} three templates for
+\singledoc document publications, \IE{} a report template
+\path{master-wlreport.tex}, an article template
+\path{master-wlarticle.tex}, and a book template \path{master-wlbook.tex}.
+
+
+
+\subsubsection[A \singledoc document article]{Creating a \singledoc document article}
+\label{subsubsec:creatingSingleDocumentArticle}
+
+
+For creating a \singledoc article, proceed as follows:
+%%
+\begin{enumerate}
+\item create a working directory for building the \wegcLaTeX{} \singledoc
+  article, \EG{} \path{/home/\plh{user}/wlSingleDocTest/}
+
+\item create a subdirectory \path{/home/\plh{user}/wlSingleDocTest/wlg/}
+  for storing the seven \LaTeX{} source code files
+
+\item copy the seven \LaTeX{} source code files from
+  \path{./texmf/doc/latex/wegc-latex/WLG/} to
+  \path{/home/\plh{user}/wlSingleDocTest/wlg/}
+
+\item copy the \entity{PDF} file \file{anisap-TN2.pdf} from
+  \path{./texmf/doc/latex/wegc-latex/WLG/} to
+  \path{/home/\plh{user}/wlSingleDocTest/wlg/}
+
+\item copy the \LaTeX{} template master file
+  \path{./texmf/doc/latex/wegc-latex/examples/singledoc/master-wlarticle.tex}
+  to \path{/home/\plh{user}/wlSingleDocTest/wlg/}
+
+\item create a subdirectory \path{/home/\plh{user}/wlSingleDocTest/common/}
+  for storing the five files \path{addresses.sty}, \path{acronyms.sty},
+  \path{terms.sty}, \path{docstyle.sty}, and \path{commands.sty}
+
+\item copy the two files \path{docstyle.sty} and \path{commands.sty} from
+  \path{./texmf/doc/latex/wegc-latex/examples/common/} to \\
+  \path{/home/\plh{user}/wlSingleDocTest/common/}
+
+\item extract the three example only files \path{acronyms.sty}, \path{addresses.sty}, and
+  \path{terms.sty} from the compressed archive file \\
+  \path{./texmf/doc/latex/wegc-latex/WLG/acronymsAddressesTerms_ExampleDoNotUse.tar.gz} 
+  or use the current and up to date versions available at 
+  \nolinkurl{https://wegc203117.uni-graz.at/projects/latex_dbs/browser/arsclisys}
+  and put them to \\
+  \path{/home/\plh{user}/wlSingleDocTest/common/}
+
+\item add the address for the fictive person ``\Name{kmf}'' at the end of
+  the copied file \path{addresses.sty}, as described in
+  \autoref{subsec:usingTheAddressBookDatabase}
+
+\item add the acronym for the fictive company ``\acf{tmc}'' at the end of
+  the copied file \path{acronyms.sty}, as described in
+  \autoref{subsec:UsingTheAcronymDatabase}
+
+\item add the glossary entry for the fictive term ``\Gls{firlefanzation}''
+  at the end of the copied file \path{terms.sty}, as described in
+  \autoref{subsec:UsingTheGlossaryDatabase}
+
+\item create an example bibliography file \path{exampleBibFile.bib} in the\\
+  \path{/home/\plh{user}/wlSingleDocTest/wlg} directory, containing the
+  following lines:
+
+  \begin{CommandLineListing}[style=DefaultFileListing, print=true,
+    basicstyle={\ttfamily\small}, %
+    basewidth=0.47em, xleftmargin=0pt, gobble=4, %
+    caption={Example bibliography file \latexcmd{exampleBibFile.bib}}, %
+    label=lst:exampleBibliographyFile]
+
+    @ARTICLE{Gorbunov2007a,
+      shorthand = {Gorbunov2007a},
+      author = {M. E. Gorbunov and K. B. Lauritsen},
+      year = 2007,
+      title = {{L}inearized {Z}verev {T}ransform and its Application for Modeling
+        Radio Occultations},
+      journal = {Radio Science},
+      volume = 42,
+      number = 3,
+      pages = {RS3022},
+      doi = {10. 1029/2006RS003585}
+    }
+    @ARTICLE{Gorbunov2002a,
+      shorthand = {Gorbunov2002a},
+      author = {M. E. Gorbunov and A. S. Gurvich and A. V. Shmakov},
+      year = 2002,
+      title = {Back-Propagation and Radio-Holographic Methods for Investigation of
+        Sporadic Ionospheric {E}-Layers from {M}icrolab-1 Data},
+      journal = {Int. J. Remote Sens.},
+      volume = 23,
+      number = 4,
+      pages = {675-685},
+      language = {english}
+    }
+    @ARTICLE{Gorbunov1986,
+      shorthand = {Gorbunov1986},
+      author = {M. E. Gorbunov},
+      year = 1986,
+      title = {On Mean Statistical Variations of Refraction Angles for
+        Transillumination of the Earth's atmosphere},
+      journal = {Izvestiya AN SSSR, Atmospheric and Oceanic Physics},
+      volume = 22,
+      number = 5,
+      pages = {415-417},
+      language = {english}
+    }
+  \end{CommandLineListing}
+
+\item copy the template master file \\
+  \path{/home/\plh{user}/wlSingleDocTest/wlg/master-wlarticle.tex} to \\
+  \path{/home/\plh{user}/wlSingleDocTest/wlg/wlgArticle.tex} \\
+  and apply the following modifications:
+  \begin{enumerate}
+  \item at line 115, change \latexcmd{DIV=default} to \latexcmd{DIV=11}
+  \item on lines 151 to 204: change from
+    \begin{CommandLineListing}[style=DefaultFileListing, print=true, basicstyle={\ttfamily\small}, %
+      basewidth=0.47em, xleftmargin=0pt, gobble=6]
+      \titlehead{%
+        \highlight{\placeholder{My Title Head}}%
+      }
+      \subject{%
+        \highlight{\placeholder{My Subject}}%
+      }
+      \title{%
+        \highlight{\placeholder{My Title}}%
+      }
+      \subtitle{%
+        \highlight{\placeholder{My Subtitle}}%
+      }
+      \author{%
+        \highlight{\placeholder{My Author}}\thanks{\highlight{\placeholder{My Thanks}}}%
+      }
+      \date{%
+        \highlight{\placeholder{My Date}}%
+      }
+      \publishers{%
+        \highlight{\placeholder{My Publishers}}%
+      }
+      \makeglossaries
+      \setglossarypreamble[main]{%
+        \highlight{\placeholder{My Glossary Preamble}}%
+      }
+      \setglossarypreamble[acronym]{%
+        \highlight{\placeholder{My Acronyms Preamble}}%
+      }
+      \setglossarypreamble[notation]{%
+        \highlight{\placeholder{My Notation Preamble}}%
+      }
+    \end{CommandLineListing}
+    to
+    \begin{CommandLineListing}[style=DefaultFileListing, print=true, basicstyle={\ttfamily\small}, %
+      basewidth=0.47em, xleftmargin=0pt, gobble=6]
+      \titlehead{%
+        %
+      }
+      \subject{%
+        %
+      }
+      \title{%
+        The \wegcLaTeX{} documentation framework: \newline a guide for beginners%
+      }
+      \subtitle{%
+        %
+      }
+      \author{%
+        \Name{mip}\thanks{\Address{wegc}}%
+      }
+      \date{%
+        2013-02-09%
+      }
+      \publishers{%
+        \Name{wegc}%
+      }
+      \makeglossaries
+      \setglossarypreamble[main]{%
+        %
+      }
+      \setglossarypreamble[acronym]{%
+        %
+      }
+      \setglossarypreamble[notation]{%
+        %
+      }
+    \end{CommandLineListing}
+
+  \item on lines 213 to 219: change from
+    \begin{CommandLineListing}[style=DefaultFileListing, print=true, basicstyle={\ttfamily\small}, %
+      basewidth=0.47em, xleftmargin=0pt, gobble=6]
+      \bibliography{%
+      }
+      \defbibnote{refpreamble}{%
+        \highlight{\placeholder{My References Preamble}}%
+      }
+    \end{CommandLineListing}
+    to
+    \begin{CommandLineListing}[style=DefaultFileListing, print=true, basicstyle={\ttfamily\small}, %
+      basewidth=0.47em, xleftmargin=0pt, gobble=6]
+      \bibliography{%
+        exampleBibFile%
+      }
+      \defbibnote{refpreamble}{%
+        %
+      }
+    \end{CommandLineListing}
+
+  \item between lines 233 and 239, reading
+    \begin{CommandLineListing}[style=DefaultFileListing, print=true, basicstyle={\ttfamily\small}, %
+      basewidth=0.47em, xleftmargin=0pt, gobble=6]
+      \makeatletter
+
+      %% NOTE: Here, we can act as class and package authors if we want or need to do so ...
+
+      \makeatother
+    \end{CommandLineListing}
+    add the following command definitiosn for \entity{singledoc} and \entity{multidoc}:
+    \begin{CommandLineListing}[style=DefaultFileListing, print=true, basicstyle={\ttfamily\small}, %
+      basewidth=0.47em, xleftmargin=0pt, gobble=6]
+      \makeatletter
+
+      %% NOTE: Here, we can act as class and package authors if we want or need to do so ...
+
+      \newcommand*{\singledoc}{%
+        \entity{singledoc} %
+      }
+
+      \newcommand*{\multidoc}{%
+        \entity{multidoc} %
+      }
+
+      \makeatother
+    \end{CommandLineListing}
+
+  \item between lines 269 and 272, reading
+    \begin{CommandLineListing}[style=DefaultFileListing, print=true, basicstyle={\ttfamily\small}, %
+      basewidth=0.47em, xleftmargin=0pt, gobble=6]
+      \printglossary[type=main]
+
+      \appendix
+    \end{CommandLineListing}
+    add the following content:
+    \begin{CommandLineListing}[style=DefaultFileListing, print=true, basicstyle={\ttfamily\small}, %
+      basewidth=0.47em, xleftmargin=0pt, gobble=6]
+      \printglossary[type=main]
+
+      \nocite{Gorbunov2007a}
+      \nocite{Gorbunov2002a}
+      \nocite{Gorbunov1986}
+
+      \glsadd{development_team}
+      \glsadd{firlefanzation}
+
+      \glsadd{urd}
+      \glsadd{add}
+      \glsadd{ddd}
+      \glsadd{sum}
+      \glsadd{atr}
+
+      \include{WLG-1_introduction}
+      \include{WLG-2_installation}
+      \include{WLG-3_documentGeneration}
+      \include{WLG-4_commandsAndEnvironments}
+      \include{WLG-5_practicalTips}
+      \include{WLG-6_usingTheTemplates}
+      \include{WLG-7_undocumentedTopics}
+
+      \appendix
+    \end{CommandLineListing}
+
+  \item near the lines 135, directly after the \latexcmd{\documentclass}
+    directive, add the following commands:
+    \begin{CommandLineListing}[style=DefaultFileListing, print=true, basicstyle={\ttfamily\small}, %
+      basewidth=0.47em, xleftmargin=0pt, gobble=6]
+      \RequirePackage{acronyms}
+      \RequirePackage{terms}
+      \RequirePackage{addresses}
+      \RequirePackage{commands}
+    \end{CommandLineListing}
+
+  \end{enumerate}
+
+\item Finally, compile the master file \\
+  \path{/home/\plh{user}/wlSingleDocTest/wlg/wlgArticle.tex} \\
+  as described in \autoref{subsec:commandsForDocumentGeneration}.
+\end{enumerate}
+
+
+\subsubsection[A \singledoc document report]{Creating a \singledoc document report}
+\label{subsubsec:creatingSingleDocumentReport}
+
+For creating a \singledoc report, copy the \LaTeX{} template master file \\
+\path{./texmf/doc/latex/wegc-latex/examples/singledoc/master-wlreport.tex} to \\
+\path{/home/\plh{user}/wlSingleDocTest/wlg/}. \\
+Then copy the file \\
+\path{/home/\plh{user}/wlSingleDocTest/wlg/master-wlreport.tex} to \\
+\path{/home/\plh{user}/wlSingleDocTest/wlg/wlgReport.tex} \\
+and perform all other steps similar to the description in
+\autoref{subsubsec:creatingSingleDocumentArticle}, considering the
+following differences:
+%%
+\begin{enumerate}
+\item change the setting for \latexcmd{\extratitle},
+  \latexcmd{\uppertitleback}, and \latexcmd{\lowertitleback} from
+  \begin{CommandLineListing}[style=DefaultFileListing, print=true, basicstyle={\ttfamily\small}, %
+    basewidth=0.47em, xleftmargin=0pt, gobble=4]
+    \extratitle{%
+      \highlight{\placeholder{My Bastard Title}}%
+    }
+    \uppertitleback{%
+      \highlight{\placeholder{My Upper Title Back}}%
+    }
+    \lowertitleback{%
+      \highlight{\placeholder{My Lower Title Back}}%
+    }
+  \end{CommandLineListing}
+  to
+  \begin{CommandLineListing}[style=DefaultFileListing, print=true, basicstyle={\ttfamily\small}, %
+    basewidth=0.47em, xleftmargin=0pt, gobble=4]
+    \extratitle{%
+      %
+    }
+    \uppertitleback{%
+      %
+    }
+    \lowertitleback{%
+      %
+    }
+  \end{CommandLineListing}
+  or to specific texts fitting the intended publication.
+
+\item
+  instead of
+  \begin{CommandLineListing}[style=DefaultFileListing, print=true, basicstyle={\ttfamily\small}, %
+    basewidth=0.47em, xleftmargin=0pt, gobble=4]
+    \defbibnote{refpreamble}{%
+      \highlight{\placeholder{My References Preamble}}%
+    }
+  \end{CommandLineListing}
+  change it to
+  \begin{CommandLineListing}[style=DefaultFileListing, print=true, basicstyle={\ttfamily\small}, %
+    basewidth=0.47em, xleftmargin=0pt, gobble=4]
+    \defbibnote{bibpreamble}{%
+      %
+    }
+  \end{CommandLineListing}
+  or to a specific text appropriate for the intended publication.
+
+\item \label{item:modifyStructuringDirectives}
+  modify the document structuring directives \latexcmd{\section},
+  \latexcmd{\subsection} and \latexcmd{\subsubsection}
+  used within the files \\
+  \path{WLG-1_introduction}, \\
+  \path{WLG-2_installation}, \\
+  \path{WLG-3_documentGeneration}, \\
+  \path{WLG-4_commandsAndEnvironments}, \\
+  \path{WLG-5_practicalTips}, \\
+  \path{WLG-6_usingTheTemplates}, and \\
+  \path{WLG-7_undocumentedTopics} to \\
+  \latexcmd{\chapter}, \latexcmd{\section} and \latexcmd{\subsection},
+  adapting it to the proper sectioning for report documents.
+
+\item place the \latexcmd{\include} directives for including the seven
+  \LaTeX{} subdocument files between the \latexcmd{\printglossary} and
+  \latexcmd{\appendix} commands.
+
+\item Finally, compile the master file \path{wlgReport.tex} as described in
+  \autoref{subsec:commandsForDocumentGeneration}.
+\end{enumerate}
+
+
+
+\subsubsection[A \singledoc document book]{Creating a \singledoc document book}
+\label{subsubsec:creatingSingleDocumentBook}
+
+For creating a \singledoc book, copy the \LaTeX{} template master file \\
+\path{./texmf/doc/latex/wegc-latex/examples/singledoc/master-wlbook.tex} to \\
+\path{/home/\plh{user}/wlSingleDocTest/wlg/}. \\
+Then copy the file \\
+\path{/home/\plh{user}/wlSingleDocTest/wlg/master-wlbook.tex} to \\
+\path{/home/\plh{user}/wlSingleDocTest/wlg/wlgBook.tex} \\
+and perform all other steps similar to the description in
+\autoref{subsubsec:creatingSingleDocumentArticle}, considering the following differences:
+%%
+\begin{enumerate}
+\item change the settings for \latexcmd{\extratitle},
+  \latexcmd{\uppertitleback}, \latexcmd{\lowertitleback},\\
+  \latexcmd{\upperinfopage}, \latexcmd{\lowerinfopage}, and
+  \latexcmd{\lastpage} from
+  \begin{CommandLineListing}[style=DefaultFileListing, print=true, basicstyle={\ttfamily\small}, %
+    basewidth=0.47em, xleftmargin=0pt, gobble=4]
+    \extratitle{%
+      \highlight{\placeholder{My Bastard Title}}%
+    }
+    \uppertitleback{%
+      \highlight{\placeholder{My Upper Title Back}}%
+    }
+    \lowertitleback{%
+      \highlight{\placeholder{My Lower Title Back}}%
+    }
+    \upperinfopage{%
+      \highlight{\placeholder{My Upper Info Page}}%
+    }
+    \lowerinfopage{%
+      \highlight{\placeholder{My Lower Info Page}}%
+    }
+    \lastpage{%
+      \highlight{\placeholder{My Last Page}}%
+    }
+  \end{CommandLineListing}
+  to
+  \begin{CommandLineListing}[style=DefaultFileListing, print=true, basicstyle={\ttfamily\small}, %
+    basewidth=0.47em, xleftmargin=0pt, gobble=4]
+    \extratitle{%
+      %
+    }
+    \uppertitleback{%
+      %
+    }
+    \lowertitleback{%
+      %
+    }
+    \upperinfopage{%
+      %
+    }
+    \lowerinfopage{%
+      %
+    }
+    \lastpage{%
+      %
+    }
+  \end{CommandLineListing}
+  or to the specific texts fitting the intended publication.
+
+\item instead of
+  \begin{CommandLineListing}[style=DefaultFileListing, print=true,
+    basicstyle={\ttfamily\small}, %
+    basewidth=0.47em, xleftmargin=0pt, gobble=4]
+    \defbibnote{refpreamble}{%
+      \highlight{\placeholder{My References Preamble}}%
+    }
+  \end{CommandLineListing}
+  change it to
+  \begin{CommandLineListing}[style=DefaultFileListing, print=true,
+    basicstyle={\ttfamily\small}, %
+    basewidth=0.47em, xleftmargin=0pt, gobble=4]
+    \defbibnote{bibpreamble}{%
+      %
+    }
+  \end{CommandLineListing}
+  or to a specific text appropriate for the intended publication.
+
+\item modify the document structuring directives \latexcmd{\section},
+  \latexcmd{\subsection} and \latexcmd{\subsubsection} used in the seven
+  \LaTeX{} files to \latexcmd{\chapter}, \latexcmd{\section} and
+  \latexcmd{\subsection}, adapting it to the proper sectioning for book
+  documents (similar to \autoref{subsubsec:creatingSingleDocumentReport}
+  \autoref{item:modifyStructuringDirectives}).
+
+\item place the \latexcmd{\include} directives for including the seven
+  \LaTeX{} subdocument files between the \latexcmd{\mainmatter} and
+  \latexcmd{\appendix} commands.
+
+\item finally, compile the master file \path{wlgBook.tex} as described in
+  \autoref{subsec:commandsForDocumentGeneration}.
+
+\end{enumerate}
+
+
+
+\subsubsection[A \singledoc \ac{msc} or \ac{phd} thesis]{Creating a \singledoc \ac{msc} or \ac{phd} thesis}
+\label{subsubsec:creatingMasterOrPhdThesis}
+
+For creating a \singledoc \ac{msc} or \ac{phd} thesis, generally proceed as 
+described in the previous \fullautoref{subsubsec:creatingSingleDocumentBook}, 
+dealing with a generic \singledoc document book, but change the document title page
+similar to the example provided in \autoref{lst:coverPageMasterOrPhdThesis}.  
+
+\begin{CommandLineListing}[style=DefaultFileListing, print=true, basicstyle={\ttfamily\small}, %
+                           basewidth=0.47em, xleftmargin=0pt, gobble=3, %
+                           caption={Example of a \ac{msc} or \ac{phd} thesis cover page}, %
+                           label=lst:coverPageMasterOrPhdThesis]
+   %%-------------------------------------------------------------------------%%
+   \SetUpPrimaryPageStyle{scrheadings}
+   %%
+   \renewcommand*{\titlepagestyle}{%
+     empty%
+   }
+   \renewcommand*{\extratitlepagestyle}{%
+     empty%
+   }
+   %%-------------------------------------------------------------------------%%
+   %% \extratitle{%
+   %%   \highlight{\placeholder{My Bastard Title}}%
+   %% }
+   %%-------------------------------------------------------------------------%%
+   %% \titlehead{%
+   %%   \highlight{\placeholder{My Title Head}}%
+   %% }
+   \subject{%
+      \LARGE{Master Thesis} \vspace{2.5mm} \\
+      \Large{to obtain the degree Master of Science} \vspace{2.5mm} \\
+      \Large{at the Faculty of Natural Sciences} \\
+      \Large{University of Graz}%
+   }
+   %%
+   \title{%
+     \Huge{Global temperature budget: \\
+           Constraints from aircraft and \\
+           radio occultation observations}%%
+   }
+   %%
+   \subtitle{%
+     %
+   }
+   %%
+   \author{%
+     \Large{Franz G. M\"uller, Bakk.rer.nat.}%
+   }
+   %%
+   \date{%
+     \large{March 2017}%
+     \vspace{5mm}%
+   }
+   %%
+   \publishers{%
+      \large{%
+      Supervisor: Univ.-Prof.\! Mag.\! Dr.rer.nat.\! Erika L. Mauerheimer%
+      \vspace{1.5mm} \\
+      Co{\hyphen}Supervisor: Mag.\! Dr.rer.nat.\! Detlef R\"ottbauer}%
+      \vspace{7.0mm} \\
+      \normalsize{%
+      Wegener Center for Climate and Global Change (WEGC) and \\
+      Institute for Geophysics, Astrophysics, and
+      Meteorology \textfractionsolidus{} Institute of Physics \\
+      University of Graz}%
+      \vspace{5mm} \\
+      \includegraphics[width=5.5cm]{logo_unigraz_wegc_medium.png}
+   }
+   %%-------------------------------------------------------------------------%%
+   \uppertitleback{%
+     %% \highlight{\placeholder{My Upper Title Back}}%
+   }
+   %%
+   \lowertitleback{%
+     %% \highlight{\placeholder{My Lower Title Back}}%
+   }
+   %%-------------------------------------------------------------------------%%
+   \upperinfopage{%
+     \highlight{\placeholder{My Upper Info Page}}%
+   }
+   %%
+   \lowerinfopage{%
+     \highlight{\placeholder{My Lower Info Page}}%
+   }
+   %%-------------------------------------------------------------------------%%
+   \lastpage{%
+     \highlight{\placeholder{My Last Page}}%
+   }
+   %%-------------------------------------------------------------------------%%
+   ...
+   %% \makeinfopage
+   ...
+   %%-------------------------------------------------------------------------%%
+\end{CommandLineListing}
+
+
+
+\subsection[The \multidoc document templates]{Using \multidoc document templates}
+\label{subsec:usingMultiDocumentTemplates}
+
+The \multidoc templates are intended for publications that comprise two or
+more articles, reports or books and which shall have a common and
+consistent layout of the document front matter, \EG{} title page,
+distribution list, document revision history, bibliography, lists of
+figures and tables as well as document headings.
+
+Sample pages for a \multidoc title page, document release information page,
+document distribution list and document change record are provided in
+\autoref{fig:multiDocTitlepage}, \autoref{fig:multiDocReleaseInfopage},
+\autoref{fig:multiDocDistributionList} and
+\autoref{fig:multiDocChangeRecord}.
+
+\begin{figure}
+  \centering
+  \fbox{\includegraphics[height=0.7\paperheight, page=1]{anisap-TN2.pdf}}
+  \caption{Example of a \multidoc document title page}
+  \label{fig:multiDocTitlepage}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \fbox{\includegraphics[height=0.7\paperheight, page=2]{anisap-TN2.pdf}}
+  \caption{Example of a \multidoc document release information page}
+  \label{fig:multiDocReleaseInfopage}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \fbox{\includegraphics[height=0.7\paperheight, page=3]{anisap-TN2.pdf}}
+  \caption{Example of a \multidoc document distribution list page}
+  \label{fig:multiDocDistributionList}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \fbox{\includegraphics[height=0.7\paperheight, page=4]{anisap-TN2.pdf}}
+  \caption{Example of a \multidoc document change record page}
+  \label{fig:multiDocChangeRecord}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \fbox{\includegraphics[height=0.7\paperheight, page=10]{anisap-TN2.pdf}}
+  \caption{Example of a \multidoc document random page}
+  \label{fig:multiDocHeadings}
+\end{figure}
+
+
+
+\subsubsection[Document headings]{Tailoring the document headings}
+\label{subsubsec:multiDocumentHeadings}
+
+The layout of the document headings (\IE{} the header for the running
+pages, see \autoref{fig:multiDocHeadings}) is the same for article, book
+and report documents and is structured into three parts:
+\begin{enumerate}
+\item a four line text block on the left side (the exact definition of the
+  concatenation of the string components is given in
+  \autoref{lst:docstyleDocumentHeadingsTextBlock}) comprising
+  \begin{enumerate}
+  \item the document header title (built as a concatenated string from the
+    document header title substring \latexcmd{\ThisDocHeaderTitleSubstr}
+    and the document subtitle string \latexcmd{\ThisDocSubtitle}
+  \item the document identifier (build as a concatenated string from the
+    document identifier substring \latexcmd{\ThisDocIdSubstr}, the document
+    release year \latexcmd{\ThisDocYear}, the document type%
+    \footnote{The acronyms used for the various document types need to be
+      defined in the file \path{acronyms.sty}, see
+      \fullautoref{subsec:UsingTheAcronymDatabase}.}
+    \latexcmd{\ThisDocType} (\EG{} \acs{tr} (\acl{tr}) or \acs{ar}
+    (\acl{ar})), and the document internal number
+    \latexcmd{\ThisDocIntNum})
+  \item the document version (build as a concatenated string from the
+    document issue number \latexcmd{\ThisDocIssue} and the document
+    revision number \latexcmd{\ThisDocRevision}), and
+  \item the document release date
+  \end {enumerate}
+\item a central single text line indicating the respective current section
+  or chapter number and section or chapter title, and
+\item a graphics block (of corporate logos) on the right side.
+\end{enumerate}
+
+The details and the structure of the document headings are defined in the
+file \path{docstyle.sty} near line 315 to 354 (see
+\autoref{lst:docstyleDocumentHeadings}).
+
+Since individual details for a specific document from a \multidoc
+documentation task are different from document to document due to the
+different document content, document type, document identifiers, document
+issue, document revision, document release date \ETC{}, these details are
+only predefined in the file \path{docstyle.sty}, and intended to be
+specifically tailored in each individual document's masterfile.
+
+In essence, a block of redefining \LaTeX{} commands has to be added
+(between the two already present commands \latexcmd{\makeatletter} and
+\latexcmd{\makeatother}) to the master file, similar to the example given
+in \autoref{lst:documentHeadingsExample}.
+%
+\begin{CommandLineListing}[style=DefaultFileListing, print=true, xleftmargin=0pt, gobble=2, %
+  caption={Definition of document headings in the masterfile}, %
+  label=lst:documentHeadingsExample]
+  \makeatletter
+
+  \renewcommand*{\ThisDocType}{%
+    tr%
+  }
+  \renewcommand*{\ThisDocExtNum}{%
+    03%
+  }
+  \renewcommand*{\ThisDocIntNum}{%
+    37%
+  }
+  \renewcommand*{\ThisDocIssue}{%
+    1%
+  }
+  \renewcommand*{\ThisDocRevision}{%
+    3%
+  }
+  \renewcommand*{\subtitlePrefix}{%
+    %
+  }
+  \renewcommand*{\ThisDocSubtitle}{%
+    WLG Quickstart Guide%
+  }
+  \renewcommand*{\ThisDocHeaderTitleSubstr}{%
+    \wegcLaTeX{}%
+  }
+  \renewcommand*{\ThisDocIdSubstr}{%
+    \aces{wegc}-WLG-QSG%
+  }
+  \newdate{ThisDocDate}{13}{8}{2025}
+  \renewcommand*{\ThisDocDate}{%
+    \displaydate{ThisDocDate}%
+  }
+  \renewcommand*{\ThisDocYear}{%
+    %% \getdateyear{ThisDocDate}%
+    2028%
+  }
+
+  \makeatother
+\end{CommandLineListing}
+
+\lstinputlisting[style=DefaultFileListing, print=true,
+   firstnumber=212, firstline=212, stepnumber=1, lastline=236,
+   emptylines=*0,
+   breaklines=true,
+  caption={Definition of the documents headings text block in \texttt{\lstname}},
+  label=lst:docstyleDocumentHeadingsTextBlock]{docstyle.sty}
+
+\begin{landscape}
+\lstinputlisting[style=DefaultFileListing, print=true,
+   firstnumber=315, firstline=315, stepnumber=1, lastline=354,
+   emptylines=*0,
+   breaklines=true,
+  caption={Definition of the document headings in \texttt{\lstname}},
+  label=lst:docstyleDocumentHeadings]{docstyle.sty}
+\end{landscape}
+
+
+\subsubsection[Title page common elements]{Tailoring the common elements of the title page}
+\label{subsubsec:multiDocumentTitlePageCommons}
+
+The layout of the document title page is the same for article, book and
+report documents and contains elements, which are common and the same for
+all documents of a documentation task, \IE{} the title page header, the
+title page footer, the document publisher details, the title head and the
+subject details, and those that are different due to the individual
+document content, \EG{} the document title or the document authors.
+
+
+\minisec{Title page header and footer}
+
+The common elements title page header and title page footer are defined and
+specified in the file \path{docstyle.sty} near lines 252 and 271 (see
+\autoref{lst:docstyleTitlepageHeaderFooter}).
+
+\lstinputlisting[style=DefaultFileListing, print=true,
+   firstnumber=252, firstline=252, stepnumber=1, lastline=281,
+   emptylines=*1,
+  caption={Definition of title page header and footer details in \texttt{\lstname}},
+  label=lst:docstyleTitlepageHeaderFooter]{docstyle.sty}
+
+If, for example, the combined \ac{igam}/\ac{wegc} title page header and
+footer shall be replaced with the plain \ac{wegc} title page header and
+footer, then the corresponding section in file \path{docstyle.sty} is to
+be modified as shown in
+\autoref{lst:docstyleTitlepageHeaderFooterWegcOnly}.
+%
+\begin{CommandLineListing}[style=DefaultFileListing, print=true, xleftmargin=0pt, gobble=2, %
+  caption={Alternate definition of title page header and footer in \latexcmd{docstyle.sty}}, %
+  label=lst:docstyleTitlepageHeaderFooterWegcOnly]
+  \newcommand*{\Head@@ThisDocTitlePage}{%
+    \upshape%
+    \begin{varwidth}[b][0pt]{\paperwidth}%
+      \LaTeXraggedleft%
+      \Name{wegc}\\%
+      %% \Name{igam}\\%
+      \Name{ug}%
+    \end{varwidth}%
+    \quad%
+    \begin{varwidth}[b][0pt]{\paperwidth}%
+      \includegraphics[height=50.0pt]{logo-ug-medium}%
+      \hspace{2.0pt}%
+      \includegraphics[height=50.0pt]{logo-wegc-medium}%
+      %% \hspace{2.0pt}%
+      %% \includegraphics[height=50.0pt]{logo-igam-medium}%
+    \end{varwidth}%
+  }
+
+  \newcommand*{\Foot@@ThisDocTitlePage}{%
+    \upshape%
+    \begin{varwidth}[t][0pt]{\paperwidth}%
+      \LaTeXcentering%
+      \Address{wegc}\\%
+      %% \Address{igam}\\%
+      \ShortName{wegc} Web\p: \WebAddress{wegc}\\%
+      %% \ShortName{igam} Web\p: \WebAddress{igam}\\%
+      \ShortName{ug} Web\p: \WebAddress{ug}\\%
+    \end{varwidth}%
+  }
+\end{CommandLineListing}
+
+
+\minisec{Title head and title subject details}
+
+The title head and title subject details for the title page are defined in
+the file \path{docstyle.sty} near lines 444 to 471 (see
+\autoref{lst:docstyleTitlepageTitleheadSubject}).
+
+\lstinputlisting[style=DefaultFileListing, print=true,
+   firstnumber=444, firstline=444, stepnumber=1, lastline=471,
+   emptylines=*0,
+   caption={Definition of the title page title head and subject details in \texttt{\lstname}},
+   label=lst:docstyleTitlepageTitleheadSubject]{docstyle.sty}
+
+For changing the title page title head and subject details to something
+different, the corresponding section in file \path{docstyle.sty} could
+be modified as shown in
+\autoref{lst:docstyleTitlepageTitleheadSubjectExample}.
+%
+\begin{CommandLineListing}[style=DefaultFileListing, print=true, xleftmargin=0pt, gobble=2, %
+  caption={Alternate definition of title page title head and subject details in \latexcmd{docstyle.sty}}, %
+  label=lst:docstyleTitlepageTitleheadSubjectExample]
+  \newcommand*{\titleheadSubstr}{%
+    \aces{wegc}%
+  }
+  \newcommand*{\titleheadSubSubstr}{%
+    \aces{esa}%
+  }
+  \titlehead{%
+    \makebox[\linewidth]{\titleheadSubstr \hbox{} \acel{\ThisDocType} for \titleheadSubSubstr \hbox{} \No{} \ThisDocExtNum\textfractionsolidus\ThisDocYear}%
+  }
+  \newcommand*{\subjectStr}{%
+    rOPS Project\p:\\%
+  }
+  \newcommand*{\subjectSubstr}{%
+    Typesetting and Document Generation%
+  }
+  \subject{%
+    \subjectStr\subjectSubstr%
+  }
+\end{CommandLineListing}
+
+
+\minisec{Publisher information}
+
+The document publisher information for the title page is defined in the
+file \path{docstyle.sty} near lines 504 to 520 (see
+\autoref{lst:docstyleTitlepagePublisher}).
+
+\lstinputlisting[style=DefaultFileListing, print=true,
+   firstnumber=504, firstline=504, stepnumber=1, lastline=520,
+   emptylines=*0,
+   caption={Definition of the title page publisher details in \texttt{\lstname}},
+   label=lst:docstyleTitlepagePublisher]{docstyle.sty}
+
+For changing the title page publisher details to the plain \ac{wegc}
+title page publisher details, the corresponding section in file
+\path{docstyle.sty} is to be modified as shown in
+\autoref{lst:docstyleTitlepagePublisherWegcOnly}.
+%
+\begin{CommandLineListing}[style=DefaultFileListing, print=true, xleftmargin=0pt, gobble=2, %
+  caption={Alternate definition of title publisher details in \latexcmd{docstyle.sty}}, %
+  label=lst:docstyleTitlepagePublisherWegcOnly]
+  \newcommand*{\publishersSubstr}{%
+    \acl{wegc}%
+  }
+  \newcommand*{\publishersSubSubstr}{%
+    \acl{ug}%
+  }
+  \newcommand*{\publishersSubSubSubstr}{%
+    %
+  }
+  \publishers{%
+    \publishersSubstr\\\publishersSubSubstr\\\publishersSubSubSubstr%
+  }
+\end{CommandLineListing}
+
+
+\minisec{Glossary and bibliography preambles}
+
+If the default text for the preamble to the \emph{acronyms} and
+\emph{abbreviations}, to the \emph{terms} and \emph{definitions}, or to the
+bibliography does not fit as expected, these preambles can be modified in
+\path{docstyle.sty}, starting near line 657 (see
+\autoref{lst:docstyleGlossaryPreambles}) and near line 683 (see
+\autoref{lst:docstyleBibliographyPreambles}).
+
+\lstinputlisting[style=DefaultFileListing, print=true,
+   firstnumber=657, firstline=657, stepnumber=1, lastline=670,
+   emptylines=*0,
+   caption={Definition of the glossary preambles in \texttt{\lstname}},
+   label=lst:docstyleGlossaryPreambles]{docstyle.sty}
+
+\lstinputlisting[style=DefaultFileListing, print=true,
+   firstnumber=683, firstline=683, stepnumber=1, lastline=696,
+   emptylines=*0,
+   caption={Definition of the bibliography preambles in \texttt{\lstname}},
+   label=lst:docstyleBibliographyPreambles]{docstyle.sty}
+
+
+\subsubsection[Title page specific elements]{Tailoring the document specific elements of the title page}
+\label{subsubsec:multiDocumentTitlePageSpecifics}
+
+The layout of the document specific elements document title and authors are
+predefined in the file \path{docstyle.sty} and need to be updated in each
+individual document's masterfile by a block of redefining \LaTeX{} commands
+which are to be added between the two already present commands
+\latexcmd{\makeatletter} and \latexcmd{\makeatother}, similar to the
+example given in \autoref{lst:documenTitlepageTitleExample}.
+
+All other document specific elements required for the title page like
+document type, document identifiers, document issue, document revision,
+document release date \ETC{}, have already been described for the document
+headings in \autoref{subsubsec:multiDocumentHeadings}
+
+\Attention{%
+  In \autoref{lst:documenTitlepageTitleExample}, the definition of the
+  document subtitle is not explicitly shown, as it is already presented in
+  \autoref{lst:documentHeadingsExample} of
+  \autoref{subsubsec:multiDocumentHeadings} (due to the fact that
+  \latexcmd{\subtitlePrefix} and \latexcmd{\ThisDocSubtitle} are used for
+  the definition of the document headings).}
+
+\begin{CommandLineListing}[style=DefaultFileListing, print=true, xleftmargin=0pt, gobble=2, %
+  caption={Definition of document title and author details in the masterfile}, %
+  label=lst:documenTitlepageTitleExample]
+  \makeatletter
+  ...
+  ...
+  \renewcommand*{\ThisDocTitle}{%
+    The \wegcLaTeX{} documentation framework: \newline a guide for beginners%
+  }
+  \renewcommand*{\titlePrefix}{%
+    %
+  }
+  \renewcommand*{\ThisDocAuthors}{%
+    \ShortName{kmf}, \ShortName{jfb}, and \ShortName{gki}%
+  }
+  \makeatother
+\end{CommandLineListing}
+
+
+\subsubsection[A \multidoc document article]{Creating a \multidoc document article}
+\label{subsubsec:creatingMultiDocumentArticle}
+
+For creating a \multidoc article, proceed as follows:
+%%
+\begin{enumerate}
+\item create a working directory for building the \wegcLaTeX{} \multidoc article, \\
+  \EG{} \path{/home/\plh{user}/wlMultiDocTest/}
+
+\item create the following subdirectories \\
+  \path{/home/\plh{user}/wlMultiDocTest/wlg/}, \\
+  \path{/home/\plh{user}/wlMultiDocTest/wlg/figs/}, \\
+  \path{/home/\plh{user}/wlMultiDocTest/wlg/data/}, \\
+  \path{/home/\plh{user}/wlMultiDocTest/wlg/tex/}, \\
+  \path{/home/\plh{user}/wlMultiDocTest/common/}, and \\
+  \path{/home/\plh{user}/wlMultiDocTest/common/figs}
+
+  \Attention{Any further documents of a \multidoc documentation task would
+    require the additional subdirectories \\
+    \path{/home/\plh{user}/wlMultiDocTest/wlg2/}, \\
+    \path{/home/\plh{user}/wlMultiDocTest/wlg2/figs/}, \\
+    \path{/home/\plh{user}/wlMultiDocTest/wlg2/data/}, \\
+    \path{/home/\plh{user}/wlMultiDocTest/wlg2/tex/}, \\
+    and so on.}
+
+\item copy the \LaTeX{} template master file \\
+  \path{./texmf/doc/latex/wegc-latex/examples/multidoc-article/doc-article.tex} to \\
+  \path{/home/\plh{user}/wlMultiDocTest/wlg/}
+
+\item copy the seven \LaTeX{} source code files from \\
+  \path{./texmf/doc/latex/wegc-latex/WLG/} to \\
+  \path{/home/\plh{user}/wlMultiDocTest/wlg/tex/}
+
+\item copy the twelve \path{*.png} and twelve \path{*.xbb} files from \\
+  \path{./texmf/doc/latex/wegc-latex/examples/common/figs/} to \\
+  \path{/home/\plh{user}/wlMultiDocTest/common/figs/}
+
+\item copy the three files
+  \path{docstyle.sty}, \path{project.sty}, and \path{commands.sty} from \\
+  \path{./texmf/doc/latex/wegc-latex/examples/common/} to \\
+  \path{/home/\plh{user}/wlMultiDocTest/common}
+
+ \item extract the three example only files \path{acronyms.sty}, \path{addresses.sty}, and
+  \path{terms.sty} from the compressed archive file \\
+  \path{./texmf/doc/latex/wegc-latex/WLG/acronymsAddressesTerms_ExampleDoNotUse.tar.gz}
+  or use the current and up to date versions available at 
+  \nolinkurl{https://wegc203117.uni-graz.at/projects/latex_dbs/browser/arsclisys}
+  and put them to \\
+  \path{/home/\plh{user}/wlMultiDocTest/common}
+
+\item add the address for the fictive person ``\Name{kmf}'' at the end of
+  the copied file \path{addresses.sty}, as described in
+  \autoref{subsec:usingTheAddressBookDatabase}
+
+\item add the acronym for the fictive company ``\acf{tmc}'' at the end of
+  the copied file \path{acronyms.sty}, as described in
+  \autoref{subsec:UsingTheAcronymDatabase}
+
+\item add the glossary entry for the fictive term ``\Gls{firlefanzation}''
+  at the end of the copied file \path{terms.sty}, as described in
+  \autoref{subsec:UsingTheGlossaryDatabase}
+
+\item create an example bibliography file \path{exampleBibFile.bib} in the \\
+  \path{/home/\plh{user}/wlMultiDocTest/wlg} directory in the same way as
+  it is described for a \singledoc article (see
+  \autoref{subsubsec:creatingSingleDocumentArticle})
+
+\item copy the template master file \\
+  \path{/home/\plh{user}/wlMultiDocTest/wlg/doc-wlarticle.tex} to \\
+  \path{/home/\plh{user}/wlMultiDocTest/wlg/md-wlgArticle.tex} \\
+  and apply the following modifications:
+  \begin{enumerate}
+  \item at line 119, change \latexcmd{DIV=default} to \latexcmd{DIV=11}
+  \item between the lines 165 to 171, reading
+    \begin{CommandLineListing}[style=DefaultFileListing, print=true, basicstyle={\ttfamily\small}, %
+      basewidth=0.47em, xleftmargin=0pt, gobble=6]
+      \makeatletter
+      %% NOTE: Here, we can act as class and package authors if we want or need to do so ...
+      \makeatother
+    \end{CommandLineListing}
+    add the definition commands for defining the document specific settings:
+    \begin{CommandLineListing}[style=DefaultFileListing, print=true, basicstyle={\ttfamily\small}, %
+      basewidth=0.47em, xleftmargin=0pt, gobble=6]
+      \makeatletter
+
+      \renewcommand*{\ThisDocType}{%
+        tr%
+      }
+      \renewcommand*{\ThisDocExtNum}{%
+        03%
+      }
+      \renewcommand*{\ThisDocIntNum}{%
+        37%
+      }
+      \renewcommand*{\ThisDocIssue}{%
+        1%
+      }
+      \renewcommand*{\ThisDocRevision}{%
+        3%
+      }
+      \renewcommand*{\subtitlePrefix}{%
+        %
+      }
+      \renewcommand*{\ThisDocSubtitle}{%
+        WLG Quickstart Guide%
+      }
+      \renewcommand*{\ThisDocHeaderTitleSubstr}{%
+        \wegcLaTeX{}%
+      }
+      \renewcommand*{\ThisDocIdSubstr}{%
+        \aces{wegc}-WLG-QSG%
+      }
+      \newdate{ThisDocDate}{13}{8}{2025}
+      \renewcommand*{\ThisDocDate}{%
+        \displaydate{ThisDocDate}%
+      }
+      \renewcommand*{\ThisDocYear}{%
+        %% \getdateyear{ThisDocDate}%
+        2028%
+      }
+      \renewcommand*{\ThisDocTitle}{%
+        The \wegcLaTeX{} documentation framework: \newline a guide for beginners%
+      }
+      \renewcommand*{\titlePrefix}{%
+        %
+      }
+      \renewcommand*{\ThisDocAuthors}{%
+        \ShortName{kmf}, \ShortName{jfb}, and \ShortName{gki}%
+      }
+      \makeatother
+    \end{CommandLineListing}
+
+  \item on lines 150 to 151: change from
+    \begin{CommandLineListing}[style=DefaultFileListing, print=true, basicstyle={\ttfamily\small}, %
+      basewidth=0.47em, xleftmargin=0pt, gobble=6]
+      \bibliography{%
+      }
+    \end{CommandLineListing}
+    to
+    \begin{CommandLineListing}[style=DefaultFileListing, print=true, basicstyle={\ttfamily\small}, %
+      basewidth=0.47em, xleftmargin=0pt, gobble=6]
+      \bibliography{%
+        exampleBibFile%
+      }
+    \end{CommandLineListing}
+
+  \item between lines 165 and 171, reading
+    \begin{CommandLineListing}[style=DefaultFileListing, print=true, basicstyle={\ttfamily\small}, %
+      basewidth=0.47em, xleftmargin=0pt, gobble=6]
+      \makeatletter
+
+      %% NOTE: Here, we can act as class and package authors if we want or need to do so ...
+
+      \makeatother
+    \end{CommandLineListing}
+    add the following command definitiosn for \entity{singledoc} and \entity{multidoc}:
+    \begin{CommandLineListing}[style=DefaultFileListing, print=true, basicstyle={\ttfamily\small}, %
+      basewidth=0.47em, xleftmargin=0pt, gobble=6]
+      \makeatletter
+
+      %% NOTE: Here, we can act as class and package authors if we want or need to do so ...
+
+      \newcommand*{\singledoc}{%
+        \entity{singledoc} %
+      }
+
+      \newcommand*{\multidoc}{%
+        \entity{multidoc} %
+      }
+
+      \makeatother
+    \end{CommandLineListing}
+
+  \item \label{item:nociteGlsaddIncludeDirectives} between the lines 201
+    and 204, reading
+    \begin{CommandLineListing}[style=DefaultFileListing, print=true, basicstyle={\ttfamily\small}, %
+      basewidth=0.47em, xleftmargin=0pt, gobble=6]
+      \printbibliography[prenote=refpreamble]
+
+
+      \appendix
+    \end{CommandLineListing}
+    add the following content:
+    \begin{CommandLineListing}[style=DefaultFileListing, print=true, basicstyle={\ttfamily\small}, %
+      basewidth=0.47em, xleftmargin=0pt, gobble=6]
+      \printbibliography[prenote=refpreamble]
+
+      \nocite{Gorbunov2007a}
+      \nocite{Gorbunov2002a}
+      \nocite{Gorbunov1986}
+
+      \glsadd{development_team}
+      \glsadd{firlefanzation}
+
+      \glsadd{urd}
+      \glsadd{add}
+      \glsadd{ddd}
+      \glsadd{sum}
+      \glsadd{atr}
+
+      \include{WLG-1_introduction}
+      \include{WLG-2_installation}
+      \include{WLG-3_documentGeneration}
+      \include{WLG-4_commandsAndEnvironments}
+      \include{WLG-5_practicalTips}
+      \include{WLG-6_usingTheTemplates}
+      \include{WLG-7_undocumentedTopics}
+
+      \appendix
+    \end{CommandLineListing}
+   \end{enumerate}
+
+ \item modify in the file
+   \path{/home/\plh{user}/wlMultiDocTest/common/docstyle.sty} the titlepage
+   header, titlepage footer, titlehead, subject and publisher details as
+   described in \autoref{subsubsec:multiDocumentTitlePageCommons}.
+
+ \item Finally, compile the master file
+   \path{/home/\plh{user}/wlMultiDocTest/wlg/md-wlgArticle.tex} as
+   described in \autoref{subsec:commandsForDocumentGeneration}.
+\end{enumerate}
+
+
+\subsubsection[A \multidoc document report]{Creating a \multidoc document report}
+\label{subsubsec:creatingMultiDocumentReport}
+
+For creating a \multidoc report, copy the \LaTeX{} template master file \\
+\path{./texmf/doc/latex/wegc-latex/examples/multidoc-report/doc-report.tex} to \\
+\path{/home/\plh{user}/wlMultiDocTest/wlg/}, \\
+copy the file \\
+\path{/home/\plh{user}/wlMultiDocTest/wlg/doc-wlreport.tex} to \\
+\path{/home/\plh{user}/wlMultiDocTest/wlg/md-wlgReport.tex}, \\
+and perform all other steps similar to the description in
+\autoref{subsubsec:creatingMultiDocumentArticle}, considering the following
+differences:
+%%
+\begin{enumerate}
+
+\item in file \path{/home/\plh{user}/wlMultiDocTest/wlg/md-wlgReport.tex},
+  \begin{enumerate}
+  \item \label{item:nociteGlsaddIncludeMdReport} between the lines 213 and
+    216 (\IE{} between the \latexcmd{\printbibliography} and
+    \latexcmd{\appendix} commands), add the same \LaTeX{} commands
+    \latexcmd{\nocite}, \latexcmd{\glsadd} and \latexcmd{\include} as
+    indicated in \autoref{subsubsec:creatingMultiDocumentArticle},
+    \autoref{item:nociteGlsaddIncludeDirectives}
+
+  \item between the lines 213 and 216 (\IE{} between the
+    \latexcmd{\printbibliography} and \latexcmd{\appendix} commands and
+    immediately after the added statements of
+    \autoref{item:nociteGlsaddIncludeMdReport}), add the definition of the
+    \entity{Document Release Information} table, the \entity{Document
+      Distribution List} and the \entity{Document Change Record}, as shown
+    in \autoref{lst:exampleReleaseDistributionChangeRecord}
+  \end{enumerate}
+
+\item modify the document structuring directives \latexcmd{\section},
+  \latexcmd{\subsection} and \latexcmd{\subsubsection} used in the seven
+  \LaTeX{} files to \latexcmd{\chapter}, \latexcmd{\section} and
+  \latexcmd{\subsection}, adapting it to the proper sectioning for report
+  documents (similar to \autoref{subsubsec:creatingSingleDocumentReport}
+  \autoref{item:modifyStructuringDirectives}).
+
+\item Finally, compile the master file
+  \path{/home/\plh{user}/wlMultiDocTest/wlg/md-wlgReport.tex} as described
+  in \autoref{subsec:commandsForDocumentGeneration}.
+
+\end{enumerate}
+
+
+\begin{CommandLineListing}[style=DefaultFileListing, print=true, basicstyle={\ttfamily\small}, %
+  basewidth=0.47em, xleftmargin=0pt, gobble=2, %
+  caption={Definition of document release information, distribution list and change record}, %
+  label=lst:exampleReleaseDistributionChangeRecord]
+  \renewcommand*{\ThisAuthorizationIdentity}{%
+    \ShortName{mip}, \ugorg{short}%
+  }
+
+  \renewcommand*{\ThisApprovalIdentity}{%
+    \ShortName{gki}, \ugorg{short}%
+  }
+
+  %% \renewcommand*{\ThisDocReleaseInformationTab}{%
+  %% \ifthenelse{\boolean{KOMAClass}}{\addsec*}{\section*}{Document Release Information}%
+  %% \begin{tabularx}{\linewidth}[b]{@{}D@{}}%
+  %%   \toprule%
+  %%   \docid                                      & \ThisDocId                  \\%
+  %%   Issue                                       & \ThisDocVersion             \\%
+  %%   Date                                        & \ThisDocDate                \\%
+  %%   Prepared by                                 & \ThisDocAuthors             \\%
+  %%   Approved\textfractionsolidus{}Internally by & \ThisAuthorizationIdentity  \\%
+  %%   Approved\textfractionsolidus{}Externally by & \ThisApprovalIdentity       \\%
+  %%   \bottomrule%
+  %% \end{tabularx}%
+  %% }
+
+  \renewcommand*{\ThisDocDistributionList}{%
+    \ShortName{gki}       &  \aces{wegc}/\aces{ug}    & \EmailAddress{gki}       & 1\\%
+    \small\ShortName{jfb} &  \aces{wegc}/\aces{ug}    & \small\EmailAddress{jfb} & 1\\%
+    \Name{mip}            &  \aces{wegc}/\aces{ug}    & \EmailAddress{mip}       & 1%
+  }
+
+  \renewcommand*{\ThisDocChangeRecord}{%
+    \software{short}{Version}{1}{0}{}{} &%
+    \formatdate{20}{04}{2007} &%
+    Original version of the document\p. \\ %
+    %%
+    \software{short}{Version}{1}{2}{}{} &%
+    \formatdate{21}{12}{2008} &%
+    Updates throughout the document by minor \newline
+    changes and editorial corrections for clarification\p. \\ %
+    %%
+    \software{short}{Version}{\ThisDocIssue}{\ThisDocRevision}{}{}  &%
+    \ThisDocDate &%
+    Correction of minor inconsistencies\p.%
+  }
+\end{CommandLineListing}
+
+
+
+\subsubsection[A \multidoc document book]{Creating a \multidoc document book}
+\label{subsubsec:creatingMultiDocumentBook}
+
+For creating a \multidoc book, copy the \LaTeX{} template master file \\
+\path{./texmf/doc/latex/wegc-latex/examples/multidoc-book/doc-wlbook.tex} to \\
+\path{/home/\plh{user}/wlMultiDocTest/wlg/}, copy the file \\
+\path{/home/\plh{user}/wlMultiDocTest/wlg/doc-wlbook.tex} to \\
+\path{/home/\plh{user}/wlMultiDocTest/wlg/md-wlgBook.tex} 
+and perform all other steps similar to the description in
+\autoref{subsubsec:creatingMultiDocumentArticle}, considering the following
+differences:
+%%
+\begin{enumerate}
+
+\item in file \path{/home/\plh{user}/wlMultiDocTest/wlg/md-wlgBook.tex},
+  \begin{enumerate}
+  \item \label{item:nociteGlsaddIncludeMdBook} between the lines 219 and
+    222 (\IE{} between the \latexcmd{\mainmatter} and \latexcmd{\appendix}
+    commands), add the same \LaTeX{} commands \latexcmd{\nocite},
+    \latexcmd{\glsadd} and \latexcmd{\include} as indicated in
+    \autoref{subsubsec:creatingMultiDocumentArticle},
+    \autoref{item:nociteGlsaddIncludeDirectives}
+
+  \item between the lines 219 and 222 (\IE{} between the
+    \latexcmd{\mainmatter} and \latexcmd{\appendix} commands and
+    immediately after the added statements of
+    \autoref{item:nociteGlsaddIncludeMdBook}), add the definition of the
+    \entity{Document Release Information} table, the \entity{Document
+      Distribution List} and the \entity{Document Change Record}, as shown
+    in \autoref{lst:exampleReleaseDistributionChangeRecord}
+  \end{enumerate}
+
+\item modify the document structuring directives \latexcmd{\section},
+  \latexcmd{\subsection} and \latexcmd{\subsubsection} used in the seven
+  \LaTeX{} files to \latexcmd{\chapter}, \latexcmd{\section} and
+  \latexcmd{\subsection}, adapting it to the proper sectioning for book
+  documents (similar to \autoref{subsubsec:creatingSingleDocumentReport}
+  \autoref{item:modifyStructuringDirectives}).
+
+\item Finally, compile the master file \\
+  \path{/home/\plh{user}/wlMultiDocTest/wlg/md-wlgBook.tex} \\
+  as described in \autoref{subsec:commandsForDocumentGeneration}.
+
+\end{enumerate}

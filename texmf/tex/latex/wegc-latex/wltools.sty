@@ -1,0 +1,311 @@
+%%---------------------------------------------------------------------------------------------------------------------------%%
+%% $Id: wltools.sty 169 2011-11-12 20:27:39Z mip $ ##########################################################################%%
+%%---------------------------------------------------------------------------------------------------------------------------%%
+%%
+%%
+%% Abstract:
+%%   LaTeX style file wltools.sty provides various tools for setting up the Wegener Center Document Preparation Framework.
+%%
+%% Details:
+%% - This style file requires a TeX distribution equivalent to TeX Live 2009.
+%%
+%% References:
+%% - LaTeX 2ε for class and package writers
+%%   --> http://tug.ctan.org/tex-archive/macros/latex/doc/clsguide.pdf
+%% - The Not So Short Introduction to LaTeX 2ε
+%%   --> http://tug.ctan.org/tex-archive/info/lshort/english/lshort.pdf
+%% - An essential guide to LaTeX 2ε usage
+%%   --> http://tug.ctan.org/tex-archive/info/l2tabu/english/l2tabuen.pdf
+%% - The pdfTeX user manual
+%%   --> http://tug.ctan.org/tex-archive/systems/pdftex/pdftex-a.pdf
+%% - Dvipdfm User’s Manual
+%%   --> http://tug.ctan.org/tex-archive/dviware/dvipdfm/dvipdfm.pdf
+%%
+%% TODO:
+%%   None.
+%%
+%% Author:
+%%   Michael H. Pock || MHP || michael.pock@uni-graz.at
+%%
+%% © Copyright 2008-2011 [ WEGC && IGAM/IP ] / Uni Graz
+%%
+%%
+%%---------------------------------------------------------------------------------------------------------------------------%%
+%%###########################################################################################################################%%
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{wlinfo}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\NeedsTeXFormat{LaTeX2e}[\WL@TexFormatReleaseDate]
+
+
+\ProvidesPackage{wltools}[\WL@ReleaseInfo]
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{calc}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/required/tools/calc.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{xparse}[2011/07/02]
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/l3packages/xparse.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{etoolbox}[2011/01/03]
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/etoolbox/etoolbox.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{xstring}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/xstring/xstring_doc_en.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{chngcntr}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/chngcntr/chngcntr.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{scrbase}[2011/06/16]
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/koma-script/scrguide.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{kvoptions}[2010/12/23]
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/oberdiek/kvoptions.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{ifmtarg}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/ifmtarg/ifmtarg.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{xifthen}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/xifthen/xifthen.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{ifpdf}[2011/01/30]
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/oberdiek/ifpdf.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\RequirePackage{ifdraft}
+%% --> http://tug.ctan.org/tex-archive/macros/latex/contrib/oberdiek/ifdraft.pdf
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newboolean{PDFVersion}
+\newboolean{DVIVersion}
+
+
+\ifthenelse{\boolean{pdf}}{%
+  \setboolean{PDFVersion}{true}
+  \setboolean{DVIVersion}{false}%
+}{%
+  \setboolean{PDFVersion}{false}
+  \setboolean{DVIVersion}{true}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newboolean{DraftVersion}
+\newboolean{FinalVersion}
+
+
+\ifdraft{%
+  \setboolean{DraftVersion}{true}
+  \setboolean{FinalVersion}{false}%
+}{%
+  \setboolean{DraftVersion}{false}
+  \setboolean{FinalVersion}{true}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newboolean{WebVersion}
+\newboolean{PrintVersion}
+
+
+\setboolean{WebVersion}{true}
+\setboolean{PrintVersion}{false}
+
+
+\DeclareOption{web}{%
+  \setboolean{WebVersion}{true}
+  \setboolean{PrintVersion}{false}%
+}
+
+
+\DeclareOption{print}{%
+  \setboolean{WebVersion}{false}
+  \setboolean{PrintVersion}{true}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\ProcessOptions*
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\macro@a}{}
+
+
+\newlength{\length@a}
+
+
+\newcounter{counter@a}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\CommandWarning}[2]{%
+  \GenericWarning{}{Command \protect#1 Warning: #2}%
+}
+
+
+\newcommand*{\PackageWarningFailedPatching}[2]{%
+  \PackageWarning{#1}{Patching command \protect#2 failed}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\@command}{}
+
+
+\newcommand*{\xshow}{%
+  \bgroup%
+    \catcode`\ =12%
+    \catcode`\"=12%
+    \catcode`\~=12%
+    \@ifstar{\let\@gobble@\empty\@xshow}{\let\@gobble@\@gobble\@xshow}%
+}
+
+
+\newcommand{\@xshow}[1]{%
+    \bgroup%
+      \xdef\@command{\expandafter\noexpand\csname\expandafter\@gobble@\string#1\endcsname}%
+    \egroup%
+    \expandafter\show\@command%
+  \egroup%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\xpatchcmd}[1][]{%
+  \bgroup%
+    \let\@gobble@\@gobble\let\@space@\empty%
+    \ifthenelse{\isempty{#1}\OR\equal{\unexpanded{#1}}{n}}{}{%
+      \ifthenelse{\equal{\unexpanded{#1}}{o}}{\let\@gobble@\empty}{%
+        \ifthenelse{\equal{\unexpanded{#1}}{N}}{\let\@space@\space}{%
+          \ifthenelse{\equal{\unexpanded{#1}}{O}}{\let\@gobble@\empty\let\@space@\space}{%
+            \CommandWarning{\xpatchcmd}{%
+              Invalid command specifier `\unexpanded{#1}'%
+            }%
+          }%
+        }%
+      }%
+    }%
+    \catcode`\#=12%
+    \@xpatchcmd%
+}
+
+
+\newcommand{\@xpatchcmd}[6][\undefined]{%
+    \catcode`\#=6%
+    \edef\undefined{\noexpand\undefined}%
+    \def\@prefix{#1}%
+    \letcs{\@command}{\expandafter\@gobble@\string#2\@space@}%
+    \ifx\@prefix\undefined%
+      \patchcmd{\@command}{#3}{#4}{#5}{#6}%
+    \else%
+      \patchcmd[\@prefix]{\@command}{#3}{#4}{#5}{#6}%
+    \fi%
+    \global\cslet{\expandafter\@gobble@\string#2\@space@}{\@command}%
+  \egroup%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\newcommand*{\var@ifnextchar}{}
+\let\var@ifnextchar\@ifnextchar
+
+
+\newcommand*{\var@ifnch}{}
+\let\var@ifnch\@ifnch
+
+
+\patchcmd{\var@ifnextchar}{%
+  \@ifnch%
+}{%
+  \var@ifnch%
+}{%
+}{%
+  \PackageWarningFailedPatching{\@currname}{\var@ifnextchar}%
+}
+
+
+\patchcmd{\var@ifnch}{%
+  \let\reserved@c\@xifnch%
+}{%
+  \let\reserved@c\reserved@b%
+}{%
+}{%
+  \PackageWarningFailedPatching{\@currname}{\var@ifnch}%
+}
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%
+
+
+\endinput
+
+
+%%---------------------------------------------------------------------------------------------------------------------------%%

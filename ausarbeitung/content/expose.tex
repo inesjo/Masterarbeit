@@ -1,0 +1,73 @@
+\chapter {Exposé}
+
+\section{What}
+Is the occurrence of spring frosts changing in the temperate zone through climate change, and following from this, will there be a change to the spring frost risk to vegetation/apple trees while blossoming? \\
+
+\section{{Why:}} 
+The three decades from 1983 to 2012 have been the warmest decades in the last 1400 years in the Norther Hemisphere (IPCC 2014). As temperature is one of the factors which induce plants to break their dormancy, flowering periods have moved earlier in the year in the recent decades by as much as ten days \cite{Chmielewski2013} (Agrarmeteologie, Chmielewski and Blümel 2013, Campoy et al 2011, Chmielewski et al. 2004). 
+Many plants are especially vulnerable towards frost during their flowering phase (Agrarmeteologie, Chmielewski et al. 2011, Chmielewski and Blümel 2013, Vitasse et al. 2018). There are two temperature trends which are significant in relation to the flowering phase: the trend towards earlier flowering because of rising temperatures, and the trend of the last spring frosts occurring earlier in the year. If plants are more vulnerable to spring frosts in the future will depend on which of these two trends will increase faster (Vitasse et al. 2018). In the literature there are different opinions on this so far. Some studies come to the conclusion that the risk for spring frost damage is increasing due to climate change (Augspurger 2013, Liu et al. 2018), or also that the risk of frost damage depends on the altitude (Bennie et al. 2010) while other studies have concluded that the risk of damage from spring frosts should have been lower during the last decade as in the decades before (Scheifinger et al. 2003). \\
+
+\section{{How:} }To answer this question two steps will have to be done: a calculation of the time of blossoming for plants, exemplarily done for apple, and a calculation of the frost events falling into this blossoming time. \\
+
+\subsection{{Calculation of blossoming time:  } }
+Many species in temperate latitudes enter a dormancy state to hibernate during the colder winter period (Faust et al., 1997). It is assumed that, to overcome this dormancy state, a specific chilling requirement as well as a specific heat sum requirement needs to be fulfilled (Chmielewsksi and Blümel 2013, Chmielewski et al. 2011, Agrarmeteologie, Atkinson et al 2013). Apple trees have a chilling requirement of 600 – 1800 chilling hours (Chmielewski and Blümel 2013). For calculating the beginning of flowering, so called phenological models can be used. There are different types of models: some only use the chilling requirement, such as the Weinberger-Eggert Modell (Weinberger 1950), other models use both the chilling requirement as well as the heat requirement (Chmielewski and Blümel 2013, Chmielewski et al. 2011). Models which use both the chilling and the heat requirement can either be sequential – the chilling requirement is fulfilled first – or parallel, where both chilling and heat requirements can be fulfilled at the same time (Chmielewski et al. 2011). 
+Tentative: Use sequential forcing/chilling model as described as M2 by Chmielewski et al. 2011:
+The model is a mechanistic sequential model, which does not only consider the state of forcing Sf(t), but also the state of chilling Sc(t). It assumes that chilling requirement needs to be fulfilled first in order for the forcing temperatures to be effective. Furthermore, the model includes an exponential relationship between chilling requirement and forcing requirement. 
+Find out how to cite equations
+Murray et al. 1989  the model is based on them? \\
+
+
+\subsection{{Calculation of frost events: } }
+Idee: use Tmin extracted from climate model during the beforehand identified blossoming time Tmin <0 sufficient for damages?
+Data Used:
+EURO-CORDEX data, different simulations.
+As a first step, a bias correction is conducted. For this bias correction the program(?) PyCat (Wegener Center, wie zitieren?) is used. 
+Data Analysis:
+The data will be analyzed in time slices. Three different periods, one in the past, one in the near future and one in the far future will be identified and compared with each other. The comparison will concentrate on the occurrence of spring frosts and the time of the apple blossoming. Proposed time slices are 1980 – 2010, 2030 – 2060, 2065 – 2095. \\
+
+\section{Proposed Structure} 
+1. Introduction \\
+1.1. Motivation and Relevance \\
+1.2. Literature Review \\
+2. Methods \\
+2.1. Climate Models \\
+2.2. Bias Control \\
+2.3. Phenological Model \\
+3. Results \\
+4. Discussion and Conclusion \\
+4.1. Limitations \\
+
+\todo Open Questions:  \\
+    • Which phenology model to use?
+    • Chilling requirement/heat requirement that is to be used (one certain species of apple? –> acc to chmielewski, in Germany different cultivars don’t blossom far away from each other, but in Italy they do –> difficult to apply for all of Europe then?)
+    • Data for the calculation of frost days
+    • How long does it take from the start of the blossoming to the end?  need to identify a span of days in order to allocate the frost days there. Or is simply any frost after the start of the blossoming damaging?
+    • How to analyze the data/ in which form is the data available/ which data is even available
+    • Why did the Wegener Center paper use M1 (thermal time model) and not M2 (sequential model)?
+    • Which data is needed to drive the sequential model? Can it be provided by EURO-CORDEX? How does Chmielewski calculate the chilling requirement? 
+    • Future research idea: compare results with other phenological models
+    • Chmielewski gives mean data for the M2 parameters – could I use those? Or is that too unexact? Also, this data is only tested for Germany – how valid would outcomes be when looking at whole of Europe` maybe contact Chmielewski directly?
+    • For which RCP? \\
+
+
+
+
+
+
+References
+Atkinson, C. J., Brennan, R. M., & Jones, H. G. (2013). Declining chilling and its impact on temperate perennial crops. Environmental and Experimental Botany, 91, 48–62. https://doi.org/10.1016/j.envexpbot.2013.02.004
+Augspurger, C. K. (2013). Reconstructing patterns of temperature, phenology, and frost damage over 124 years: Spring damage risk is increasing. Ecology, 94(1), 41–50. https://doi.org/10.1890/12-0200.1 
+Bennie, J., Kubin, E., Wiltshire, A., Huntley, B., & Baxter, R. (2010). Predicting spatial and temporal patterns of bud-burst and spring frost risk in north-west Europe: the implications of local adaptation to climate. Global Change Biology, 16(5), 1503–1514. https://doi.org/10.1111/j.1365-2486.2009.02095.x
+Campoy, J. A., Ruiz, D., & Egea, J. (2011). Dormancy in temperate fruit trees in a global warming context: A review. Scientia Horticulturae, 130(2), 357–372. https://doi.org/10.1016/j.scienta.2011.07.011
+Chmielewski, F. M., Müller, A., & Bruns, E. (2004). Climate changes and trends in phenology of fruit trees and field crops in Germany, 1961-2000. Agricultural and Forest Meteorology, 121(1–2), 69–78. https://doi.org/10.1016/S0168-1923(03)00161-8
+Chmielewski, F. M., Blümel, K., Henniges, Y., Blanke, M., Weber, R. W. S., & Zoth, M. (2011). Phenological models for the beginning of apple blossom in Germany. Meteorologische Zeitschrift, 20(5), 487–496. https://doi.org/10.1127/0941-2948/2011/0258
+Chmielewski, F.-M., & Blümel, K. (2013). Klimawandel und Obstbau. Promet, 38(1/2), 32–41.
+Faust, M., Erez, A., Rowland, L. J., Wang, S. Y., & Norman, H. A. (1997). Bud Dormancy in Perennial Fruit Trees: Physiological Basis for Dormancy Induction, Maintenance, and Release. HortScience, 32(4), 623–629. Retrieved from http://hortsci.ashspublications.org/content/32/4/623.full.pdf
+IPCC. (2014). Climate Change 2014 Synthesis Report Summary Chapter for Policymakers. IPCC, 31. https://doi.org/10.1017/CBO9781107415324
+Liu, Q., Piao, S., Janssens, I. A., Fu, Y., Peng, S., Lian, X., … Wang, T. (2018). Extension of the growing season increases vegetation exposure to frost. Nature Communications, 9(1), 426. https://doi.org/10.1038/s41467-017-02690-y
+Scheifinger, H., Menzel, A., Koch, E., & Peter, C. (2003). Trends of spring time frost events and phenological dates in Central Europe. Theoretical and Applied Climatology, 74(1–2), 41–51. https://doi.org/10.1007/s00704-002-0704-6
+Vitasse, Y., Schneider, L., Rixen, C., Christen, D., & Rebetez, M. (2018). Increase in the risk of exposure of forest and fruit trees to spring frosts at higher elevations in Switzerland over the last four decades. Agricultural and Forest Meteorology, 248(September 2017), 60–69. https://doi.org/10.1016/j.agrformet.2017.09.005
+Weinberger, J. H. (1950). Chilling requirements of peach varieties. Proceedings. American Society for Horticultural Science, 56, 122–128. Retrieved from https://www.cabdirect.org/cabdirect/abstract/19510302432
+
+
+

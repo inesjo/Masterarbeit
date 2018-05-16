@@ -1,0 +1,109 @@
+#! /bin/bash
+
+
+export TEXINPUTS=.:./\{data,figs,tex\}//:../common//:
+export BIBINPUTS=.:../common//:
+
+
+MASTERCOMMON="../examples/common/"
+
+
+intermediateFiles='*.acn *.acr *.alg *.aux *.bbl *.blg *-blx.bib *.dvi *.glo *.glg *.gls *.ist *.lof *.log *.lol *.lot *.nlg *.noa *.not *.run.xml *.toc'
+
+
+mkdir -p ../common
+
+cp ./acronymsAddressesTerms_ExampleDoNotUse.tar.gz ../common/ 
+cp $MASTERCOMMON/commands.sty                      ../common/
+cp $MASTERCOMMON/docstyle.sty                      ../common/
+
+
+cd ../common
+
+tar xzf acronymsAddressesTerms_ExampleDoNotUse.tar.gz
+
+cat > acronyms.sty.patch << HEREDOCUMENT
+---
++++
+@@ -1192,0 +1193,6 @@
++
++\newacronym[description={%
++  The Muppet Company \textemdash{} a respected and trusted supplier of evocative learning systems}]{tmc}{TMC}{%
++  The Muppet Company\p, Inc\p.%
++}
++
+HEREDOCUMENT
+
+
+cat > addresses.sty.patch << HEREDOCUMENT
+---
++++
+@@ -367,0 +368,19 @@
++
++\newaddressbookentry{kmf}{%
++  Karo%
++}{%
++  K.%
++}{%
++  Musterfrau%
++}{%
++  Berggasse 37, A-1234 Lanenberg%
++}{%
++  \tel{43}{123}{380}{8400}{}%
++}{%
++  \fax{43}{123}{380}{8400}{36}%
++}{%
++  \email{karo.musterfrau@gmx.at}%
++}{%
++  \url{http://www.musterfrau.at}%
++}
++
+HEREDOCUMENT
+
+
+cat > terms.sty.patch << HEREDOCUMENT
+---
++++
+@@ -177,0 +178,7 @@
++
++\newglossaryentry{firlefanzation}{%
++  name={firlefanzation},%
++  description={The process of firlefanzation is the firlefancing of a fanz},%
++  plural={firlefanzations}%
++}
++
+HEREDOCUMENT
+
+
+patch acronyms.sty   acronyms.sty.patch
+patch addresses.sty  addresses.sty.patch
+patch terms.sty      terms.sty.patch
+
+
+cd ../WLG
+
+
+pdflatex WLG.tex
+
+# exit
+
+makeglossaries WLG
+bibtex WLG
+pdflatex WLG
+pdflatex WLG
+
+
+/bin/rm -f ${intermediateFiles}
+
+
+/bin/rm -rf ../common
+
+
+
+
+
+
+
+
+
+

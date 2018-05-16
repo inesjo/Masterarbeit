@@ -1,0 +1,186 @@
+
+
+\section{Installation}
+\label{sec:installation}
+
+
+\subsection{Installation instructions}
+\label{sec:installationInstructions}
+
+\wegcLaTeX{} is provided in the repository hosted at
+\nolinkurl{svn+ssh://wegc203117.uni-graz.at/var/lib/svn/wegc_latex/}.
+
+The prerequisite for using \wegcLaTeX{} is a properly installed full \TeXLive{} 2012 distribution on a Linux workstation,
+\IE{} the following packages:
+\begin{description}
+   % \item for \entity{SuSE 12.2}: \\
+   %    \path{texlive}, \path{texlive-latex}, \path{texlive-bin-latex}, \\
+   %    \path{texlive-tools}, \path{texlive-bin-tools}, \path{texlive-doc}, and \path{texlive-fonts-extra}
+   \item for \entity{Debian 7}: \\
+      \path{texlive}, and \path{texlive-full}
+\end{description}
+
+It should be noted at this place that \wegcLaTeX{} has not been tested with
+\MiKTeX{} yet. Experience shows, however, that, if any, only minor
+compatibility issues are to be expected.
+
+For installing \wegcLaTeX{} it is only necessary to copy the \wegcLaTeX{}
+\texmf{} tree to the \path{\plh{InstallDir}/texmf} directory, and to set up
+to three environment variables. \path{\plh{InstallDir}} denotes the
+directory in which \path{./texmf/} itself resides, \EG{} if the user's home
+directory is used, to \path{/home/<userId>/texmf/}.
+
+Assuming a workstation using the \entity{bash} command language
+interpreter, as a second and final step, setting the three environment
+variables can be done by adding the following three lines to the
+\path{.bashrc} login script:
+%
+\begin{CommandLineListing}[style=DefaultFileListing, print=true, gobble=3]
+   export TEXMFHOME=<InstallDir>/texmf
+   export TEXINPUTS=.:./\{data,figs,tex\}//:../common//:
+   export BIBINPUTS=.:../common//:
+\end{CommandLineListing}
+%
+\begin{itemize}
+\item The \cmdline{TEXMFHOME} variable defines the \wegcLaTeX{}
+  installation directory. In this example, it is set to
+  \cmdline{TEXMFHOME=<InstallDir>/texmf}. This is only necessary if
+  \wegcLaTeX{} is installed to a directory other than the user's home
+  (\path{/home/<userId>/}) or the system's pre-defined path
+  (\path{/usr/local/share/}). The \LaTeX{} interpreter searches these two
+  paths automatically and will use \wegcLaTeX{}, if found there, also
+  without setting the \cmdline{TEXMFHOME} variable.
+\item The \cmdline{TEXINPUTS} variable defines the locations where
+  \wegcLaTeX{} searches for required packages, data, figures, or \LaTeX{}
+  source code files. This is convenient, since any file in the
+  \path{./data/}, \path{./figs/}, \path{./tex/} or \path{./common/}
+  subdirectories can then be referred to by its basename instead of its
+  (absolute or relative) pathname.
+\item The \cmdline{BIBINPUTS} variable defines the locations where
+  \wegcLaTeX{} searches for \path{*.bib} files.
+\end{itemize}
+%
+\Attention{%
+  You should not forget to replace the example directory names with the
+  real directory names of your installation. Moreover, you must
+  \enquote{source} your \path{~/.bashrc} (\IE{} by entering \cmdline{source
+    ~/.bashrc} on the command line) in order for the modified shell
+  environment to come into effect. If you already maintain a personal
+  \texmf{} tree in a non‐standard location, say \path{~/pubs/texmf}, ensure
+  that the above two commands are interpreted \emph{after} the commands
+  setting up the shell environment for your personal \texmf{}
+  tree. Otherwise, there is some probability that \wegcLaTeX{} will not get
+  what it actually expects \ldots
+}
+
+
+\subsection{\wegcLaTeX{} file structure}
+\label{subsec:structure}
+
+All files belonging to the \wegcLaTeX{} framework are stored below the
+\path{\plh{InstallDir}/texmf/} directory. \path{\plh{InstallDir}} denotes
+the directory in which the \path{./texmf/} itself resides.
+%
+The file structure follows the concept of a so‐called \texmf{} tree. At first
+glance, you might deem this structure unnecessarily complicated. As a
+matter of fact, it is, however, most adequate, given that the file search
+algorithms included in \TeX⁄\LaTeX{} distributions such as \TeXLive{} and
+\MiKTeX{} are definitely designed and optimized for \texmf{} trees.
+
+The subsequent list describes the subdirectories of the \wegcLaTeX{} file structure:
+\begin{description}
+   \item \path{./texmf/bibtex/} \\
+      This directory hosts \entity{biblatex}-related files (\EG, style files).
+    \item \path{./texmf/doc/} \\
+      This directory contains the \wegcLaTeX{} templates for
+      \singledoc and \multidoc documents in the \\
+      \path{./texmf/doc/latex/wegc-latex/examples/singledoc/}, \\
+      \path{./texmf/doc/latex/wegc-latex/examples/multidoc-article/}, \\
+      \path{./texmf/doc/latex/wegc-latex/examples/multidoc-report/}, and \\
+      \path{./texmf/doc/latex/wegc-latex/examples/multidoc-book/} \\
+      directories, as well as the document command and layout template files in the \\
+      \path{./texmf/doc/latex/wegc-latex/examples/common/} directory.
+   \item \path{./texmf/doc/latex/wegc-latex/examples/singledoc/} \\
+      This directory contains the \singledoc article, report and book document templates, \IE,
+      \path{master-wlarticle.tex}, \path{master-wlreport.tex}, and \path{master-wlbook.tex}.
+   \item \path{./texmf/doc/latex/wegc-latex/examples/multidoc-article/}, \\
+         \path{./texmf/doc/latex/wegc-latex/examples/multidoc-report/}, and \\
+          \path{./texmf/doc/latex/wegc-latex/examples/multidoc-book/} \\
+      These directories contain \multidoc article, report and book document templates, \IE, \\
+      \path{./multidoc-article/doc-article.tex}, \\
+      \path{./multidoc-book/doc-book.tex}, and \\
+      \path{./multidoc-report/doc-report.tex}. \\
+      Each of these three subdirectories also contain a
+      \path{./data/},
+      \path{./figs/} and
+      \path{./tex/} subdirectory for storing ASCII, image and \LaTeX{} files used.
+   \item \path{./texmf/doc/latex/wegc-latex/examples/common/} \\
+      This directory contains the \singledoc and \multidoc document command and layout template files \\
+      \path{./common/commands.sty}, \\      
+      \path{./common/docstyle.sty}, and \\
+      \path{./common/project.sty}. \\
+      The acronyms, terms, and address definition files 
+      \path{acronyms.sty},
+      \path{addresses.sty}, and
+      \path{terms.sty} are also to be put into this directory 
+      (example only versions of these files are provided in the compressed archive file
+      \path{./texmf/doc/latex/wegc-latex/WLG/acronymsAddressesTerms_ExampleDoNotUse.tar.gz}, 
+      whereas current and up to date versions of these files should be obtained from the separate 
+      repository hosted at
+      \nolinkurl{https://wegc203117.uni-graz.at/projects/latex_dbs/browser/arsclisys}.%%
+      \footnote{The common acronyms, terms, and address
+        definitions are easily accessed by adding its directory path to the
+        \path{TEXINPUTS} environment variable.} \\
+      %%
+      The subdirectory \\
+      \path{./common/figs/} \\
+      contains the images used with \multidoc document cover pages and document headers.
+   \item \path{./texmf/dvipdfmx/} \\
+      This directory hosts configuration files for the \entity{DVIPDFMx} package,
+      used for translating the \entity{DVI} format to \entity{PDF}.
+   \item \path{./texmf/tex/} \\
+      This directory hosts, among others, the automatically included \LaTeX{} modules mentioned previously
+      and the \wegcLaTeX{} kernel.
+   \item \path{./texmf/tex/<TBD>/documentVersionInfo.tex} \\
+      This file contains the revision definitions used by \wegcLaTeX{}
+      (intended to be updated by a \path{./configure} or \path{./makeDocument} script).
+      The revision definition consists of three entities, \IE{} \\
+      \cmdline{documentRevision},
+      \cmdline{documentMajorVersion}, and
+      \cmdline{documentMinorVersion}:
+      %
+      \begin{CommandLineListing}[print=true, gobble=6]
+         \newcommand*{\documentMajorVersion}{5}
+         \newcommand*{\documentMinorVersion}{6}
+         \newcommand*{\documentRevision}{3072}
+      \end{CommandLineListing}
+\end{description}
+
+For easier offline reading, the manuals for the \LaTeX{} packages mentioned
+in \fullautoref{subsec:scope}, \fullautoref{subsec:capabilities} and
+\fullautoref{subsec:extensionsToTheLatexKernel}, together with this manual
+(\path{WLG.pdf}), are provided in the directory \path{./LaTeX_PDFs/} as
+\ac{pdf} files (at the same directory level as the \wegcLaTeX{} \texmf{}
+tree).
+
+
+
+\subsection{Generating this document}
+\label{subsec:generatingThisDocument}
+
+Assuming the \wegcLaTeX{} framework is already properly installed (see \autoref{sec:installationInstructions}),
+for generating this document, proceed as follows:
+%%
+\begin{enumerate}
+   \item
+      create a working directory, \EG{} \path{/home/\plh{user}/wlgDocGen/}
+   \item
+      checkout the latest version of \wegcLaTeX{} to \path{/home/\plh{user}/wlgDocGen/}
+   \item
+      change to the directory containing the master file \path{WLG.tex}, \IE{} \\
+      \cmdline{cd /home/\plh{user}/wlgDocGen/trunk/texmf/doc/latex/wegc-latex/WLG}
+   \item
+      execute the script \path{makeWLG}, \IE{} \\
+      \cmdline{./makeWLG} \\
+      for generating the \entity{PDF} file \path{WLG.pdf}
+\end{enumerate}
